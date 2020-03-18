@@ -1,3 +1,4 @@
 rootProject.name = 'java'
 include 'designpattern'
+include 'samplecode'
 

@@ -68,3 +68,54 @@ project(':designpattern'){
 
     }
 }
+
+project(':samplecode'){
+
+    dependencies {
+        implementation 'org.apache.httpcomponents:httpclient:4.5.5'
+        compile files('./src/main/resources/libs/ojdbc7.jar')
+        // https://mvnrepository.com/artifact/org.apache.poi/poi
+        implementation 'org.apache.poi:poi:4.0.0'
+        // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+        implementation 'org.apache.poi:poi-ooxml:4.0.0'
+        // https://mvnrepository.com/artifact/org.apache.poi/poi-excelant
+        implementation 'org.apache.poi:poi-excelant:4.0.0'
+        // https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad
+        implementation 'org.apache.poi:poi-scratchpad:4.0.0'
+        // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+        implementation 'com.itextpdf:itextpdf:5.5.13'
+        // https://mvnrepository.com/artifact/com.itextpdf/root
+        //compile 'com.itextpdf:rootversion:7.0.0ext:pom'
+        // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+        //compile 'com.itextpdf.tool:xmlworkerversion:5.4.1'
+        // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+        implementation 'com.itextpdf.tool:xmlworker:5.5.13'
+        implementation 'cglib:cglib:2.2.2'
+        // https://mvnrepository.com/artifact/javax.mail/mail
+        implementation 'javax.mail:mail:1.4.1'
+        // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+        implementation 'org.apache.pdfbox:pdfbox:2.0.1'
+
+        implementation 'com.google.apis:google-api-services-drive:v3-rev160-1.25.0'
+
+        implementation 'com.google.api-client:google-api-client:1.25.0'
+        implementation "com.sparkjava:spark-core:2.7.2" // add to build.gradle (for Java users)
+
+        implementation "de.svenkubiak:jBCrypt:0.4"
+
+        // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+        implementation 'javax.xml.bind:jaxb-api:2.2.4'
+
+        // https://mvnrepository.com/artifact/javax.mail/mail
+        implementation 'javax.mail:mail:1.4.7'
+        // https://mvnrepository.com/artifact/com.github.fracpete/musicg
+        implementation 'com.github.fracpete:musicg:1.4.2.1'
+        // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams
+        implementation 'org.reactivestreams:reactive-streams:1.0.3'
+
+        // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+    }
+}
+
+
