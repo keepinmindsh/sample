@@ -1,0 +1,70 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+repositories {
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    repositories {
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.2.5.RELEASE"
+        }
+        dependencies {
+
+        }
+    }
+
+    configurations {
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.reactivestreams:reactive-streams'
+        implementation 'org.slf4j:slf4j-api'
+        implementation 'io.springfox:springfox-swagger2:2.9.2'
+        implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    compileJava.options.encoding = 'UTF-8'
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':designpattern'){
+
+    dependencies {
+
+    }
+}
