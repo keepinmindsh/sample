@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/designpattern" />
+            <option value="$PROJECT_DIR$/javaversion" />
             <option value="$PROJECT_DIR$/samplecode" />
           </set>
         </option>

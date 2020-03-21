@@ -69,6 +69,13 @@ project(':designpattern'){
     }
 }
 
+project(':javaversion'){
+
+    dependencies {
+
+    }
+}
+
 project(':samplecode'){
 
     dependencies {
