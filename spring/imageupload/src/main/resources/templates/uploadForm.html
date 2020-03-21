@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Sample Code</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Spring Boot Web Thymeleaf Example</h1>
+        <h2>
+            <span th:text="'Hello, ' + ${message}"></span>
+        </h2>
+    </div>
+
+    <div>
+        <h1>파일 업로드</h1>
+        <form action="http://localhost:9090/v1/fileupload" method="post" enctype="multipart/form-data">
+            <input type="file" value="파일 선택" name="file"/>
+            <hr>
+            <label for="appFilePath" >appFilePath</label>
+            <input id="appFilePath" type="text" name="appFilePath" />
+            <hr>
+            <label for="screenType" >screenType</label>
+            <input id="screenType" type="text" name="screenType" />
+            <hr>
+            <label for="resourceSeqNo" >resourceSeqNo</label>
+            <input id="resourceSeqNo" type="number" name="resourceSeqNo" />
+            <hr>
+            <input type="submit" value="업로드"/>
+        </form>
+    </div>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
