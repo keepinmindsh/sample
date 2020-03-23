@@ -97,3 +97,17 @@ project(':eventlistener'){
 
     }
 }
+
+project(':reactive'){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation platform('io.projectreactor:reactor-bom:Bismuth-RELEASE')
+        implementation 'io.projectreactor:reactor-core'
+        implementation 'org.quartz-scheduler:quartz:2.3.1'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.projectreactor:reactor-test'
+        implementation'org.springframework:spring-jdbc'
+    }
+}
