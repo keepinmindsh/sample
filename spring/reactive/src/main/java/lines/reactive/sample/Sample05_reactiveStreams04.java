@@ -1,9 +1,10 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample05.Command;
-import com.reactive.reactive.sample.sample05.CustomPublisher;
-import com.reactive.reactive.sample.sample05.CustomSubscriber;
-import com.reactive.reactive.sample.sample05.InsertToDataBaseCommand;
+
+import lines.reactive.sample.sample05.Command;
+import lines.reactive.sample.sample05.CustomPublisher;
+import lines.reactive.sample.sample05.CustomSubscriber;
+import lines.reactive.sample.sample05.InsertToDataBaseCommand;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 

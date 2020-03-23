@@ -1,9 +1,10 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample06.Command;
-import com.reactive.reactive.sample.sample06.CustomPublisher;
-import com.reactive.reactive.sample.sample06.CustomSubscriber;
-import com.reactive.reactive.sample.sample06.IntegerSumCommand;
+
+import lines.reactive.sample.sample06.Command;
+import lines.reactive.sample.sample06.CustomPublisher;
+import lines.reactive.sample.sample06.CustomSubscriber;
+import lines.reactive.sample.sample06.IntegerSumCommand;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 

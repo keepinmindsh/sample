@@ -1,6 +1,6 @@
 package lines.reactive.sample.sample09.command;
 
-import com.reactive.reactive.sample.sample09.builder.CommandBuilder;
+import lines.reactive.sample.sample09.builder.CommandBuilder;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;

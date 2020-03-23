@@ -1,9 +1,10 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample10.GenericsPublisher;
-import com.reactive.reactive.sample.sample10.GenericsSubscriber;
-import com.reactive.reactive.sample.sample10.command.AttackCommand;
-import com.reactive.reactive.sample.sample10.command.Command;
+
+import lines.reactive.sample.sample10.GenericsPublisher;
+import lines.reactive.sample.sample10.GenericsSubscriber;
+import lines.reactive.sample.sample10.command.AttackCommand;
+import lines.reactive.sample.sample10.command.Command;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

@@ -1,8 +1,8 @@
 package lines.reactive.sample.sample08;
 
-import com.reactive.reactive.sample.sample08.command.Command;
-import com.reactive.reactive.sample.sample08.mapper.CustomMapper;
-import com.reactive.reactive.sample.sample08.model.User;
+import lines.reactive.sample.sample08.command.Command;
+import lines.reactive.sample.sample08.mapper.CustomMapper;
+import lines.reactive.sample.sample08.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

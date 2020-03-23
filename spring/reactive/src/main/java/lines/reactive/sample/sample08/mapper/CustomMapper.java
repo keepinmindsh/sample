@@ -1,8 +1,7 @@
 package lines.reactive.sample.sample08.mapper;
 
 
-
-import com.reactive.reactive.sample.sample08.model.User;
+import lines.reactive.sample.sample08.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

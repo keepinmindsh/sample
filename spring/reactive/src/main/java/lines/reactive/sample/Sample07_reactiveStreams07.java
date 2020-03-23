@@ -1,6 +1,6 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample07.*;
+import lines.reactive.sample.sample07.*;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 

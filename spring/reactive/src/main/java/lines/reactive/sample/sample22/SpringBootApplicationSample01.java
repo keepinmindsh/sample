@@ -57,6 +57,7 @@ public class SpringBootApplicationSample01 {
         threadPoolTaskExecutor.setCorePoolSize(10);
         threadPoolTaskExecutor.setMaxPoolSize(100);
         threadPoolTaskExecutor.setQueueCapacity(50);
+        threadPoolTaskExecutor.setThreadNamePrefix("My Thread");
 
 
         return threadPoolTaskExecutor;

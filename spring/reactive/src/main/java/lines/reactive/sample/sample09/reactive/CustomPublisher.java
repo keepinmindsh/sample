@@ -1,6 +1,7 @@
 package lines.reactive.sample.sample09.reactive;
 
-import com.reactive.reactive.sample.sample09.command.handler.CommandHandler;
+
+import lines.reactive.sample.sample09.command.handler.CommandHandler;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

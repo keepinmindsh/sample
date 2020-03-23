@@ -1,6 +1,6 @@
 package lines.reactive.sample.sample10;
 
-import com.reactive.reactive.sample.sample10.command.Command;
+import lines.reactive.sample.sample10.command.Command;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 

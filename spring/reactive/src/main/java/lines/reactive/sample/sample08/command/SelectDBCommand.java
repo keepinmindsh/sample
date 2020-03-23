@@ -1,6 +1,6 @@
 package lines.reactive.sample.sample08.command;
 
-import com.reactive.reactive.sample.sample08.builder.CommandBuilder;
+import lines.reactive.sample.sample08.builder.CommandBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;

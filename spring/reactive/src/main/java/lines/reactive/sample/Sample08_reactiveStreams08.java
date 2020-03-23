@@ -1,10 +1,13 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample08.*;
-import com.reactive.reactive.sample.sample08.builder.CommandBuilder;
-import com.reactive.reactive.sample.sample08.command.ProcedureDBCallCommand;
-import com.reactive.reactive.sample.sample08.handler.CommandHandler;
-import com.reactive.reactive.sample.sample08.model.Data;
+
+import lines.reactive.sample.sample08.SamplePublisher;
+import lines.reactive.sample.sample08.SampleSubscriber;
+import lines.reactive.sample.sample08.SelectDBCommand;
+import lines.reactive.sample.sample08.builder.CommandBuilder;
+import lines.reactive.sample.sample08.command.ProcedureDBCallCommand;
+import lines.reactive.sample.sample08.handler.CommandHandler;
+import lines.reactive.sample.sample08.model.Data;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;

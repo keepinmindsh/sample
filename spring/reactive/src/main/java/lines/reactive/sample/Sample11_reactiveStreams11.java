@@ -1,6 +1,6 @@
 package lines.reactive.sample;
 
-import com.reactive.reactive.sample.sample11.CustomSubscriber;
+import lines.reactive.sample.sample11.CustomSubscriber;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

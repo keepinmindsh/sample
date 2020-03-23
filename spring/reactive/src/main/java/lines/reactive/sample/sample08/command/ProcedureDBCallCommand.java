@@ -1,7 +1,7 @@
 package lines.reactive.sample.sample08.command;
 
-import com.reactive.reactive.sample.sample08.builder.CommandBuilder;
-import com.reactive.reactive.sample.sample08.model.Data;
+import lines.reactive.sample.sample08.builder.CommandBuilder;
+import lines.reactive.sample.sample08.model.Data;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
