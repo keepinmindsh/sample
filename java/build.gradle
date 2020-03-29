@@ -53,8 +53,8 @@ subprojects {
         implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     }
 
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.options.encoding = 'UTF-8'
 
     test {
@@ -79,6 +79,9 @@ project(':javaversion'){
 project(':samplecode'){
 
     dependencies {
+
+        implementation files('../libs/ojdbc7.jar')
+
         implementation 'org.apache.httpcomponents:httpclient:4.5.5'
         compile files('./src/main/resources/libs/ojdbc7.jar')
         // https://mvnrepository.com/artifact/org.apache.poi/poi
@@ -119,9 +122,12 @@ project(':samplecode'){
         implementation 'com.github.fracpete:musicg:1.4.2.1'
         // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams
         implementation 'org.reactivestreams:reactive-streams:1.0.3'
-
         // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
         implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+        implementation 'org.springframework:spring-jdbc'
+        implementation 'org.apache.commons:commons-dbcp2'
+        implementation 'at.favre.lib:bcrypt:0.9.0'
+        implementation 'at.favre.lib:bytes:1.2.0'
     }
 }
 
