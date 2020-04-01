@@ -1,13 +1,10 @@
-package lines.reactive.sample.sample27;
+package lines.reactive.sample.sample28;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -20,7 +17,7 @@ public class LoadTest {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:8080/rest?idx={idx}";
+        String url = "http://localhost:9090/rest?idx={idx}";
 
         CyclicBarrier cyclicBarrier = new CyclicBarrier(101);
 

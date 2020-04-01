@@ -1,4 +1,4 @@
-package lines.reactive.sample.sample27;
+package lines.reactive.sample.sample29;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
@@ -20,7 +20,7 @@ public class LoadTest {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:8080/rest?idx={idx}";
+        String url = "http://localhost:9090/rest?idx={idx}";
 
         CyclicBarrier cyclicBarrier = new CyclicBarrier(101);
 
