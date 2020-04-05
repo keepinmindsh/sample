@@ -54,7 +54,7 @@ public class Sample29 {
 
             DeferredResult<String> deferredResult = new DeferredResult<>();
 
-            ListenableFuture<ResponseEntity<String>> res1 = asyncRestTemplate.getForEntity("http://localhost:8081/service?req={req}", String.class,"Hello" + idx);
+            ListenableFuture<ResponseEntity<String>> res1 = asyncRestTemplate.getForEntity("http://localhost:8082/service?req={req}", String.class,"Hello" + idx);
 
             // Callback Hell의 치명적인 구조
             // 전체 구조를 파악하기에 너무 어려운 구조
@@ -66,7 +66,7 @@ public class Sample29 {
             // DB는 블로킹이 걸린다. - 2017년 기준
             res1.addCallback(
               s -> {
-                  ListenableFuture<ResponseEntity<String>> res2 = asyncRestTemplate.getForEntity("http://localhost:8081/service2?req={req}", String.class,"Hello" + idx);
+                  ListenableFuture<ResponseEntity<String>> res2 = asyncRestTemplate.getForEntity("http://localhost:8082/service2?req={req}", String.class,"Hello" + idx);
 
                   res2.addCallback(s2 -> {
                       //deferredResult.setResult(s2.getBody() + "/work");

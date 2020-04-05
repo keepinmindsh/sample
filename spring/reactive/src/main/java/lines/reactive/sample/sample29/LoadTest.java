@@ -22,7 +22,7 @@ public class LoadTest {
 
         String url = "http://localhost:9090/rest?idx={idx}";
 
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(101);
+        //CyclicBarrier cyclicBarrier = new CyclicBarrier(101);
 
         for (int i = 0; i < 100; i++) {
             // Runnable
@@ -53,7 +53,7 @@ public class LoadTest {
                 int idx = atomicInteger.addAndGet(1);
 
 
-                cyclicBarrier.await();
+                //cyclicBarrier.await();
 
                 log.info("Thread {}", idx);
 
@@ -71,7 +71,7 @@ public class LoadTest {
             });
         }
 
-        cyclicBarrier.await();
+        //cyclicBarrier.await();
 
         StopWatch stopWatch = new StopWatch();
 
