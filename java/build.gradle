@@ -76,6 +76,12 @@ project(':javaversion'){
     }
 }
 
+project(':javafx'){
+    dependencies {
+
+    }
+}
+
 project(':samplecode'){
 
     dependencies {
