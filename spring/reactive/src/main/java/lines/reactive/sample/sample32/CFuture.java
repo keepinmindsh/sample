@@ -20,7 +20,7 @@ public class CFuture {
 //        System.out.println(completableFuture1.complete(2));
 
         // CompletionStage에 대해서 이해하기
-
+        // 결과값만 수행하고 끝나는 함수
         CompletableFuture.runAsync(() -> {
             log.info("runAsync");
 
@@ -30,6 +30,13 @@ public class CFuture {
                 .thenRun(() -> log.info("thenRunAsync"));
 
         log.info("exit");
+
+        ForkJoinPool.commonPool().shutdown();
+        ForkJoinPool.commonPool().awaitTermination(10, TimeUnit.SECONDS);
+
+
+        CompletableFuture.runAsync(() -> { log.info("나는 테스트다.");})
+                .thenRun(() -> { log.info("Do you know? How funny it is?");});
 
         ForkJoinPool.commonPool().shutdown();
         ForkJoinPool.commonPool().awaitTermination(10, TimeUnit.SECONDS);
@@ -137,6 +144,7 @@ public class CFuture {
         ForkJoinPool.commonPool().shutdown();
         ForkJoinPool.commonPool().awaitTermination(10, TimeUnit.SECONDS);
 
-        // Tail Call - 재귀호출하는 방식 처리 가능
+        // Tail Call Optimization - 재귀 호출하는 방식 처리 가능
+        //
     }
 }
