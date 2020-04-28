@@ -1,0 +1,38 @@
+#boardDiv {
+    margin-top: 50px;
+    width: 700px;
+}
+#uploadForm{
+    float: right;
+    width: 100%;
+}
+#imageTd{
+    width: 120px;
+    height: 120px;
+    max-height: 120px;
+    max-width: 120px;
+    text-align: center;
+}
+#imageInfoTd{
+    width: 500px;
+}
+table {
+    margin: 2px 0px 2px 0px;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+td, th {
+    text-align: left;
+    border: 1px solid #999;
+    padding: 2px;
+    height: 60px;
+    white-space: nowrap;
+}
+.thumbnail {
+    max-width: 118px;
+    max-height: 118px;
+}
+.flash {
+    background-color: lightcoral;
+    padding: 1em;
+}

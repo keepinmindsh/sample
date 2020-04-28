@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Reactive Programming with Spring Boot</title>
+    <link rel="stylesheet" href="/index.css" />
+</head>
+<body>
+<h1>Reactive Programming with Spring Boot</h1>
+<div id="boardDiv">
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="/images">
+        <p>
+            <input type="file" name="file"/>
+            <input type="submit" value="Upload" />
+        </p>
+    </form>
+    <table th:each="image : ${images}">
+        <tr>
+            <th>ID</th>
+            <td id="imageTd" rowspan="2">
+                <a th:href="@{'/images/view/' + ${image.name}}">
+                    <img th:src="@{'/images/view/'+${image.name}}" class="thumbnail" />
+                </a>
+            </td>
+            <td id="imageInfoTd" th:text="${image.id}" /></td>
+            <td rowspan="2">
+                <form th:method="delete" th:action="@{'/images/delete/' + ${image.name}}">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <th>Name</th><td th:text="${image.name}" />
+        </tr>
+    </table>
+</div>
+</body>
+</html>
