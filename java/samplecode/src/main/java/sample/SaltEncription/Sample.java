@@ -18,9 +18,9 @@ public class Sample {
 
         BasicDataSource dataSource = new BasicDataSource();
 
-        dataSource.setPassword("WINGS_4172");
-        dataSource.setUsername("WINGSPMS2");
-        dataSource.setUrl("jdbc:oracle:thin:@222.239.73.170:1537:WPMS07");
+        dataSource.setPassword("**********");
+        dataSource.setUsername("**********");
+        dataSource.setUrl("jdbc:oracle:thin:@**********:**********");
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
