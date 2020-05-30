@@ -7,4 +7,5 @@ include 'eventlistener'
 include 'reactive'
 include 'jpa'
 include 'reactivewebflux'
+include 'messageQueue'
 
