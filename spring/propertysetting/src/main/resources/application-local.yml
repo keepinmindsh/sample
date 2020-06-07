@@ -1,0 +1,4 @@
+spring:
+  profiles: local
+server:
+  port: 10000

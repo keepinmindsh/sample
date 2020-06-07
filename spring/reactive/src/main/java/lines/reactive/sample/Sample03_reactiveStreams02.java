@@ -1,11 +1,15 @@
 package lines.reactive.sample;
 
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
+@Slf4j
 public class Sample03_reactiveStreams02 {
 
     private static final int InitialExecuteCount = 50;
@@ -18,7 +22,7 @@ public class Sample03_reactiveStreams02 {
 
         BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(1000);
 
-        executorService.scheduleWithFixedDelay(new Runnable() {
+        executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 100; i++) {
@@ -29,68 +33,75 @@ public class Sample03_reactiveStreams02 {
 
 
 
-        executorServiceForStarter.scheduleWithFixedDelay(new Runnable() {
-            @Override
-            public void run() {
 
-                Publisher publisher = subscriber -> {
-                    subscriber.onSubscribe(new Subscription() {
-                        @Override
-                        public void request(long executeCount) {
 
-                            for (int i = 0; i < executeCount; i++) {
-                                executorServiceForReactive.execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        System.out.println(blockingQueue.poll());
-                                    }
-                                });
-                            }
+        Publisher publisher = subscriber -> {
+            subscriber.onSubscribe(new Subscription() {
+                @Override
+                public void request(long executeCount) {
+                    log.info("Publisher request의 사이즈 : {}", executeCount);
 
-                            if(blockingQueue.isEmpty()){
-                                subscriber.onComplete();
-                            }else{
-                                subscriber.onNext(blockingQueue.size());
-                            }
-                        }
+                    List<Future> futureList= new ArrayList<>();
 
-                        @Override
-                        public void cancel() {
+                    for (int i = 0; i < executeCount; i++) {
+                        futureList.add(executorServiceForReactive.submit(() -> log.info(blockingQueue.poll())));
+                    }
 
+                    futureList.forEach(future -> {
+                        try {
+                            future.get();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     });
-                };
 
-                Subscriber subscriber = new Subscriber() {
-
-                    Subscription subscription;
-
-                    @Override
-                    public void onSubscribe(Subscription subscription) {
-
-                        this.subscription = subscription;
-
-                        subscription.request(InitialExecuteCount);
+                    if(blockingQueue.isEmpty()){
+                        subscriber.onComplete();
+                    }else{
+                        int size = blockingQueue.size();
+                        log.info("Blocking Queue의 사이즈 : {}", size);
+                        subscriber.onNext(Long.parseLong(String.valueOf(size)) );
                     }
+                }
 
-                    @Override
-                    public void onNext(Object executeCount) {
-                        subscription.request((Long)executeCount);
-                    }
+                @Override
+                public void cancel() {
 
-                    @Override
-                    public void onError(Throwable t) {
+                }
+            });
+        };
 
-                    }
+        Subscriber subscriber = new Subscriber() {
 
-                    @Override
-                    public void onComplete() {
+            Subscription subscription;
 
-                    }
-                };
+            @Override
+            public void onSubscribe(Subscription subscription) {
 
-                publisher.subscribe(subscriber);
+                this.subscription = subscription;
+
+                subscription.request(InitialExecuteCount);
             }
-        }, 0, 5, TimeUnit.SECONDS);
+
+            @Override
+            public void onNext(Object executeCount) {
+                log.info("Subscriber - OnNext : {}" , executeCount);
+                subscription.request((Long)executeCount);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+
+        publisher.subscribe(subscriber);
     }
+
+
 }

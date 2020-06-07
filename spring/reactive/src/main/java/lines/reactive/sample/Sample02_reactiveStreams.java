@@ -1,11 +1,13 @@
 package lines.reactive.sample;
 
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.Stack;
 
+@Slf4j
 public class Sample02_reactiveStreams {
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class Sample02_reactiveStreams {
             subscriber.onSubscribe(new Subscription() {
                 @Override
                 public void request(long n) {
-                    System.out.println(n);
+                    log.info("최초 실행값 : {}", n);
 
                     if(n < 0){
                         subscriber.onError(new Exception("에러가 발생하였다."));
@@ -31,7 +33,11 @@ public class Sample02_reactiveStreams {
                             subscriber.onComplete();
                         }
 
-                        subscriber.onNext(stack.pop());
+                        if(stack.isEmpty()){
+                            break;
+                        }else{
+                            subscriber.onNext(stack.pop());
+                        }
                     }
                 }
 
@@ -46,17 +52,24 @@ public class Sample02_reactiveStreams {
 
             Subscription subscription;
 
+            int pressureCount = 0;
+
             @Override
             public void onSubscribe(Subscription subscription) {
                 this.subscription = subscription;
-                subscription.request(1);
+                subscription.request(3);
             }
 
             @Override
             public void onNext(Object o) {
-                System.out.println(" On Next" + o);
+                log.info(" On Next" + o);
 
-                subscription.request(1);
+                pressureCount ++;
+
+                if(pressureCount == 3){
+                    pressureCount = 0;
+                    subscription.request(3);
+                }
             }
 
             @Override
@@ -66,7 +79,7 @@ public class Sample02_reactiveStreams {
 
             @Override
             public void onComplete() {
-                System.out.println("On Complete");
+                log.info("On Complete");
             }
         };
 
