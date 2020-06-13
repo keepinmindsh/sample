@@ -16,26 +16,21 @@ public class PublisherOn {
         List<Integer> arrayList = Stream.iterate(1 , i -> i + 1).limit(100).collect(Collectors.toList());
 
         // Subscriber 가 아주 느린 경우에 이를 사용하는 방식이다.
-        Publisher<Integer> publisher = new Publisher<Integer>() {
+        Publisher<Integer> publisher = subscriber -> subscriber.onSubscribe(new Subscription() {
             @Override
-            public void subscribe(Subscriber<? super Integer> subscriber) {
-                subscriber.onSubscribe(new Subscription() {
-                    @Override
-                    public void request(long n) {
-                        arrayList.forEach(integer -> {
-                            subscriber.onNext(integer);
-                        });
-
-                        subscriber.onComplete();
-                    }
-
-                    @Override
-                    public void cancel() {
-
-                    }
+            public void request(long n) {
+                arrayList.forEach(integer -> {
+                    subscriber.onNext(integer);
                 });
+
+                subscriber.onComplete();
             }
-        };
+
+            @Override
+            public void cancel() {
+
+            }
+        });
 
         Publisher<Integer> operator = new Publisher<Integer>() {
             @Override

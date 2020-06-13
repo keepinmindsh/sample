@@ -147,3 +147,9 @@ project(':messageQueue'){
         implementation('org.springframework.boot:spring-boot-starter-amqp')
     }
 }
+
+project(':propertysetting'){
+    dependencies {
+
+    }
+}

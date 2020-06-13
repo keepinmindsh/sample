@@ -8,4 +8,6 @@ include 'reactive'
 include 'jpa'
 include 'reactivewebflux'
 include 'messageQueue'
+include 'javafx'
+include 'propertysetting'
 
