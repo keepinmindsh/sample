@@ -11,18 +11,18 @@ public class MailJava {
 
     // Replace sender@example.com with your "From" address.
     // This address must be verified.
-    static final String FROM = "sanhaitdev@gmail.com";
+    static final String FROM = "********************@gmail.com";
     static final String FROMNAME = "Sender Name";
 
     // Replace recipient@example.com with a "To" address. If your account
     // is still in the sandbox, this address must be verified.
-    static final String TO = "shjeong@sanhait.co.kr";
+    static final String TO = "*****************@sanhait.co.kr";
 
     // Replace smtp_username with your Amazon SES SMTP user name.
-    static final String SMTP_USERNAME = "sanhaitdev@gmail.com";
+    static final String SMTP_USERNAME = "*****************@gmail.com";
 
     // Replace smtp_password with your Amazon SES SMTP password.
-    static final String SMTP_PASSWORD = "sanhait123";
+    static final String SMTP_PASSWORD = "************";
 
     // The name of the Configuration Set to use for this message.
     // If you comment out or remove this variable, you will also need to

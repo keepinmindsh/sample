@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 public class EmailSender {
+
     /**
      * Utility method to send simple HTML email
      *
@@ -24,9 +25,9 @@ public class EmailSender {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("keepinmindsh@gmail.com"));
+            msg.setFrom(new InternetAddress("********************@gmail.com"));
 
-            msg.setReplyTo(InternetAddress.parse("doodujiggang@naver.com", false));
+            msg.setReplyTo(InternetAddress.parse("*********************@naver.com", false));
 
             msg.setSubject(subject, "UTF-8");
 
@@ -36,11 +37,12 @@ public class EmailSender {
 
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             System.out.println("Message is ready");
+
             Transport.send(msg);
 
             System.out.println("EMail Sent Successfully!!");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }
