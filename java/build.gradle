@@ -63,6 +63,12 @@ subprojects {
 }
 
 project(':designpattern'){
+    dependencies {
+
+    }
+}
+
+project(':patternsample'){
 
     dependencies {
 

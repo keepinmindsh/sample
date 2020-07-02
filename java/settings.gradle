@@ -3,4 +3,5 @@ include 'designpattern'
 include 'samplecode'
 include 'javaversion'
 include 'javafx'
+include 'patternsample'
 
