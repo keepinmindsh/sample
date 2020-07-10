@@ -8,6 +8,9 @@ import pattern.sample.patternuse06.unit.Marine;
 import pattern.sample.patternuse06.unit.Medic;
 import pattern.sample.patternuse06.unit.inf.Unit;
 
+import static pattern.sample.patternuse06.code.UnitType.MARINE;
+import static pattern.sample.patternuse06.code.UnitType.MEDIC;
+
 public class Barrack {
     public static Unit createUnit(UnitType unitType){
         Training training;
@@ -16,13 +19,12 @@ public class Barrack {
             case MARINE:
                 training = new MarineTraining();
 
-
-                return new Marine(training.training());
+                return new Marine(training.trainingUnit(MARINE));
 
             case MEDIC:
                 training = new MedicTraining();
 
-                return new Medic(training.training());
+                return new Medic(training.trainingUnit(MEDIC));
 
             default:
                 return null;
