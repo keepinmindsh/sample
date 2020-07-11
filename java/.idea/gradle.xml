@@ -11,11 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/designpattern" />
+            <option value="$PROJECT_DIR$/javafx" />
             <option value="$PROJECT_DIR$/javaversion" />
+            <option value="$PROJECT_DIR$/patternsample" />
             <option value="$PROJECT_DIR$/samplecode" />
           </set>
         </option>
-        <option name="useAutoImport" value="true" />
         <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
