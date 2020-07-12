@@ -6,3 +6,6 @@ springdoc:
 
 
 
+spring:
+  application:
+    name: templates
