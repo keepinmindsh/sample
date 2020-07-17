@@ -12,7 +12,9 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @Configuration
 public class HelloRouter {
@@ -33,5 +35,10 @@ public class HelloRouter {
         return RouterFunctions
                 .route(RequestPredicates.GET("/demo").and(contentType(APPLICATION_JSON)), demoHandler::post);
 
+    }
+
+    @Bean
+    RouterFunction<ServerResponse> home() {
+        return RouterFunctions.route(RequestPredicates.GET("/homepage"), request -> ok().body(fromValue("Home page")));
     }
 }
