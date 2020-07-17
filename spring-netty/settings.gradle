@@ -1,3 +1,4 @@
 rootProject.name = 'spring-netty'
 include 'nonblocking-webflux'
+include 'websocket-server'
 

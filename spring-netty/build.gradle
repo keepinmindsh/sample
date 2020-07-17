@@ -53,6 +53,8 @@ subprojects {
         implementation 'org.slf4j:slf4j-api'
         implementation 'io.springfox:springfox-swagger2:2.9.2'
         implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -65,5 +67,9 @@ subprojects {
 }
 
 project(':nonblocking-webflux'){
+
+}
+
+project('websocket-server'){
 
 }
