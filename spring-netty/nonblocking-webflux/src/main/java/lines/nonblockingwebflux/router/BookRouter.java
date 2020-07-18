@@ -13,12 +13,12 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 @Configuration
 public class BookRouter {
-    @Bean
-    public RouterFunction<ServerResponse> route(BookHandler handler) {
-        return RouterFunctions
-                .route(RequestPredicates.GET("/fbooks").and(accept(MediaType.APPLICATION_JSON)), handler::findAll)
-                .andRoute(RequestPredicates.GET("/fbook/{id}").and(accept(MediaType.APPLICATION_STREAM_JSON)), handler::findById)
-                .andRoute(RequestPredicates.POST("/fbook").and(accept(MediaType.APPLICATION_JSON)), handler::save)
-                .andRoute(RequestPredicates.DELETE("/fbook/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::delete);
-    }
+//    @Bean
+//    public RouterFunction<ServerResponse> route(BookHandler handler) {
+//        return RouterFunctions
+//                .route(RequestPredicates.GET("/fbooks").and(accept(MediaType.APPLICATION_JSON)), handler::findAll)
+//                .andRoute(RequestPredicates.GET("/fbook/{id}").and(accept(MediaType.APPLICATION_STREAM_JSON)), handler::findById)
+//                .andRoute(RequestPredicates.POST("/fbook").and(accept(MediaType.APPLICATION_JSON)), handler::save)
+//                .andRoute(RequestPredicates.DELETE("/fbook/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::delete);
+//    }
 }
