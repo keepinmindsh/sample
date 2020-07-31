@@ -92,6 +92,7 @@ project(":lines-starter"){
 
         implementation files("../libs/m_linesconnection.jar")
         implementation 'org.apache.commons:commons-dbcp2'
+        implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.4.3'
         implementation 'org.mariadb.jdbc:mariadb-java-client'
     }
 }
