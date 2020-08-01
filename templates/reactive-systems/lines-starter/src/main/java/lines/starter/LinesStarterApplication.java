@@ -7,12 +7,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 public class LinesStarterApplication {
 
     @Configuration
     @EnableAutoConfiguration
     @EnableDiscoveryClient
+    @EnableJpaAuditing
     @ComponentScan(
         "lines.connection"
     )
