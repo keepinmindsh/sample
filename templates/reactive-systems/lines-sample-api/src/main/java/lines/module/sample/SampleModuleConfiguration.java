@@ -6,15 +6,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @ComponentScan(basePackageClasses = SampleModuleConfiguration.class)
 @EnableConfigurationProperties
 public class SampleModuleConfiguration {
 
-    @Bean
-    public PublishedComponentRegisteringPostProcessor ideaPublishedComponentRegisteringPostProcessor(ConfigurableListableBeanFactory beanFactory) {
-        return new PublishedComponentRegisteringPostProcessor(beanFactory);
-    }
+//    @Bean
+//    public PublishedComponentRegisteringPostProcessor ideaPublishedComponentRegisteringPostProcessor(ConfigurableListableBeanFactory beanFactory) {
+//        return new PublishedComponentRegisteringPostProcessor(beanFactory);
+//    }
 }

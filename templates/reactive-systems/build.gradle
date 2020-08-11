@@ -86,7 +86,7 @@ project(":lines-starter"){
     }
 
     dependencies {
-        compile project(path: ':lines-sample-api', configuration: 'default')
+        implementation project(path :":lines-sample-api", configuration: 'default')
 
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 

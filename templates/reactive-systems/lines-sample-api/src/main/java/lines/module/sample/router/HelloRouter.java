@@ -12,28 +12,35 @@ import org.springdoc.core.annotations.RouterOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
-@RequiredArgsConstructor
+@EnableWebFlux
 public class HelloRouter {
 
-    private final HelloHandler helloHandler;
+    private final HelloRepository helloRepository;
 
-//    @RouterOperations({
-//            @RouterOperation(path="/hello", operation = @Operation(operationId = "hello", summary = "Hello World", tags = {"HelloWorld"})),
-//            @RouterOperation(path="/hello/get", operation = @Operation(operationId = "hello get", summary = "Hello GET", tags = {"HelloWorld"})),
-//    })
-//    @Bean
-//    public RouterFunction<ServerResponse> routeForHello(){
-//        return
-//                RouterFunctions.route(RequestPredicates.GET("/hello").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloHandler::hello)
-//                .andRoute(RequestPredicates.GET("/hello/get").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), helloHandler::getHello);
-//    }
+    public HelloRouter(HelloRepository helloRepository) {
+        this.helloRepository = helloRepository;
+    }
+
+    @RouterOperations({
+            @RouterOperation(path="/hello", operation = @Operation(operationId = "hello", summary = "Hello World", tags = {"HelloWorld"})),
+            @RouterOperation(path="/hello/get", operation = @Operation(operationId = "hello get", summary = "Hello GET", tags = {"HelloWorld"})),
+    })
+    @Bean
+    public RouterFunction<ServerResponse> routeForHello(HelloHandler helloHandler){
+        return
+                RouterFunctions.route(RequestPredicates.GET("/hello").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), ( request -> {
+                    return helloHandler.hello(request, helloRepository);
+                }));
+    }
 
     @RouterOperations({
             @RouterOperation(path="/data/{id}", operation = @Operation(operationId = "data", summary = "Data World", tags = { "Data World" }, parameters = { @Parameter(in = ParameterIn.PATH, name = "id", description = "Employee Id") })),
