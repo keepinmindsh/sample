@@ -5,7 +5,7 @@
 > Cold는 각 Flux나 Mono를 subsribe 할 때마다 매번 독립적으로 새로 데이터를 생성해서 동작합니다. 
 즉, subsribe 호출 전까지 아무런 동작도 하지 않고, subsribe를 호출하면 새로운 데이터를 생성합니다. 
 
-<img alt="" src="./Cold.png" title="" width="150">
+<img alt="" src="./Cold.png" title="" width="800">
 
 ---
 - **Hot**
@@ -16,7 +16,7 @@
 즉, Hot에 해당하는 스트림을 여러곳에서 구독하면 현재 스트림에서 나오는 값을 구독하는 구독자들은 동일하게 
 받을 수 있습니다. 
 
-<img alt="" src="./Hot.png" title="" width="150">
+<img alt="" src="./Hot.png" title="" width="800">
 
 --- 
 
