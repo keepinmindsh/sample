@@ -5,6 +5,7 @@ import org.reactivestreams.Subscription;
 import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -29,6 +30,7 @@ public class BackPressureSample {
 
         Flux.range(1, 60000)
                 .doOnRequest(item -> log.info("Value : {}", item))
+                .timeout(Duration.ofMillis(800))
                 .parallel(10)
                 .log()
                 .subscribe(new BaseSubscriber<Integer>() {
