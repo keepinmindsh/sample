@@ -86,12 +86,13 @@ project(":lines-starter"){
     }
 
     dependencies {
-        compile project(path: ':lines-sample-api', configuration: 'default')
+        implementation project(path :":lines-sample-api", configuration: 'default')
 
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
         implementation files("../libs/m_linesconnection.jar")
         implementation 'org.apache.commons:commons-dbcp2'
+        implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.4.3'
         implementation 'org.mariadb.jdbc:mariadb-java-client'
     }
 }
