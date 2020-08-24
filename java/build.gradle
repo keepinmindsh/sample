@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.7'   // 추가
 }
 
 repositories {
@@ -15,6 +16,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'org.openjfx.javafxplugin'
 
     repositories {
         maven { url "https://repo.spring.io/libs-release" }
@@ -85,6 +87,9 @@ project(':javaversion'){
 project(':javafx'){
     dependencies {
 
+        javafx {
+            modules = [ 'javafx.controls', 'javafx.fxml' ]  // 추가
+        }
     }
 }
 
@@ -109,6 +114,14 @@ project(':soap'){
 
 project(':samplecode'){
 
+    javafx {
+        modules = [ 'javafx.controls', 'javafx.fxml' ]  // 추가
+    }
+
+    ext{
+        javafxVersion = '11.0.2'
+    }
+
     dependencies {
 
         implementation files('../libs/ojdbc7.jar')
@@ -125,10 +138,6 @@ project(':samplecode'){
         implementation 'org.apache.poi:poi-scratchpad:4.0.0'
         // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
         implementation 'com.itextpdf:itextpdf:5.5.13'
-        // https://mvnrepository.com/artifact/com.itextpdf/root
-        //compile 'com.itextpdf:rootversion:7.0.0ext:pom'
-        // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
-        //compile 'com.itextpdf.tool:xmlworkerversion:5.4.1'
         // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
         implementation 'com.itextpdf.tool:xmlworker:5.5.13'
         implementation 'cglib:cglib:2.2.2'
@@ -159,6 +168,7 @@ project(':samplecode'){
         implementation 'org.apache.commons:commons-dbcp2'
         implementation 'at.favre.lib:bcrypt:0.9.0'
         implementation 'at.favre.lib:bytes:1.2.0'
+
 
         implementation "com.google.zxing:core:3.3.0"
         implementation 'com.google.zxing:javase:3.3.0'
