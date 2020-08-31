@@ -42,7 +42,5 @@ public class PathClass {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
     }
 }

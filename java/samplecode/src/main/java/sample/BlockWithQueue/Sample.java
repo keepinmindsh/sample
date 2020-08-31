@@ -11,7 +11,7 @@ public class Sample {
     public static void main(String[] args) {
 
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
             executorService1.execute(() -> { excuteWork(new AWork(), "WINGSPMS51111");});
             executorService1.execute(() -> { excuteWork(new BWork(), "WINGSPMS11111");});
             executorService1.execute(() -> { excuteWork(new CWork(), "WINGSPMS31111");});
