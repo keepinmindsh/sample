@@ -10,4 +10,5 @@ include 'reactivewebflux'
 include 'messageQueue'
 include 'javafx'
 include 'propertysetting'
+include 'reactive-rsocket'
 

@@ -56,8 +56,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
     compileJava.options.encoding = 'UTF-8'
 
     test {
@@ -128,6 +128,18 @@ project(':reactivewebflux'){
         implementation 'io.netty:netty-all'
         implementation'org.springframework:spring-jdbc'
         implementation 'org.apache.commons:commons-dbcp2'
+    }
+}
+
+project(":reactive-rsocket"){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.security:spring-security-messaging'
+        implementation 'org.springframework.security:spring-security-rsocket'
+        implementation 'io.projectreactor:reactor-core'
+        testImplementation 'io.projectreactor:reactor-test'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
 
