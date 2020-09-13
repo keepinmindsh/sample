@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 public class SampleModuleConfiguration {
 
-//    @Bean
-//    public PublishedComponentRegisteringPostProcessor ideaPublishedComponentRegisteringPostProcessor(ConfigurableListableBeanFactory beanFactory) {
-//        return new PublishedComponentRegisteringPostProcessor(beanFactory);
-//    }
+    @Bean
+    public PublishedComponentRegisteringPostProcessor ideaPublishedComponentRegisteringPostProcessor(ConfigurableListableBeanFactory beanFactory) {
+        return new PublishedComponentRegisteringPostProcessor(beanFactory);
+    }
 }
