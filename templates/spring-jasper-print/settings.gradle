@@ -1,0 +1,3 @@
+rootProject.name = 'spring-jasper-print'
+include 'jasper-sample'
+

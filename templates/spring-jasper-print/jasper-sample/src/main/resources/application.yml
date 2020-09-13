@@ -1,0 +1,9 @@
+server:
+  port: 10091
+
+spring:
+  application:
+    name: SpringBootJasperReports
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
