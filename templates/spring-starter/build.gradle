@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:2.3.2.RELEASE"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.RELEASE"
+    }
+    dependencies {
+
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.reactivestreams:reactive-streams'
+    implementation 'org.slf4j:slf4j-api'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+}
