@@ -1,0 +1,6 @@
+rootProject.name = 'reactive-websocket-queue-server'
+include 'client-server'
+include 'queue-server'
+include 'client-test'
+include 'websocket-server'
+
