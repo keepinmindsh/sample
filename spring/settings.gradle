@@ -11,4 +11,6 @@ include 'messageQueue'
 include 'javafx'
 include 'propertysetting'
 include 'reactive-rsocket'
+include 'completablefuture'
+include 'async'
 
