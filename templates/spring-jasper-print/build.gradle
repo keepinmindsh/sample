@@ -42,7 +42,6 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 
-
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     compileJava.options.encoding = 'UTF-8'
@@ -53,6 +52,9 @@ project(':jasper-sample'){
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-freemarker'
         implementation 'com.lowagie:itext:2.1.7'
+        // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
+        implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
+        implementation 'org.apache.pdfbox:pdfbox:2.0.7'
         implementation 'net.sf.jasperreports:jasperreports:6.11.0'
         implementation 'com.github.javafaker:javafaker:1.0.1'
     }
