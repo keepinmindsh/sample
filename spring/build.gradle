@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'idea'
     id 'java'
 }
 
@@ -79,6 +80,37 @@ project(':customannotations'){
     dependencies {
 
     }
+}
+
+project(':springloaded'){
+
+    buildscript {
+        repositories {
+            jcenter()
+        }
+        dependencies {
+            classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
+            classpath 'org.springframework:springloaded:1.2.5.RELEASE'
+        }
+    }
+
+    apply plugin: 'idea'
+
+    idea {
+        module {
+            inheritOutputDirs = false
+            outputDir = file("$buildDir/classes/main/")
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework:springloaded:1.2.5.RELEASE'
+        implementation 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
+    }
+}
+
+project(':nestedModule01'){
+
 }
 
 project(':async'){

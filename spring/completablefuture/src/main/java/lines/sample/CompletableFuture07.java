@@ -22,6 +22,22 @@ public class CompletableFuture07 {
         testCase5ForthenCombine();
 
         testCase6ForthenAcceptBoth();
+
+        testCase7Forexceptionally();
+    }
+
+    private static void testCase7Forexceptionally() {
+        CompletableFuture.supplyAsync(() ->  "Test Case 7")
+                .exceptionally(exception -> exception.getMessage())
+                .thenAccept(s -> {
+                    log.info("Result 7 : {}", s);
+                });
+
+        CompletableFuture.failedFuture(new RuntimeException("Error"))
+                .thenAccept((s) -> {
+                    log.info("Result 7: {}", "Error Case");
+                });
+
     }
 
     private static void testCase6ForthenAcceptBoth() {
