@@ -13,4 +13,8 @@ include 'propertysetting'
 include 'reactive-rsocket'
 include 'completablefuture'
 include 'async'
+include 'springloaded'
+include 'nestedModule01'
+
+project(":nestedModule01").projectDir = file("nestedmodule/nestedModule01")
 
