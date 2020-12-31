@@ -1,0 +1,4 @@
+rootProject.name = 'reactive-file-handing-server'
+include 'file-handling-server'
+include 'client-file-upload'
+

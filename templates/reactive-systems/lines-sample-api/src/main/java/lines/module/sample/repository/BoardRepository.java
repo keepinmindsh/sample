@@ -1,0 +1,24 @@
+package lines.module.sample.repository;
+
+import lines.module.sample.model.Board;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class BoardRepository {
+    private long generatedId = 0L;
+    private Map<Long, Board> boardMap = new ConcurrentHashMap<>();
+
+    public void saveAll(List<Board> boards) {
+        boards.forEach(board -> {
+            board.setId(++generatedId);
+            boardMap.put(board.getId(), board);
+        });
+    }
+
+    public Mono<Board> findOne(Long id) {
+        return Mono.just(boardMap.get(id));
+    }
+}

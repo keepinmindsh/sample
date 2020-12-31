@@ -3,12 +3,15 @@ package lines.module.sample.router;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import lines.module.sample.filter.AttachmentHandlerFilter;
+import lines.module.sample.handler.BoardHandler;
 import lines.module.sample.handler.DataHandler;
 import lines.module.sample.handler.HelloHandler;
 import lines.module.sample.repository.HelloRepository;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.RouterOperation;
 import org.springdoc.core.annotations.RouterOperations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -24,6 +27,17 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 public class HelloRouter {
 
     //private final HelloRepository helloRepository;
+
+    @Autowired
+    private BoardHandler boardHandler;
+
+    @Autowired
+    private AttachmentHandlerFilter attachmentHandlerFilter;
+
+    @Bean
+    public RouterFunction<?> boardRouter() {
+        return RouterFunctions.route(RequestPredicates.GET("/boards/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), boardHandler::getBoard).filter(attachmentHandlerFilter.filter());
+    }
 
     @RouterOperations({
             @RouterOperation(path="/hello", operation = @Operation(operationId = "hello", summary = "Hello World", tags = {"HelloWorld"})),
