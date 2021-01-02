@@ -3,10 +3,14 @@ package lines.module.sample.router;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lines.module.sample.filter.AttachmentHandlerFilter;
 import lines.module.sample.handler.BoardHandler;
 import lines.module.sample.handler.DataHandler;
 import lines.module.sample.handler.HelloHandler;
+import lines.module.sample.model.RequestVO;
 import lines.module.sample.repository.HelloRepository;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.RouterOperation;
@@ -62,8 +66,22 @@ public class HelloRouter {
     }
 
     @RouterOperations({
-            @RouterOperation(path="/data/{id}", operation = @Operation(operationId = "data", summary = "Data World", tags = { "Data World" }, parameters = { @Parameter(in = ParameterIn.PATH, name = "id", description = "Employee Id") })),
-            @RouterOperation(path="/data/insert", operation = @Operation(operationId = "data", summary = "Data World", tags = { "Data World" }, parameters = { @Parameter(in = ParameterIn.PATH, name = "id", description = "Employee Id") })),
+            @RouterOperation(
+                    path="/data/{id}",
+                    operation = @Operation(operationId = "data", summary = "Data World", tags = { "Data World" }, parameters = { @Parameter(in = ParameterIn.PATH, name = "id", description = "Employee Id") }, requestBody =  @RequestBody( description = "" , content = @Content(schema = @Schema(implementation = RequestVO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)))
+
+            ),
+            @RouterOperation(
+                    path="/data/insert",
+                    operation = @Operation(operationId = "data",
+                                    summary = "Data World",
+                                    tags = { "Data World" },
+                                    parameters = {
+                                        @Parameter(in = ParameterIn.PATH, name = "id", description = "Employee Id") ,
+                                            @Parameter(in = ParameterIn.DEFAULT, name="value", description = "Value")
+                                    },requestBody =  @RequestBody( description = "" , content = @Content(schema = @Schema(implementation = RequestVO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+                    )
+            ),
     })
     @Bean
     public RouterFunction<ServerResponse> routeForData(DataHandler dataHandler){

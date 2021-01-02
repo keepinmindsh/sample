@@ -1,6 +1,7 @@
 package lines.sample.messages;
 
 import lines.comm.handler.MessageHandler;
+import lines.comm.provider.LinesProvider;
 import lines.sample.command.HelloCommand;
 import lines.sample.model.HelloWorldRQVO;
 import lombok.extern.slf4j.Slf4j;
@@ -20,20 +21,14 @@ public class HelloWorld {
         MessageHandler messageHandler = new MessageHandler(
                                     new HelloCommand(),
                                     helloWorldRQVO,
-                                    ( command, parameter) -> {
-                                        command.execute(parameter);
-                                        return command.resultData();
-                                    },
-                                    ( exception) -> {
-                                        return null;
-                                    },
+                                    ( exception) -> null,
                                     ( exception, command) -> {
                                         log.error(exception.getMessage());
-
-                                        command.execute(null);
-                                    });
+                                    },
+                                    LinesProvider.builder()
+                                            .paramT(helloWorldRQVO)
+                                            .build());
 
         return messageHandler.execute();
     }
-
 }

@@ -1,12 +1,14 @@
 package lines.module.sample.repository;
 
 import lines.module.sample.model.Board;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class BoardRepository {
     private long generatedId = 0L;
     private Map<Long, Board> boardMap = new ConcurrentHashMap<>();

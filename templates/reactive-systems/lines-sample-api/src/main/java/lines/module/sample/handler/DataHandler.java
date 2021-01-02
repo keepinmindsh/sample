@@ -28,7 +28,8 @@ public class DataHandler {
 
         Mono<RequestVO> requestVOMono = serverRequest.bodyToMono(RequestVO.class);
 
-        requestVOMono.log()
+        requestVOMono
+                .log()
                 .doOnNext(item -> {
                     log.info("Request Param : {}", item);
                 })
