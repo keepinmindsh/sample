@@ -1,6 +1,5 @@
 package lines.reactive.sample.sample25;
 
-import lines.reactive.sample.sample23.ReactiveWebApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import java.util.Queue;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 
@@ -69,6 +67,6 @@ public class DefferedSample {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ReactiveWebApplication.class);
+        SpringApplication.run(DefferedSample.class);
     }
 }
