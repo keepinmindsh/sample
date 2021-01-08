@@ -1,7 +1,8 @@
 package lines.reactive.sample.sample20;
 
-import java.util.Objects;
 import java.util.concurrent.*;
+
+import static java.util.Objects.requireNonNull;
 
 public class CallbackFutureTaskSample {
 
@@ -17,8 +18,8 @@ public class CallbackFutureTaskSample {
         ExceptionCallback ec;
         public CallbackFutureTask(Callable<String> callable, SucessCallback sc, ExceptionCallback ec){
             super(callable);
-            this.sc = Objects.requireNonNull(sc);
-            this.ec = Objects.requireNonNull(ec);
+            this.sc = requireNonNull(sc);
+            this.ec = requireNonNull(ec);
 
         }
 
