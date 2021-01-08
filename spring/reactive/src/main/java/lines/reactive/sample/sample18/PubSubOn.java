@@ -1,5 +1,6 @@
 package lines.reactive.sample.sample18;
 
+import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -8,6 +9,7 @@ import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 public class PubSubOn {
 
     public static void main(String[] args) {
@@ -47,9 +49,13 @@ public class PubSubOn {
                         return "subOn";
                     }
                 });
+
                 executorService.execute(() -> {
                    publisher.subscribe(subscriber);
                 });
+
+                log.info("subscribeOn Call");
+
                 executorService.shutdown();
             }
         };

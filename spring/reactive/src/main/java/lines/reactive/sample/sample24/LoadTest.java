@@ -1,6 +1,5 @@
 package lines.reactive.sample.sample24;
 
-import javafx.scene.paint.Stop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StopWatch;
 import org.springframework.web.client.RestTemplate;
