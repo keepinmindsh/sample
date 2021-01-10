@@ -167,6 +167,7 @@ project(':samplecode'){
         implementation 'at.favre.lib:bcrypt:0.9.0'
         implementation 'at.favre.lib:bytes:1.2.0'
 
+        implementation 'org.rxtx:rxtx:2.1.7'
 
         implementation "com.google.zxing:core:3.3.0"
         implementation 'com.google.zxing:javase:3.3.0'
