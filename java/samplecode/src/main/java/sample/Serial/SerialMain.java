@@ -1,45 +1,56 @@
 package sample.Serial;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.IOUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 
 @Slf4j
 public class SerialMain {
 
     static {
         try{
-//            InputStream in = SerialMain.class.getResourceAsStream("/Users/dream/git/sample/java/samplecode/src/main/resources/rxtxSerial.dll");
-//
-//            byte[] buffer = new byte[1024];
-//            int read = -1;
-//
-//            File temp = File.createTempFile("/Users/dream/git/sample/java/samplecode/src/main/resources/rxtxSerial.dll", "");
-//
-//            FileOutputStream fos = new FileOutputStream(temp);
-//
-//            while((read = in.read(buffer)) != -1) {
-//                fos.write(buffer, 0, read);
-//            }
-//            fos.close();
-//            in.close();
-//
-//            log.info(temp.getAbsolutePath());
 
-            System.setProperty("java.library.path", "/Users/dream/git/sample/java/samplecode/src/main/resources/rxtxSerial.dll");
-
-            //System.load("/Users/dream/git/sample/java/samplecode/src/main/resources/rxtxSerial.dll");
-            System.loadLibrary("rxtxSerial");
         } catch (Exception exception){
             log.error(exception.getMessage());
         }
     }
 
+    private static void loadLib(String path, String name) {
+        name = System.mapLibraryName(name); // extends name with .dll, .so or .dylib
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            inputStream = new FileInputStream(path + name);
+
+//            File fileOut = new File("D://GIT/sample/sample/java/samplecode/src/main/resources/temp/rxtxSerial.dll");
+            File fileOut = new File(path + name);
+            outputStream = new FileOutputStream(fileOut);
+            IOUtils.copy(inputStream, outputStream);
+            System.load(fileOut.toString());//loading goes here
+        } catch (Exception e) {
+            //handle
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    //log
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    //log
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         try{
-            (new Serial()).connect("COM6");
+            (new Serial()).connect("COM1");
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -8,12 +8,12 @@ public class SerialMain {
     public static void main(String[] args) {
 
         try {
-            Enumeration e = CommPortIdentifier.getPortIdentifiers();
+            Enumeration enumeration = CommPortIdentifier.getPortIdentifiers();
 
-            System.out.println("Enumeration get()............... "+ e.hasMoreElements());
+            System.out.println("Enumeration get()............... "+ enumeration.hasMoreElements());
 
-            while (e.hasMoreElements()) {
-                CommPortIdentifier first = (CommPortIdentifier) e.nextElement();
+            while (enumeration.hasMoreElements()) {
+                CommPortIdentifier first = (CommPortIdentifier) enumeration.nextElement();
                 System.out.println("COM name : " + first.getName());
             }
 

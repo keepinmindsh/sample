@@ -13,7 +13,6 @@ public class Serial {
         super();
     }
 
-
     void connect(String portName) throws Exception {
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if(portIdentifier.isCurrentlyOwned()){

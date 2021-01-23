@@ -19,7 +19,10 @@ public class SerialReader implements Runnable{
 
         try {
             while((len = this.inputStream.read(buffer)) > -1){
-                System.out.println(new String(buffer, 0, len));
+                String value = new String(buffer, 0, len);
+                if(value.indexOf("^U") > -1){
+                    break;
+                }
             }
         } catch (IOException ioException){
             ioException.printStackTrace();
