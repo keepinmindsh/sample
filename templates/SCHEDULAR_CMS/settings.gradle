@@ -1,0 +1,3 @@
+rootProject.name = 'SCHEDULAR_CMS'
+include 'CMS_UPDATE'
+
