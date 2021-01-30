@@ -1,4 +1,4 @@
-package sample.multiflexing.sample01;
+package sample.Multiflexing.sample01;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

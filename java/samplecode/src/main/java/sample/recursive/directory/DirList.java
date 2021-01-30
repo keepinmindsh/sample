@@ -1,4 +1,4 @@
-package sample.recursive.directory;
+package sample.Recursive.directory;
 
 import lombok.extern.slf4j.Slf4j;
 

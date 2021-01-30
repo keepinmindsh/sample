@@ -21,9 +21,15 @@
 
 	h3 {
 		color: #ff3e00;
-		text-transform: uppercase;
 		font-size: 1em;
 		font-weight: 100;
+	}
+
+	box {
+		position: relative;
+		height: 600px;
+		width: 1200px;
+		border: 1px solid red;
 	}
 
 	@media (min-width: 640px) {
@@ -35,19 +41,24 @@
 
 <Navbar />
 <main>
-	<h3>Hello ~~ {name}!
+	<box>
+		<h3>Hello ~~ {name.toUpperCase()}!
 
-		<button class="btn btn-sm" on:click={toggleControls} >+</button>
-		{#if showControls}-{:else}+{/if}
-	</h3>
-	<h3>{points}</h3>
-	<h3>{textMessage}</h3>
-	{#if showControls}
-		<button class="btn" on:click={addPoint} >+1</button>
-		<button class="btn btn-dark" on:click={removePoint} >-1</button>
-		<hr>
-		<input type="number" bind:value={points} >
-	{/if}
+			<button class="btn btn-sm" on:click={toggleControls} >+</button>
+			{#if showControls}-{:else}+{/if}
+		</h3>
+		<h3>{points}</h3>
+		<h3>{textMessage}</h3>
+	</box>
+	<box>
+		{#if showControls}
+			<button class="btn" on:click={addPoint} >+1</button>
+			<button class="btn btn-dark" on:click={removePoint} >-1</button>
+			<hr>
+			<input type="number" bind:value={points} >
+		{/if}
+	</box>
+
 </main>
 
 

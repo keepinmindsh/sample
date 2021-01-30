@@ -1,3 +1,13 @@
+## React / Type Script 
+
+### Type Script 
+
+---
+ - 타입을 명시적으로 지정할 수 있다. 
+ - 타입을 명시적으로 지정하지 않으면 , 타입스크립트 컴파일러가 자동으로 타입을 추론 
+
+ 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
