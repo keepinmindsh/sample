@@ -15,6 +15,8 @@
 		second = 500;
 	}
 
+	let src = "./link.png";
+
 
 </script>
 
@@ -39,6 +41,8 @@
 		<!-- 양방향 처리의 경우 -->
 		<input type="number" bind:value={second} />
 	</div>
+
+	<img {src} alt="Sample">
 	
 </main-content>
 
