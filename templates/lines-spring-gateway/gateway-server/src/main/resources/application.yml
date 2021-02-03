@@ -1,0 +1,20 @@
+server:
+  port: 9090
+---
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - name: LinesGlobalFilter
+      routes:
+        - id: api1
+          uri: http://localhost:9091/
+          predicates:
+            - Path=/api1/**
+          filters:
+            - name: LinesPreFilter
+            - name: LinesPostFilter
+        - id: api2
+          uri: http://localhost:9092/
+          predicates:
+            - Path=/api1/**
