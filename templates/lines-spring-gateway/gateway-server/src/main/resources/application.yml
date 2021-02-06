@@ -8,7 +8,7 @@ spring:
         - name: LinesGlobalFilter
       routes:
         - id: api1
-          uri: http://localhost:9091/
+          uri: http://localhost:9093/
           predicates:
             - Path=/api1/**
           filters:
@@ -17,4 +17,4 @@ spring:
         - id: api2
           uri: http://localhost:9092/
           predicates:
-            - Path=/api1/**
+            - Path=/api2/**

@@ -1,15 +1,15 @@
 package com.lines.api.controller;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api1")
+@RequestMapping("/api2")
 public class APIController {
 
     @GetMapping("/call")
@@ -21,7 +21,7 @@ public class APIController {
             System.out.println(k + " : " + v);
         });
 
-        Mono<String> data = Mono.just("Hello from Reactive API1");
+        Mono<String> data = Mono.just("Hello from Reactive API2");
 
         return data;
     }
