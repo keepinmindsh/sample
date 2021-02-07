@@ -1,5 +1,6 @@
 package com.lines;
 
+import com.lines.prototype.ProtoType;
 import com.lines.singleton.Single;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +15,12 @@ import javax.annotation.PostConstruct;
 public class BeanTest2 {
 
     private final Single single;
+    private final ProtoType protoType;
 
     @PostConstruct
     public void run(){
-        log.info("Address Memory : {}" , single.toString());
+        log.info("Singleton Memory : {}" , single.toString());
+
+        log.info("ProtoType Memory : {}" , protoType.toString());
     }
 }
