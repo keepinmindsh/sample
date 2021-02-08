@@ -1,0 +1,7 @@
+rootProject.name = 'lines-spring-logmanagement'
+include 'gateway-server'
+include 'eureka-server'
+include 'slack-api'
+include 'log-analizer'
+include 'redis-module'
+
