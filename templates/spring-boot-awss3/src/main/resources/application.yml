@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active: local
+
+cloud:
+  aws:
+    s3:
+      bucket: 
+    region:
+      static: ap-northeast-1
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+      accessKey:
+      secretKey:
