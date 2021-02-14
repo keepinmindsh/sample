@@ -18,14 +18,19 @@ public class ScheduleForDownload {
         순서대로 초-분-시간-일-월-요일 순이다. 그리고 괄호 안의 숫자 범위 내로 별 대신 입력 할 수도 있다.
         요일에서 0과 7은 일요일이며, 1부터 월요일이고 6이 토요일이다.
 
-
-    https://sabarada.tistory.com/113
+        Quartz 스케쥴러 구성 시
+        https://sabarada.tistory.com/113
 
      */
 
     @Scheduled(fixedDelay = 1000)
     public void scheduleFixedDelayTask() {
         log.info("Fixed delay task - " + System.currentTimeMillis() / 1000);
+    }
+
+    @Scheduled(cron="0 0/1 * * * *")
+    public void scheduleFixedDelayTaskForSecond() {
+        log.info("Test delay task - " + System.currentTimeMillis() / 1000);
     }
 
     /*
