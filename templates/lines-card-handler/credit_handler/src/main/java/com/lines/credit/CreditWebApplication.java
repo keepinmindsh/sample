@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableScheduling
 public class CreditWebApplication {
     public static void main(String[] args) {
         SpringApplication.run(CreditWebApplication.class);
@@ -29,7 +31,5 @@ public class CreditWebApplication {
         Arrays.asList(sqlStatements).forEach(sql -> {
             jdbcTemplate.execute(sql);
         });
-
-        // Query test data and print results
     }
 }
