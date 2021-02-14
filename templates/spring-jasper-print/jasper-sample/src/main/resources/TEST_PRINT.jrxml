@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_Sample" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3bab620-6aa8-4621-a4be-61c968ad740d">
+	<property name="ireport.zoom" value="1.4641000000000048"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="INHS_GEST_NAME" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="FOLIO_NO" class="java.lang.String"/>
+	<field name="ARRV_DATE" class="java.lang.String"/>
+	<field name="DEPT_DATE" class="java.lang.String"/>
+	<field name="ROOM_NO" class="java.lang.String"/>
+	<field name="CASHER_NAME" class="java.lang.String"/>
+	<field name="PRINT_STRING" class="java.lang.String"/>
+	<field name="COMPANY_NAME" class="java.lang.String"/>
+	<field name="CHCK_OUT_TIME" class="java.lang.String"/>
+	<field name="COL_1" class="java.lang.String"/>
+	<field name="COL_2" class="java.lang.String"/>
+	<field name="COL_3" class="java.lang.String"/>
+	<field name="COL_4" class="java.lang.String"/>
+	<field name="COL_5" class="java.lang.String"/>
+	<field name="ACCOUNT_NAME" class="java.lang.String"/>
+	<background>
+		<band height="802">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="556" height="802" uuid="a62cafe7-0c50-4000-877c-583981819ffe"/>
+			</rectangle>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="133">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="15" y="21" width="180" height="77" uuid="181f7e86-2231-4886-8071-331071e4e75f"/>
+				<imageExpression><![CDATA["reports/image/SANHA_LOGO.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="129" width="555" height="1" uuid="f8c38db2-448f-4e87-b901-d49226a39971"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="360" y="103" width="185" height="22" uuid="4b9fbfa5-cd90-4fef-89f5-ccb34d527326"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[*부가가치세법 제32조 1항 규정에 의한 영수증]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="31" width="345" height="28" uuid="20662412-3e3c-45e9-952c-167a24d5c69a"/>
+				<textElement textAlignment="Left">
+					<font fontName="굴림체" size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="17.0" tabStopWidth="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COL_3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="73" width="345" height="14" uuid="904dde38-736c-4018-9307-2af80bc1f103"/>
+				<textElement textAlignment="Left">
+					<font fontName="굴림체" size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph tabStopWidth="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COL_2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="210" y="17" width="345" height="14" uuid="33d403c9-c31d-450a-8dbd-e0e10c0829cd"/>
+				<textElement textAlignment="Left">
+					<font fontName="굴림체" size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph tabStopWidth="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COL_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="322" y="87" width="233" height="14" uuid="b792dad2-9450-4548-ab10-be7e7dd49072"/>
+				<textElement textAlignment="Left">
+					<font fontName="굴림체" size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph tabStopWidth="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COL_5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="210" y="87" width="112" height="14" uuid="ad7791cb-8b41-4f0d-8876-f71e2b1aab3b"/>
+				<textElement textAlignment="Left">
+					<font fontName="굴림체" size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph tabStopWidth="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COL_4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="210" y="59" width="345" height="14" uuid="c04c25a1-593d-44df-979d-5d689e484347">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="9" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph tabStopWidth="0"/>
+				</textElement>
+				<text><![CDATA[http://www.sanhait.co.kr]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="93">
+			<staticText>
+				<reportElement mode="Opaque" x="59" y="73" width="217" height="20" backcolor="#CCCCCC" uuid="7e8caaa2-4e30-4bfd-8234-bb310e38c735">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="73" width="58" height="20" backcolor="#CCCCCC" uuid="93a3ae9e-4580-43ca-b13f-169841ae677e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="14"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="73" width="49" height="20" backcolor="#CCCCCC" uuid="d7c66ccb-0049-4e81-ac62-eebe46c703df">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="0" rightIndent="0"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="325" y="73" width="230" height="20" backcolor="#CCCCCC" uuid="8c1c1548-26f4-48e9-8c3a-c335ffc0732a">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="25"/>
+				</textElement>
+				<text><![CDATA[Reference]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="1" width="145" height="18" uuid="6d6b4111-3150-4630-84bd-fbf2409fe6f4"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FOLIO_NO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="1" width="244" height="18" uuid="f9b0a987-049b-49f6-8e99-120af93f7193"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INHS_GEST_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="327" y="37" width="71" height="18" uuid="abe733a0-95fb-4069-958e-84b0bbbb5321"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Arrival]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="1" width="12" height="18" uuid="a5c4c1ee-adaa-42c8-ad3d-14cca647a22a"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="55" width="145" height="18" uuid="5a1a58f6-ef44-4bda-b98a-c5fbe34f918b"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEPT_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="398" y="1" width="12" height="18" uuid="56c159e8-e86e-4364-aa22-79af442f9c3b"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="1" width="71" height="18" uuid="6c2d58dc-a7e4-4340-a5dd-0d6afb6dd4c3"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Folio No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="71" height="18" uuid="5560fd74-ef84-48ef-ab4c-ee12a5270b35"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Guest Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="54" width="12" height="18" uuid="1a5155c1-8af7-403e-bcce-4caca5b83533"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="37" width="244" height="18" uuid="632a47e2-265f-4bec-a274-ad8ed9873b0a"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMPANY_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="37" width="71" height="18" uuid="084c878d-8059-470d-a0f3-b56b8d77d87d"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Company]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="71" height="18" uuid="c9a86150-c8a7-4354-81e0-9d0e0d593227"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="37" width="12" height="18" uuid="02cd00ff-c607-43fc-bd22-294ee7ddf355"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="54" width="243" height="18" isPrintWhenDetailOverflows="true" uuid="77c96117-19cc-4bfc-98de-5446fca3ef33"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="38" width="145" height="18" uuid="2e5931f9-b680-4acd-a805-ec98c73d0d48">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ARRV_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="19" width="71" height="18" uuid="77d20b5d-8367-4be3-9092-4d0e648c3981"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="19" width="12" height="18" uuid="815aef7e-a2ed-4458-8d23-765a12744fbc"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="83" y="19" width="244" height="18" uuid="4a4f6fe9-2e47-4d69-9d65-0391fffaa184"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ACCOUNT_NAME}==""?$F{COMPANY_NAME}:$F{ACCOUNT_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="398" y="37" width="12" height="18" uuid="3083c98d-06b4-414b-a859-26e6880360eb"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="55" width="12" height="18" uuid="5f265fe5-287f-4954-b351-3d93a42e335a"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="55" width="70" height="18" uuid="280a2299-2795-46d9-905e-20c50b5bb643"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Departure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="19" width="71" height="18" uuid="197b1e74-86f3-4343-b981-e7981272a071"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Room No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="19" width="12" height="18" uuid="4881af10-9998-4e69-8ec0-99f6b023556f"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="410" y="19" width="145" height="18" uuid="6d4ba2a5-a4b1-49fd-b789-ad1e8fca7f5a"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ROOM_NO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="556" height="18" isPrintWhenDetailOverflows="true" uuid="fe6f3f4c-45db-4058-baa9-c20325bc7923"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="굴림체" isStrikeThrough="false" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRINT_STRING}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="9" width="367" height="44" isPrintWhenDetailOverflows="true" uuid="13b429a8-3238-4b67-ac1c-597686faf22e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="굴림체" size="8" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[I agree that my liability for this bill is not waived and agree to be held personally liable in the event that the indicated person, company or association fails to pay for any or the full amount of these charges.
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="aeeba787-a0f9-496d-93f2-9268308fc0da"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="401" y="9" width="100" height="20" uuid="7154b69e-41ee-474b-bf27-a2bb13b7b113"/>
+				<textElement>
+					<font fontName="굴림체" pdfFontName="GulimChe2.ttf" pdfEncoding="Identity-H"/>
+				</textElement>
+				<text><![CDATA[Guest Signature]]></text>
+			</staticText>
+			<line>
+				<reportElement x="399" y="47" width="150" height="1" uuid="5c31a573-2d42-4901-bc6f-b2126c41ecd4"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
