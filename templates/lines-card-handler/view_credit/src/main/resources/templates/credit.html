@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <hr>
+    <div>Hello World</div>
+    <button onclick="clickButton()"  />
+    <div id="demo" ></div>
+    <hr>
+    <script>
+        var clickButton = () => {
+            var obj, s
+            obj = { table: "products", limit: 10 };
+            s = document.createElement("script");
+            s.src = "http://localhost:9000/hello";
+            document.body.appendChild(s);
+        }
+
+        var myFunc = (myObj) => {
+            alert(myObj)
+            var x, txt = "";
+            for (x in myObj) {
+                txt += myObj[x].name + "<br>";
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+rootProject.name = 'lines-card-handler'
+include 'view_credit'
+include 'credit_handler'
+include 'ftp_downloader'
+
