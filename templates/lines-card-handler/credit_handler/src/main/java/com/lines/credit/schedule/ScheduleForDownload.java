@@ -1,5 +1,11 @@
 package com.lines.credit.schedule;
 
+import com.lines.comm.command.SimpleCommand;
+import com.lines.credit.command.AlertCommand;
+import com.lines.credit.command.FileCommand;
+import com.lines.credit.model.Alert;
+import com.lines.credit.model.FileResultVO;
+import com.lines.credit.model.LinesFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,6 +15,14 @@ import org.springframework.stereotype.Component;
 public class ScheduleForDownload {
 
     /*
+
+     // 1초에 한번 실행된다.
+        @Scheduled(fixedDelay = 1000)
+
+        @Scheduled(fixedRate = 1000)
+
+        위 차이를 쉽게 얘기하면 fixedDelay 는 이전 수행이 종료된 시점부터 delay 후에 재 호출되고 fixedRate 는 이전 수행이 시작된 시점부터 delay 후에 재 호출된다.
+        그러므로 fixedRate 로 지정 시 동시에 여러개가 돌 가능성이 존재한다.
 
     그 전에crontab 주기설정 방법부터 알아보자.
 
@@ -24,24 +38,24 @@ public class ScheduleForDownload {
      */
 
     @Scheduled(fixedDelay = 1000)
-    public void scheduleFixedDelayTask() {
-        log.info("Fixed delay task - " + System.currentTimeMillis() / 1000);
+    public void scheduleForDownload() throws Exception {
+        log.info("Download Start! - " + System.currentTimeMillis() / 1000);
+
+        SimpleCommand<FileResultVO> simpleCommand = new FileCommand(LinesFile.builder().build());
+
+        simpleCommand.execute();
+
+        log.info("Download End! - " + System.currentTimeMillis() / 1000);
     }
 
     @Scheduled(cron="0 0/1 * * * *")
-    public void scheduleFixedDelayTaskForSecond() {
-        log.info("Test delay task - " + System.currentTimeMillis() / 1000);
+    public void scheduleForAlertHandling() throws Exception {
+        log.info("Processing Analyze for Alert - " + System.currentTimeMillis() / 1000);
+
+        SimpleCommand<Alert> simpleCommand = new AlertCommand(Alert.builder().build());
+
+        simpleCommand.execute();
+
+        log.info("Processing Analyze for Alert - " + System.currentTimeMillis() / 1000);
     }
-
-    /*
-
-    // 1초에 한번 실행된다.
-    @Scheduled(fixedDelay = 1000)
-
-    @Scheduled(fixedRate = 1000)
-
-    위 차이를 쉽게 얘기하면 fixedDelay 는 이전 수행이 종료된 시점부터 delay 후에 재 호출되고 fixedRate 는 이전 수행이 시작된 시점부터 delay 후에 재 호출된다.
-    그러므로 fixedRate 로 지정 시 동시에 여러개가 돌 가능성이 존재한다.
-
-     */
 }

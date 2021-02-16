@@ -1,14 +1,14 @@
 package com.lines.credit.command;
 
 import com.lines.comm.command.SimpleCommand;
-import com.lines.credit.model.Approval;
-import com.lines.credit.model.ApprovalResultVO;
+import com.lines.credit.model.FileResultVO;
+import com.lines.credit.model.LinesFile;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ApprovalCommand implements SimpleCommand<ApprovalResultVO> {
+public class FileCommand implements SimpleCommand<FileResultVO> {
 
-    private final Approval approval;
+    private final LinesFile linesFile;
 
     @Override
     public void execute() throws Exception {
@@ -16,7 +16,7 @@ public class ApprovalCommand implements SimpleCommand<ApprovalResultVO> {
     }
 
     @Override
-    public ApprovalResultVO result() {
+    public FileResultVO result() {
         return null;
     }
 }

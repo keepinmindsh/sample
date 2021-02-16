@@ -1,11 +1,13 @@
 package com.lines.credit.command;
 
 import com.lines.comm.command.SimpleCommand;
-import com.lines.credit.model.FileResultVO;
+import com.lines.credit.model.Alert;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FileDownloadCommand implements SimpleCommand<FileResultVO> {
+public class AlertCommand implements SimpleCommand {
+
+    private final Alert alert;
 
     @Override
     public void execute() throws Exception {
@@ -13,7 +15,7 @@ public class FileDownloadCommand implements SimpleCommand<FileResultVO> {
     }
 
     @Override
-    public FileResultVO result() {
+    public Object result() {
         return null;
     }
 }

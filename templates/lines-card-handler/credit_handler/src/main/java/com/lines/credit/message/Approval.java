@@ -12,9 +12,7 @@ public class Approval {
     @GetMapping("/approval")
     public String approval(ApprovalRequestVO approvalRequestVO) {
 
-        log.debug("[From Wings (Browser) : Paramter] {}", approvalRequestVO);
-
-
+        log.debug("[From Wings (Browser) : Parameter] {}", approvalRequestVO);
 
         return "myFunc(12342342134)";
     }
