@@ -12,6 +12,7 @@ repositories {
 dependencies {
 
     implementation 'org.springframework.data:spring-data-redis'
+    implementation 'io.lettuce:lettuce-core:6.0.2.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
