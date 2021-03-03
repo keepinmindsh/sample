@@ -5,10 +5,7 @@ import com.lines.redis.model.LogVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1")
@@ -17,8 +14,8 @@ public class LogSave {
 
     private final RedisTemplate redisTemplate;
 
-    @GetMapping("/log")
-    public Object saveLog(String content){
+    @PostMapping("/log")
+    public Object saveLog(@RequestBody  String content){
 
         SetOperations<String, LogVO> setOperations = redisTemplate.opsForSet();
 

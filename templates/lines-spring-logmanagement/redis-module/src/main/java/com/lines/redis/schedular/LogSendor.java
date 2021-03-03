@@ -1,6 +1,7 @@
 package com.lines.redis.schedular;
 
 import com.lines.redis.code.RedisType;
+import com.lines.redis.model.LogDataRQVO;
 import com.lines.redis.model.LogVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +37,18 @@ public class LogSendor {
         int size = logVOSet.size();
 
         if(size > 0){
+
+            LogDataRQVO logDataRQVO = new LogDataRQVO();
+
             WebClient webClient = WebClient.create("http://localhost:9091");
 
+            logDataRQVO.setLogVOList(logVOSet);
 
             Mono<String> stringMono = webClient.post()
                     .uri("/v1/log/analyze")
-                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                    .body(Mono.just(logVOSet), String.class)
+
+                    .body(Mono.just(logDataRQVO), LogDataRQVO.class)
+                    .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(String.class);
 

@@ -4,4 +4,5 @@ include 'eureka-server'
 include 'slack-api'
 include 'log-analizer'
 include 'redis-module'
+include 'sample-caller'
 
