@@ -1,0 +1,7 @@
+rootProject.name = 'spring-eureka-replication'
+include 'discovery-service-1'
+include 'discovery-service-2'
+include 'proxy-service'
+include 'a-service'
+include 'b-service'
+
