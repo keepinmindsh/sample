@@ -1,12 +1,12 @@
 package com.lines.credit.model;
 
-import com.lines.credit.code.ApprovalType;
+import com.lines.credit.code.SpecType;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class Approval {
+public class ApprovalVO {
     private final ApprovalRequestVO requestVO;
-    private final ApprovalType approvalType;
+    private final SpecType specType;
 }

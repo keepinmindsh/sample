@@ -3,7 +3,7 @@ package com.lines.credit.schedule;
 import com.lines.comm.command.SimpleCommand;
 import com.lines.credit.command.AlertCommand;
 import com.lines.credit.command.FileCommand;
-import com.lines.credit.model.Alert;
+import com.lines.credit.model.AlertVO;
 import com.lines.credit.model.FileResultVO;
 import com.lines.credit.model.LinesFile;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +52,7 @@ public class ScheduleForDownload {
     public void scheduleForAlertHandling() throws Exception {
         log.info("Processing Analyze for Alert - " + System.currentTimeMillis() / 1000);
 
-        SimpleCommand<Alert> simpleCommand = new AlertCommand(Alert.builder().build());
+        SimpleCommand<AlertVO> simpleCommand = new AlertCommand(AlertVO.builder().build());
 
         simpleCommand.execute();
 

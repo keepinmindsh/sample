@@ -1,6 +1,6 @@
 package com.lines.credit.code;
 
-public enum SpeclType {
+public enum SpecType {
     APPROVAL("CARD_APPROVAL"),
     APPROVAL_RESULT("CARD_CANCEL_APPROVAL"),
     VB_EXIT("VB_EXIT"),
@@ -9,7 +9,7 @@ public enum SpeclType {
 
     private final String approvalType;
 
-    SpeclType(String approvalType){
+    SpecType(String approvalType){
         this.approvalType = approvalType;
     }
 }

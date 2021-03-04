@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class Alert {
+public class AlertVO {
     private final AlertType alertType;
 }
