@@ -15,13 +15,9 @@ public class LogSave {
     private final RedisTemplate redisTemplate;
 
     @PostMapping("/log")
-    public Object saveLog(@RequestBody  String content){
+    public Object saveLog(@RequestBody LogVO logVO){
 
         SetOperations<String, LogVO> setOperations = redisTemplate.opsForSet();
-
-        LogVO logVO = new LogVO();
-
-        logVO.setContent(content);
 
         setOperations.add(RedisType.LINES_REDIS_KEY.name(), logVO);
 

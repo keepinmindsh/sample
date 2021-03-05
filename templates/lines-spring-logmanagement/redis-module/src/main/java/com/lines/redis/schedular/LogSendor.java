@@ -23,7 +23,7 @@ public class LogSendor {
 
     private final RedisTemplate redisTemplate;
 
-    @Scheduled(cron = "0 0/1 * * * *")
+    @Scheduled(cron = "0/5 * * * * *")
     public void sendLog(){
         log.info("Log Start!");
 

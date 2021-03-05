@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1")
 @Slf4j
@@ -19,11 +21,15 @@ public class LogStream {
     @PostMapping("/log/analyze")
     public Object logAnalyze(@RequestBody LogDataRQVO logDataRQVO) {
 
-        Flux.fromIterable(logDataRQVO.getLogVOList())
+        List<LogVO> logVOList = logDataRQVO.getLogVOList();
+
+        Flux.fromIterable(logVOList)
                 .log()
                 .subscribe(logVO -> {
                     log.info("Log Data : {}" , logVO.getContent() );
                 });
+
+        log.info("analyze count : {}", logVOList.size());
 
         return "Success!";
     }
