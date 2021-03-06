@@ -1,10 +1,11 @@
 package com.lines.log.reactor.messages;
 
-import com.lines.log.reactor.model.LogDataRQVO;
-import com.lines.log.reactor.model.LogVO;
+import com.lines.lib.command.Command;
+import com.lines.log.reactor.command.AnalyzeCommand;
+import com.lines.model.LogDataRQVO;
+import com.lines.model.LogRQVO;
+import com.lines.model.LogRSVO;
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +21,21 @@ public class LogStream {
 
     @PostMapping("/log/analyze")
     public Object logAnalyze(@RequestBody LogDataRQVO logDataRQVO) {
+        List<LogRQVO> logRQVOList = logDataRQVO.getLogRQVOList();
 
-        List<LogVO> logVOList = logDataRQVO.getLogVOList();
-
-        Flux.fromIterable(logVOList)
+        Flux.fromIterable(logRQVOList)
+                .parallel()
                 .log()
                 .subscribe(logVO -> {
+
+                    Command<LogRSVO> logCommand = new AnalyzeCommand(logVO);
+
+                    logCommand.execute();
+
                     log.info("Log Data : {}" , logVO.getContent() );
                 });
 
-        log.info("analyze count : {}", logVOList.size());
+        log.info("analyze count : {}", logRQVOList.size());
 
         return "Success!";
     }

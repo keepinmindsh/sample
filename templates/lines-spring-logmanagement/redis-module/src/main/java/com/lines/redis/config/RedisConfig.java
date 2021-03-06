@@ -22,12 +22,10 @@ public class RedisConfig {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
     }
 
-
     @Bean
     public RedisTemplate getRedisTemate(){
         RedisTemplate redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         return redisTemplate;
     }
-
 }

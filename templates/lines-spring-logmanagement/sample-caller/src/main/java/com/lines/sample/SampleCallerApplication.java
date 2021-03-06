@@ -1,6 +1,6 @@
 package com.lines.sample;
 
-import com.lines.model.LogVO;
+import com.lines.model.LogRQVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -32,11 +32,11 @@ public class SampleCallerApplication {
             List<String> dataList =  Stream.iterate(0 , i ->  i + 1).limit(187).map(intValue -> { return "Value" + intValue; } ).collect(Collectors.toList());
 
             dataList.forEach(value -> {
-                LogVO logVO = new LogVO();
+                LogRQVO logRQVO = new LogRQVO();
 
-                logVO.setContent(value);
+                logRQVO.setContent(value);
 
-                String personResultAsJsonStr = restTemplate.postForObject("http://localhost:9090/v1/log", logVO, String.class);
+                String personResultAsJsonStr = restTemplate.postForObject("http://localhost:9090/v1/log", logRQVO, String.class);
 
                 log.info("Response Reulst : {}" , personResultAsJsonStr );
 
@@ -50,11 +50,11 @@ public class SampleCallerApplication {
             List<String> dataList =  Stream.iterate(0 , i ->  i + 1).limit(67).map(intValue -> { return "Value" + intValue; } ).collect(Collectors.toList());
 
             dataList.forEach(value -> {
-                LogVO logVO = new LogVO();
+                LogRQVO logRQVO = new LogRQVO();
 
-                logVO.setContent(value);
+                logRQVO.setContent(value);
 
-                String personResultAsJsonStr = restTemplate.postForObject("http://localhost:9090/v1/log", logVO, String.class);
+                String personResultAsJsonStr = restTemplate.postForObject("http://localhost:9090/v1/log", logRQVO, String.class);
 
                 log.info("Response Reulst : {}" , personResultAsJsonStr );
 
