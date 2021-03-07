@@ -1,0 +1,33 @@
+#nohup java -jar m_serviceregistry.jar 1> /dev/null 2>&1 &
+server:
+  port: 8762
+
+spring:
+  application:
+    name: zuul-server
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka,http://localhost:8062/eureka
+  instance:
+    preferIpAddress: true
+
+histrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation : THREAD
+        thread:
+          timeoutInMilliseconds: 95000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnetionTimeOut : 60000
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 2000
+

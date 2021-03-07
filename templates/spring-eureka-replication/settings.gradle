@@ -4,4 +4,5 @@ include 'discovery-service-2'
 include 'proxy-service'
 include 'a-service'
 include 'b-service'
+include 'gateway-server'
 
