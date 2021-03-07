@@ -7,4 +7,5 @@ include 'redis-module'
 include 'sample-caller'
 include 'model'
 include 'log-library'
+include 'log-digger'
 
