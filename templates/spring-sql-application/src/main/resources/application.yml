@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:log4jdbc:oracle:thin:@***.***.***.***:****/*****
+    username: ****
+    password: ****
+
+
+  #WINGSINTEGRATION.dataSource.url=jdbc:log4jdbc:oracle:thin:@222.239.73.170:1537/WPMS07
+  #WINGSINTEGRATION.dataSource.user=WINGSINTEGRATION
+  #WINGSINTEGRATION.dataSource.password=WINGS_4172
+  #WINGSINTEGRATION.dataSource.classname=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
