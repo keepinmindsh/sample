@@ -3,10 +3,9 @@
 
 <mapper namespace="com.lines.sql.dao.UserDao">
     <select id="selectUsers" parameterType="com.lines.sql.model.UserDTO" resultType="com.lines.sql.model.UserDTO">
-        SELECT seq, name, country
-        FROM lab03
-        <if test='country != null and country != ""'>
-            WHERE `country` = #{country}
-        </if>
+        SELECT 100 as seq,
+               'test' as name,
+               'korea' country
+          FROM DUAL
     </select>
 </mapper>
