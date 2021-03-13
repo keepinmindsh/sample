@@ -11,6 +11,7 @@ repositories {
 dependencies {
 
     compile project(":model")
+    compile project(":log-library")
 
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 

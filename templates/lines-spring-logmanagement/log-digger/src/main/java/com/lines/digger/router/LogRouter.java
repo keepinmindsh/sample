@@ -1,9 +1,11 @@
 package com.lines.digger.router;
 
+import com.lines.digger.handler.LogHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -15,9 +17,8 @@ public class LogRouter {
 
     //TODO - https://d2.naver.com/helloworld/6080222 참고해서 Router 함수 적용하기
     @Bean
-    public RouterFunction<ServerResponse> routes(){
-
-        return RouterFunction.route(RequestPredicates.POST("/demo").and(contentType(APPLICATION_JSON)), null);
+    public RouterFunction<ServerResponse> routes(LogHandler logHandler){
+        return RouterFunctions.route(RequestPredicates.POST("/demo").and(contentType(APPLICATION_JSON)), logHandler::post);
     }
 
 
