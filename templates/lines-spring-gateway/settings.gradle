@@ -2,4 +2,6 @@ rootProject.name = 'lines-spring-gateway'
 include 'gateway-server'
 include 'api-service1'
 include 'api-service2'
+include 'api-call-1'
+include 'api-call-2'
 
