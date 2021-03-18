@@ -1,5 +1,6 @@
 package com.lines.digger.handler;
 
+import com.lines.digger.code.OperationCode;
 import com.lines.digger.command.LogCommand;
 import com.lines.lib.command.Command;
 import com.lines.model.LogRSVO;
@@ -12,10 +13,8 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class LogHandler {
-
-    public Mono<ServerResponse> post(ServerRequest serverRequest){
-
-        Command command = new LogCommand();
+    public Mono<ServerResponse> post(ServerRequest serverRequest, OperationCode operationCode){
+        Command command = new LogCommand(operationCode);
 
         command.execute();
 
