@@ -49,8 +49,6 @@ public class LogRouter {
 
     */
 
-     */
-
 
 //    @GetMapping("/logs")
 //    public Object getLogs(){
