@@ -1,7 +1,12 @@
 package com.lines.digger.command;
 
 import com.lines.digger.code.OperationCode;
+import com.lines.digger.command.operation.FileAnalyze;
+import com.lines.digger.command.operation.FileOpen;
+import com.lines.digger.command.operation.FileTree;
 import com.lines.lib.command.Command;
+import com.lines.lib.operation.Operate;
+import com.lines.lib.operation.empty.EmptyOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,25 +17,28 @@ public class LogCommand implements Command {
 
     private final OperationCode operationCode;
 
+    Operate operate = null;
+
     @Override
     public void execute() {
         switch (operationCode){
             case FILE_OPEN:
+                operate = new FileOpen();
+
                 log.info("File Open!");
                 break;
             case FILE_TREE:
+                operate = new FileTree();
+
                 log.info("File Tree!");
                 break;
             case FILE_ANALYZE:
+                operate = new FileAnalyze();
+
                 log.info("File Analyze!");
                 break;
-            case RESERVATION_GET:
-                log.info("Reservation Get!");
-                break;
-            case RESERVATION_KEEP:
-                log.info("Reservation Keep!");
-                break;
             default:
+                operate = new EmptyOperation();
                 break;
         }
     }
