@@ -1,9 +1,12 @@
 package com.lines.digger.router;
 
 import com.lines.digger.code.OperationCode;
+import com.lines.digger.handler.FirstHandler;
 import com.lines.digger.handler.LogHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -15,23 +18,30 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 @Configuration
 @EnableWebFlux
+@RequiredArgsConstructor
 public class LogRouter {
 
+    private final LogHandler logHandler;
+    private final FirstHandler firstHandler;
 
     //TODO - https://d2.naver.com/helloworld/6080222 참고해서 Router 함수 적용하기
+    //TODO - https://alwayspr.tistory.com/44
+    //TODO - https://lts0606.tistory.com/301
     @Bean
     public RouterFunction<ServerResponse> routes(LogHandler logHandler){
         return RouterFunctions
-                .route(RequestPredicates.POST("/file/analyze").and(contentType(APPLICATION_JSON)),
+                .route(RequestPredicates.GET("/file/analyze").and(RequestPredicates.accept(APPLICATION_JSON)),
                         serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_ANALYZE))
-                .andRoute(RequestPredicates.POST("/file/open").and(contentType(APPLICATION_JSON)),
+                .andRoute(RequestPredicates.GET("/file/open").and(RequestPredicates.accept(APPLICATION_JSON)),
                         serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_OPEN))
-                .andRoute(RequestPredicates.POST("/file/tree").and(contentType(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_TREE))
-                .andRoute(RequestPredicates.POST("/reservation/get").and(contentType(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.RESERVATION_GET))
-                .andRoute(RequestPredicates.POST("/reservation/keep").and(contentType(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.RESERVATION_KEEP));
+                .andRoute(RequestPredicates.GET("/file/tree").and(RequestPredicates.accept(APPLICATION_JSON)),
+                        serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_TREE));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> route(FirstHandler firstHandler) {
+        return RouterFunctions.route(
+                RequestPredicates.GET("/hello").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), firstHandler::hello);
     }
 
     // TODO - https://github.com/eugenp/tutorials/blob/master/spring-5-reactive-security/src/main/java/com/baeldung/reactive/functional/EmployeeFunctionalConfig.java 참고 코드 작성

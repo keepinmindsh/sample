@@ -1,16 +1,13 @@
 package com.lines.digger;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@SpringBootConfiguration
-@EnableAutoConfiguration
-@ComponentScan({"com.lines"})
+@SpringBootApplication
 public class LinesDiggerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LinesDiggerApplication.class, args);
+        new SpringApplicationBuilder().parent(LinesDiggerApplication.class).web(WebApplicationType.REACTIVE).build().run(args);
     }
 }
