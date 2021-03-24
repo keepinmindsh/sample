@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LogCommand implements Command {
 
     private final OperationCode operationCode;
+    private final Object param;
 
     Operate operate = null;
 
