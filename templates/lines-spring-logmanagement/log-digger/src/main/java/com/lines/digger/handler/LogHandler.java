@@ -26,7 +26,6 @@ public class LogHandler {
 
         // TODO 응답이 정상적으로 반환되지 않음.
 
-
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromProducer(command.result(), HashMap.class));
     }
 }
