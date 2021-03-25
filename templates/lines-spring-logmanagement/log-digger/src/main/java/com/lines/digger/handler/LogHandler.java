@@ -4,6 +4,7 @@ import com.lines.digger.code.OperationCode;
 import com.lines.digger.command.LogCommand;
 import com.lines.lib.command.Command;
 import com.lines.model.LogRSVO;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -16,20 +17,14 @@ import java.util.HashMap;
 public class LogHandler {
 
     private HashMap<Object, Object> result = new HashMap<>();
-    private Mono<HashMap<Object, Object>> mapper = Mono.just(result);
 
     public Mono<ServerResponse> post(ServerRequest serverRequest, OperationCode operationCode){
 
-        result.put("number", 1234);
-        result.put("text", "webFlux");
+        Command command = new LogCommand(operationCode, serverRequest, result);
 
-        // TODO 파일을 가져오는 프로세스 추가 필요 
-        mapper.subscribe( (arg)->{
-            Command command = new LogCommand(operationCode, result);
+        command.execute();
 
-            command.execute();
-        });
-
-        return ServerResponse.ok().body(BodyInserters.fromProducer(mapper, LogRSVO.class));
+        // TODO 응답이 정상적으로 반환되지 않음. 
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromProducer(command.result(), HashMap.class));
     }
 }

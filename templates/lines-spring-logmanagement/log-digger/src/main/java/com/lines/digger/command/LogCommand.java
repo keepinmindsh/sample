@@ -9,19 +9,28 @@ import com.lines.lib.operation.Operate;
 import com.lines.lib.operation.empty.EmptyOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.server.ServerRequest;
+
+import java.util.Map;
 
 // TODO Log Command 적용 - 파일을 읽어오는 역할을 하는 서비스 적용
 @RequiredArgsConstructor
 @Slf4j
-public class LogCommand implements Command {
+public class LogCommand implements Command<Map> {
 
     private final OperationCode operationCode;
-    private final Object param;
+    private final ServerRequest serverRequest;
+    private final Map result;
 
     Operate operate = null;
 
     @Override
     public void execute() {
+
+        result.put("number", 1234);
+        result.put("text", "webFlux");
+        result.put("path", serverRequest.queryParam("path").get());
+
         switch (operationCode){
             case FILE_OPEN:
                 operate = new FileOpen();
@@ -45,7 +54,7 @@ public class LogCommand implements Command {
     }
 
     @Override
-    public Object result() {
-        return null;
+    public Map result() {
+        return this.result;
     }
 }
