@@ -17,7 +17,7 @@ public class FirstHandler {
     public Mono<ServerResponse> hello(ServerRequest request) {
         result.put("number", 1234);
         result.put("text", "webFlux");
-        mapper.subscribe( (arg)->{//구독..?
+        mapper.subscribe( (arg)->{
             System.out.println(arg);
         });
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromProducer(mapper, HashMap.class));
