@@ -10,40 +10,38 @@ import com.lines.lib.operation.empty.EmptyOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
+import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.Map;
 
 // TODO Log Command 적용 - 파일을 읽어오는 역할을 하는 서비스 적용
 @RequiredArgsConstructor
 @Slf4j
-public class LogCommand implements Command<Map> {
+public class LogCommand implements Command<Mono<Object>> {
 
     private final OperationCode operationCode;
     private final ServerRequest serverRequest;
-    private final Map result;
-
-    Operate operate = null;
+    private Mono<Object> result;
 
     @Override
     public void execute() {
 
-        result.put("number", 1234);
-        result.put("text", "webFlux");
-        result.put("path", serverRequest.queryParam("path").get());
+        Operate<Mono<Object>> operate = null;
 
         switch (operationCode){
             case FILE_OPEN:
-                operate = new FileOpen();
+                operate = new FileOpen(serverRequest);
 
                 log.info("File Open!");
                 break;
             case FILE_TREE:
-                operate = new FileTree();
+                operate = new FileTree(serverRequest);
 
                 log.info("File Tree!");
                 break;
             case FILE_ANALYZE:
-                operate = new FileAnalyze();
+                operate = new FileAnalyze(serverRequest);
 
                 log.info("File Analyze!");
                 break;
@@ -51,10 +49,12 @@ public class LogCommand implements Command<Map> {
                 operate = new EmptyOperation();
                 break;
         }
+
+        this.result = operate.operate();
     }
 
     @Override
-    public Map result() {
+    public Mono<Object> result() {
         return this.result;
     }
 }
