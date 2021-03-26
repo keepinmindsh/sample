@@ -14,11 +14,12 @@ import java.util.HashMap;
 
 @Component
 public class LogHandler {
-    public Mono<ServerResponse> post(ServerRequest serverRequest, OperationCode operationCode){
+    public Mono<ServerResponse> post(ServerRequest serverRequest, OperationCode operationCode) throws Exception {
         Command command = new LogCommand(operationCode, serverRequest);
 
         command.execute();
 
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromProducer(command.result(), HashMap.class));
+        //return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromProducer(command.result(), HashMap.class));
+        return ServerResponse.ok().bodyValue(command.result());
     }
 }

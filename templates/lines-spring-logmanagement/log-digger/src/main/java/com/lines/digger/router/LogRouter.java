@@ -31,11 +31,32 @@ public class LogRouter {
     public RouterFunction<ServerResponse> routes(LogHandler logHandler){
         return RouterFunctions
                 .route(RequestPredicates.GET("/file/analyze").and(RequestPredicates.accept(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_ANALYZE))
+                        serverRequest -> {
+                            try {
+                                return logHandler.post(serverRequest, OperationCode.FILE_ANALYZE);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                return null;
+                            }
+                        })
                 .andRoute(RequestPredicates.GET("/file/open").and(RequestPredicates.accept(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_OPEN))
+                        serverRequest -> {
+                            try {
+                                return logHandler.post(serverRequest, OperationCode.FILE_OPEN);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                return null;
+                            }
+                        })
                 .andRoute(RequestPredicates.GET("/file/tree").and(RequestPredicates.accept(APPLICATION_JSON)),
-                        serverRequest -> logHandler.post(serverRequest, OperationCode.FILE_TREE));
+                        serverRequest -> {
+                            try {
+                                return logHandler.post(serverRequest, OperationCode.FILE_TREE);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                return null;
+                            }
+                        });
     }
 
     @Bean

@@ -18,14 +18,14 @@ import java.util.Map;
 // TODO Log Command 적용 - 파일을 읽어오는 역할을 하는 서비스 적용
 @RequiredArgsConstructor
 @Slf4j
-public class LogCommand implements Command<Mono<Object>> {
+public class LogCommand implements Command<Object> {
 
     private final OperationCode operationCode;
     private final ServerRequest serverRequest;
-    private Mono<Object> result;
+    private Object result;
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
 
         Operate<Mono<Object>> operate = null;
 
@@ -51,10 +51,12 @@ public class LogCommand implements Command<Mono<Object>> {
         }
 
         this.result = operate.operate();
+
+        log.info("Result: {}" , this.result);
     }
 
     @Override
-    public Mono<Object> result() {
+    public Object result() {
         return this.result;
     }
 }
