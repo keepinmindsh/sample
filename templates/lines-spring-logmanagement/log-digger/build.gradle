@@ -8,6 +8,11 @@ repositories {
     mavenCentral()
 }
 
+// https://cpdev.tistory.com/157
+configurations {
+    compile.exclude group: "org.slf4j", module: "slf4j-log4j12"
+}
+
 dependencies {
 
     compile project(":model")
@@ -20,6 +25,11 @@ dependencies {
         exclude group : 'org.springframework.boot', module : 'spring-boot-starter-undertow'
     }
 
+    implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '3.1.1'
+    // https://mvnrepository.com/artifact/org.apache.spark/spark-catalyst
+    implementation group: 'org.apache.spark', name: 'spark-catalyst_2.12', version: '3.1.1'
+    // https://mvnrepository.com/artifact/org.apache.spark/spark-sql
+    implementation group: 'org.apache.spark', name: 'spark-sql_2.12', version: '3.1.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
