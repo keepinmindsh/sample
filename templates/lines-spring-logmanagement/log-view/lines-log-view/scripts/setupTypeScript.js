@@ -5,7 +5,7 @@
   <script lang="ts">
   	export let name: string;
   </script>
- 
+
   As well as validating the code for CI.
   */
 
@@ -44,7 +44,7 @@ const afterMainTSPath = path.join(projectRoot, "src", "main.ts")
 fs.renameSync(beforeMainJSPath, afterMainTSPath)
 
 // Switch the app.svelte file to use TS
-const appSveltePath = path.join(projectRoot, "src", "App.svelte")
+const appSveltePath = path.join(projectRoot, "src", "App.html")
 let appFile = fs.readFileSync(appSveltePath, "utf8")
 appFile = appFile.replace("<script>", '<script lang="ts">')
 appFile = appFile.replace("export let name;", 'export let name: string;')
