@@ -11,8 +11,8 @@ body {
   font-size: 18px;
   font-weight: 400;
   overflow-x: hidden;
-  color: #707172;
-  background-color: #666;
+
+
 }
 
 p {
@@ -32,7 +32,7 @@ a {
   font-size: 0.95rem;
 }
 
-.tm-color-primary {
+.t-color-primary {
   color: #069;
 }
 
@@ -86,11 +86,11 @@ a {
 .tm-brand-box {
   box-sizing: content-box;
   width: 100%;
-  max-width: 230px;
+  max-width: 200px;
   min-height: 160px;
   color: white;
   text-align: center;
-  margin: 70px auto 90px;
+  margin: 20px 20px 20px;
 }
 
 .tm-double-border-1,
@@ -305,7 +305,7 @@ a {
   opacity: 1;
 }
 
-/* 
+/*
   Gallery Item Hover Effect
   https://tympanus.net/codrops/2014/06/19/ideas-for-subtle-hover-effects/
 */
@@ -550,10 +550,10 @@ figure.effect-bubba:hover p {
 
 @media (max-width: 1600px) {
   .tm-sidebar {
-    width: 30%;
+    width: 19%;
     max-width: none;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .tm-social-link {

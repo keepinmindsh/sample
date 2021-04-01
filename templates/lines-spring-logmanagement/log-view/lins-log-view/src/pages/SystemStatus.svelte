@@ -1,5 +1,5 @@
 <div class="tm-section-wrap">
-    <section id="intro" class="tm-section">
+    <section id="intro" class="row tm-section" >
 
         <div class="container">
             <div class="row">
