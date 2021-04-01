@@ -1,5 +1,16 @@
 <script lang="ts" >
     export let logTitle : string = "CMS LOGS";
+
+    interface NavItem {
+        title : string;
+        key : string;
+    }
+
+    export let navItems : NavItem[] =
+        [
+            { title : "System Status ", key : "intro" },
+            { title : "Logs ", key : "about" }
+        ]
 </script>
 
 <nav id="tmSidebar" class="tm-bg-black-transparent tm-sidebar">
@@ -16,36 +27,16 @@
         </div>
 
         <ul id="tmMainNav" class="nav flex-column text-uppercase text-right tm-main-nav">
-            <li class="nav-item">
-                <a href="#intro" class="nav-link active">
-                    <span class="d-inline-block mr-3">System Status</span>
-                    <span class="d-inline-block tm-white-rect"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#about" class="nav-link">
-                    <span class="d-inline-block mr-3">Logs</span>
-                    <span class="d-inline-block tm-white-rect"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#work" class="nav-link">
-                    <span class="d-inline-block mr-3">미정</span>
-                    <span class="d-inline-block tm-white-rect"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#clients" class="nav-link">
-                    <span class="d-inline-block mr-3">미정</span>
-                    <span class="d-inline-block tm-white-rect"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#talk" class="nav-link">
-                    <span class="d-inline-block mr-3">미정</span>
-                    <span class="d-inline-block tm-white-rect"></span>
-                </a>
-            </li>
+
+            {#each navItems as item, i}
+                <li class="nav-item">
+                    <a href="#{item.key}" class="nav-link active">
+                        <span class="d-inline-block mr-3">{item.title}</span>
+                        <span class="d-inline-block tm-white-rect"></span>
+                    </a>
+                </li>
+            {/each}
+
         </ul>
 
         <footer class="text-center text-white small">
