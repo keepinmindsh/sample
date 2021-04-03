@@ -1,25 +1,18 @@
+<script>
+    import Datepicker from 'svelte-calendar';
+
+</script>
+
+
 <div class="tm-section-wrap">
     <section id="intro" class="row tm-section" >
 
         <div class="container">
-            <div class="row" >
-                <div class="col-sm">
-                    <form class="row g-3">
-                        <div class="col-auto">
-                            <label for="staticEmail2" class="visually-hidden">Email</label>
-                            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-                        </div>
-                        <div class="col-auto">
-                            <label for="inputPassword2" class="visually-hidden">Password</label>
-                            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-sm">
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+
+            <div class="mb-3 row">
+                <label for="serverList" class="visually-hidden">서버</label>
+                <div class="col-sm-3">
+                    <input class="form-control" list="datalistOptions" id="serverList" placeholder="Type to search...">
                     <datalist id="datalistOptions">
                         <option value="San Francisco">
                         <option value="New York">
@@ -27,6 +20,52 @@
                         <option value="Los Angeles">
                         <option value="Chicago">
                     </datalist>
+                </div>
+                <label for="userId" class="visually-hidden">사용자</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="userId">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="row">
+                        로그 관리 항목
+                    </div>
+                    <div class="row">
+                        <ul class="list-group">
+                            <li class="list-group-item active">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="row">
+                        로그 일자
+                    </div>
+                    <div class="row">
+                        <Datepicker  />
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="row">
+                        검색조건
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                        <button type="button" class="btn btn-secondary">검색 </button>
+                        </div>
+                        <div class="row">
+                            <div class="md-form">
+
+                            </div>
+                            <div class="md-form">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">

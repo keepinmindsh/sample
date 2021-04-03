@@ -8,7 +8,7 @@ https://templatemo.com/tm-536-dream-pulse
 
 body {
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   overflow-x: hidden;
 
@@ -21,6 +21,32 @@ p {
 
 a {
   transition: all 0.3s ease;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(0.5em + 0.75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 0.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.25rem 1.0rem;
+  margin-bottom: -1px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
 }
 
 .container-fluid {
@@ -71,7 +97,7 @@ a {
   align-items: center;
   height: auto;
   max-width: 1275px;
-  padding: 66px 60px;
+  padding: 5px 5px;
 }
 
 #intro {
@@ -561,7 +587,7 @@ figure.effect-bubba:hover p {
   }
 
   .tm-section-wrap {
-    width: 70%;
+    width: 80%;
   }
 
   .tm-img-wrap a {
