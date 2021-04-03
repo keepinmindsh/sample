@@ -2,8 +2,40 @@
     <section id="intro" class="row tm-section" >
 
         <div class="container">
+            <div class="row" >
+                <div class="col-sm">
+                    <form class="row g-3">
+                        <div class="col-auto">
+                            <label for="staticEmail2" class="visually-hidden">Email</label>
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+                        </div>
+                        <div class="col-auto">
+                            <label for="inputPassword2" class="visually-hidden">Password</label>
+                            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                    <datalist id="datalistOptions">
+                        <option value="San Francisco">
+                        <option value="New York">
+                        <option value="Seattle">
+                        <option value="Los Angeles">
+                        <option value="Chicago">
+                    </datalist>
+                </div>
+            </div>
             <div class="row">
-                <div class="col">cosdfsdfsdfl</div>
+
+                <div class="col">cosdfsdfsdfl
+                </div>
+                <div class="w-100"></div>
+                <div class="col">cosdfsdfsdfl
+                </div>
                 <div class="w-100"></div>
                 <div class="col-sm-2">
                     Level 1: .col-sm-3
