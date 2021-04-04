@@ -1,5 +1,25 @@
 <script>
     import Datepicker from 'svelte-calendar';
+    import TreeView from '../components/TreeView.svelte'
+
+    const tree = {
+        label: "USA", children: [
+            {label: "Florida", children: [
+                    {label: "Jacksonville"},
+                    {label: "Orlando", children: [
+                            {label: "Disney World"},
+                            {label: "Universal Studio"},
+                            {label: "Sea World"},
+                        ]},
+                    {label: "Miami"},
+                ]},
+            {label: "California", children: [
+                    {label: "San Francisco"},
+                    {label: "Los Angeles"},
+                    {label: "Sacramento"},
+                ]},
+        ],
+    }
 
 </script>
 
@@ -26,12 +46,13 @@
                     <input type="text" class="form-control" id="userId">
                 </div>
             </div>
+            <hr />
             <div class="row">
-                <div class="col-sm">
-                    <div class="row">
+                <div class="col-sm border-all-line">
+                    <div class="row p-1">
                         로그 관리 항목
                     </div>
-                    <div class="row">
+                    <div class="row p-1">
                         <ul class="list-group">
                             <li class="list-group-item active">Cras justo odio</li>
                             <li class="list-group-item">Dapibus ac facilisis in</li>
@@ -41,65 +62,125 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div class="row">
+                <div class="col-sm border-all-line">
+                    <div class="row p-1">
                         로그 일자
                     </div>
                     <div class="row">
-                        <Datepicker  />
+                        <div class="col text-left">
+                            <Datepicker  />
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div class="row">
+                <div class="col-sm border-all-line">
+                    <div class="row p-1">
                         검색조건
                     </div>
                     <div class="row">
-                        <div class="row">
-                        <button type="button" class="btn btn-secondary">검색 </button>
+                        <div class="col text-left">
+                            <button class="w-50" >검색</button>
                         </div>
-                        <div class="row">
+                        <div class="w-100"></div>
+                        <div class="col text-left mt-2">
                             <div class="md-form">
-
+                                <label for="timePeriodStart" class="mr-1" >수정 시간</label><input id="timePeriodStart" type="time" > ~ <input id="timePeriodEnd" type="time" >
                             </div>
                             <div class="md-form">
-
+                                <label for="searchContent" class="mr-1" >수정 내용</label><input type="text" id="searchContent" class="w-239" >
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr />
             <div class="row">
 
-                <div class="col">cosdfsdfsdfl
+                <div class="col border-all-line">
+                    box 1
                 </div>
                 <div class="w-100"></div>
-                <div class="col">cosdfsdfsdfl
-                </div>
-                <div class="w-100"></div>
-                <div class="col-sm-2">
-                    Level 1: .col-sm-3
-                </div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-4 col-sm-6">
-                            <div class="tm-bg-white-transparent tm-intro">
-                                <h2 class="tm-section-title mb-5 text-uppercase tm-color-primary">Introducing Dream Pulse</h2>
-                                <p class="tm-color-gray">
-                                    This box alpha 30 percent. Left sidebar is a sticky element.
-                                    Right side Contents are scrolling up and down. This background has a
-                                    parallax effect.
-                                </p>
-                                <p class="mb-0 tm-color-gray">
-                                    Dream Pulse is a Bootstrap 4.3.1 template designed for your websites. You can modify this layout as you like.
-                                </p>
-                            </div>
+                <div class="col mt-1 ">
+                    <div class="row border-all-line" >
+                        <div class="col-sm-4">
+                            Level 1: .col-sm-3
                         </div>
-                        <div class="col-8 col-sm-6">
-                            Level 2: .col-4 .col-sm-6
+                        <div class="col-sm-4">
+                            Level 1: .col-sm-3
+                        </div>
+                        <div class="col-sm-4">
+                            Level 1: .col-sm-3
                         </div>
                     </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-sm-4 border-all-line mt-1 text-left">
+                    <TreeView {tree} />
+                </div>
+                <div class="col-sm-8 border-all-line mt-1">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Thornton</td>
+                            <td>@twitter</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<style>
+    .border-all-line{
+        border : solid 1px;
+    }
+
+    .table td, .table th {
+        padding: 0.15rem;
+        vertical-align: top;
+    }
+
+    .col-sm-8, .col-sm-4 {
+        position: relative;
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 0px;
+        color: #212529;
+    }
+
+    .w-239 {
+        width: 239px;
+    }
+</style>
