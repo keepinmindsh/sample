@@ -19,26 +19,42 @@
                     {label: "Sacramento"},
                 ]},
         ],
+    };
+
+    const logPaths = [
+        "91_NextCMS_Log",
+        "com",
+        "oper01",
+        "oper02",
+        "pms",
+        "spring-boot"
+    ];
+
+    const clickLogPath = (event) => {
+       const groupList = document.querySelectorAll("li.list-group-item");
+
+        let index = 0, length = groupList.length;
+        for ( ; index < length; index++) {
+            groupList[index].classList.remove("active");
+        }
+
+        event.target.classList.add("active");
     }
+
 
 </script>
 
 
 <div class="tm-section-wrap">
     <section id="intro" class="row tm-section" >
-
         <div class="container">
-
             <div class="mb-3 row">
                 <label for="serverList" class="visually-hidden">서버</label>
                 <div class="col-sm-3">
-                    <input class="form-control" list="datalistOptions" id="serverList" placeholder="Type to search...">
+                    <input class="form-control" list="datalistOptions" id="serverList" placeholder="서버를 선택해주세요...">
                     <datalist id="datalistOptions">
-                        <option value="San Francisco">
-                        <option value="New York">
-                        <option value="Seattle">
-                        <option value="Los Angeles">
-                        <option value="Chicago">
+                        <option value="233">
+                        <option value="234">
                     </datalist>
                 </div>
                 <label for="userId" class="visually-hidden">사용자</label>
@@ -54,11 +70,9 @@
                     </div>
                     <div class="row p-1">
                         <ul class="list-group">
-                            <li class="list-group-item active">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            {#each logPaths as path}
+                                <li class="list-group-item" on:click={clickLogPath} >{path}</li>
+                            {/each}
                         </ul>
                     </div>
                 </div>
