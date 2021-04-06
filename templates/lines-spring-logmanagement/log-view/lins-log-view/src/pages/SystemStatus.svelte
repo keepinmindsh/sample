@@ -39,8 +39,31 @@
         }
 
         event.target.classList.add("active");
+
+        callFolderTree();
     }
 
+    const callFolderTree = () => {
+        fetch("http://localhost:7000/file/tree?path=/Users/dream/test/").then((response) => {
+                console.log(response);
+
+                response.text().then(function(text) {
+                    console.log(text);
+                });
+            }
+        );
+    }
+
+    const callOpenFile = () => {
+        fetch("http://localhost:7000/file/open?filePath=/Users/dream/test/text.txt").then((response) => {
+                console.log(response);
+
+                response.text().then(function(text) {
+                    console.log(text);
+                });
+            }
+        );
+    }
 
 </script>
 
