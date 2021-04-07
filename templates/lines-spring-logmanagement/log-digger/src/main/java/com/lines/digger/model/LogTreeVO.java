@@ -4,6 +4,8 @@ package com.lines.digger.model;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -12,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogTreeVO {
-    private String folder;
+    private String label;
     private boolean hasChild;
+    private List<LogTreeVO> children;
 }
