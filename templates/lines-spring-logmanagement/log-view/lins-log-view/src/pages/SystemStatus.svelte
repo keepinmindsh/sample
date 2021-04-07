@@ -49,6 +49,8 @@
 
                 response.text().then(function(text) {
                     console.log(text);
+
+                    console.log("Success:", JSON.parse(text));
                 });
             }
         );
