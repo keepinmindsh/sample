@@ -1,25 +1,7 @@
 <script>
     import Datepicker from 'svelte-calendar';
-    import TreeView from '../components/TreeView.svelte'
 
-    const tree = {
-        label: "USA", children: [
-            {label: "Florida", children: [
-                    {label: "Jacksonville"},
-                    {label: "Orlando", children: [
-                            {label: "Disney World"},
-                            {label: "Universal Studio"},
-                            {label: "Sea World"},
-                        ]},
-                    {label: "Miami"},
-                ]},
-            {label: "California", children: [
-                    {label: "San Francisco"},
-                    {label: "Los Angeles"},
-                    {label: "Sacramento"},
-                ]},
-        ],
-    };
+    let tree = [];
 
     const logPaths = [
         "91_NextCMS_Log",
@@ -43,14 +25,19 @@
         callFolderTree();
     }
 
-    const callFolderTree = () => {
-        fetch("http://localhost:7000/file/tree?path=/Users/dream/test/").then((response) => {
+    const callFolderTree = (itemPath) => {
+
+        let path = itemPath ? itemPath : "/Users/dream/test/";
+
+        fetch(`http://localhost:7000/file/tree?path=${path}`).then((response) => {
                 console.log(response);
 
                 response.text().then(function(text) {
                     console.log(text);
 
-                    console.log("Success:", JSON.parse(text));
+                    console.log("Success:", );
+
+                    tree = JSON.parse(text);
                 });
             }
         );
@@ -157,7 +144,17 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col-sm-4 border-all-line mt-1 text-left">
-                    <TreeView {tree} />
+                    <div class="list-group">
+                        {#each tree as treeItem}
+                            <button type="button" value="{treeItem.path}" on:click={() => { callFolderTree(treeItem.path); }} class="list-group-item list-group-item-action">
+                                {treeItem.label}
+                                {#if treeItem.hasChild}
+                                    <span class="badge bg-primary rounded-pill">V</span>
+                                {:else}
+                                {/if}
+                            </button>
+                        {/each}
+                    </div>
                 </div>
                 <div class="col-sm-8 border-all-line mt-1">
                     <table class="table table-bordered">
