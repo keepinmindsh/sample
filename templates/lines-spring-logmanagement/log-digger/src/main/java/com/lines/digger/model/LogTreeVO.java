@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LogTreeVO {
     private String label;
+    private String path;
     private boolean hasChild;
     private List<LogTreeVO> children;
 }

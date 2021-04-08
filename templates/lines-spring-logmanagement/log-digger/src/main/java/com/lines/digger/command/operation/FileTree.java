@@ -6,10 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,42 +26,19 @@ public class FileTree implements Operate {
 
     @Override
     public Object operate() throws Exception {
-        try (Stream<Path> stream = Files.walk(Paths.get(serverRequest.queryParam("path").orElse("/")), 1)) {
-            return stream
-                    .filter(file -> Files.isDirectory(file))
-                    .map((path) -> LogTreeVO.builder()
-                                .children(recursiveSearchFolder(path))
-                                .hasChild(Files.exists(path))
-                                .label(path.getFileName().toString())
-                                .build())
-                    .collect(Collectors.toList());
-        }
-    }
+        String startPath = serverRequest.queryParam("path").orElse("/");
 
-    // TODO Tree 구조 추가 분석 필요 
-    private List<LogTreeVO> recursiveSearchFolder(Path path){
-        if(Files.exists(path)){
-            try (Stream<Path> stream = Files.walk(path, 1)) {
-                return stream
-                        .filter(file -> Files.isDirectory(file))
-                        .map((deepPath) -> {
+        try (Stream<Path> stream = Files.walk(Paths.get(startPath), 1)) {
+            List<LogTreeVO> logTreeVOList = stream
+                            .filter(file -> Files.isDirectory(file))
+                            .map((path) -> LogTreeVO.builder()
+                                        .hasChild(Files.exists(path))
+                                        .path(startPath + path.getFileName() + File.separator)
+                                        .label(path.getFileName().toString())
+                                        .build())
+                            .collect(Collectors.toList());
 
-                            log.info("log : {}", deepPath.toAbsolutePath().getFileName().toString());
-
-                            return LogTreeVO.builder()
-                                    .children(recursiveSearchFolder(deepPath))
-                                    .hasChild(Files.exists(deepPath))
-                                    .label(deepPath.getFileName().toString())
-                                    .build();
-
-                        })
-                        .collect(Collectors.toList());
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-                return new ArrayList<LogTreeVO>();
-            }
-        }else{
-            return new ArrayList<LogTreeVO>();
+            return  logTreeVOList.subList(1, logTreeVOList.size());
         }
     }
 }
