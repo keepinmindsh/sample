@@ -1,6 +1,8 @@
 
 **/build/
 *.class
+**/bin/*
+**/venv/*
 
 **/build/classes/
 *.class
