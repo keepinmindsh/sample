@@ -2,6 +2,7 @@
     import Datepicker from 'svelte-calendar';
 
     let tree = [];
+    let hostUrl = "http://localhost:7000";
 
     const logPaths = [
         "91_NextCMS_Log",
@@ -29,7 +30,7 @@
 
         let path = itemPath ? itemPath : "/Users/dream/test/";
 
-        fetch(`http://localhost:7000/file/tree?path=${path}`).then((response) => {
+        fetch(`${hostUrl}/file/tree?path=${path}`).then((response) => {
                 console.log(response);
 
                 response.text().then(function(text) {
@@ -44,7 +45,7 @@
     }
 
     const callOpenFile = () => {
-        fetch("http://localhost:7000/file/open?filePath=/Users/dream/test/text.txt").then((response) => {
+        fetch(`${hostUrl}/file/open?filePath=/Users/dream/test/text.txt`).then((response) => {
                 console.log(response);
 
                 response.text().then(function(text) {
