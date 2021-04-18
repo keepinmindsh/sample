@@ -14,7 +14,6 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.web.reactive.function.server.RequestPredicates.contentType;
 
 @Configuration
 @EnableWebFlux
@@ -39,6 +38,16 @@ public class LogRouter {
                                 return null;
                             }
                         })
+                .andRoute(RequestPredicates.GET("/file/lists").and(RequestPredicates.accept(APPLICATION_JSON)),
+                        serverRequest -> {
+                            try {
+                                return logHandler.post(serverRequest, OperationCode.FILE_LIST);
+                            } catch (Exception exception) {
+                                exception.printStackTrace();
+                                return null;
+                            }
+                        }
+                        )
                 .andRoute(RequestPredicates.GET("/file/open").and(RequestPredicates.accept(APPLICATION_JSON)),
                         serverRequest -> {
                             try {

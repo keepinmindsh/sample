@@ -34,11 +34,25 @@ public class FileTree implements Operate {
                             .map((path) -> LogTreeVO.builder()
                                         .hasChild(Files.exists(path))
                                         .path(startPath + path.getFileName() + File.separator)
+                                        .isParent(false)
                                         .label(path.getFileName().toString())
                                         .build())
                             .collect(Collectors.toList());
 
-            return  logTreeVOList.subList(1, logTreeVOList.size());
+            Path rootPath = Paths.get(startPath).getParent();
+
+            logTreeVOList.remove(0);
+
+            LogTreeVO logRootVO = LogTreeVO.builder()
+                    .hasChild(Files.exists(rootPath))
+                    .path(rootPath.toAbsolutePath().toString()+ File.separator)
+                    .isParent(true)
+                    .label("...")
+                    .build();
+
+            logTreeVOList.add(0, logRootVO);
+
+            return logTreeVOList;
         }
     }
 }

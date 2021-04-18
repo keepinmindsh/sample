@@ -2,7 +2,10 @@
     import Datepicker from 'svelte-calendar';
 
     let tree = [];
+    let fileList = [];
     let hostUrl = "http://localhost:7000";
+    let fileContent = "";
+    let fileTitle = "";
 
     const logPaths = [
         "91_NextCMS_Log",
@@ -26,9 +29,11 @@
         callFolderTree();
     }
 
-    const callFolderTree = (itemPath) => {
+    const callFolderTree = (itemPath, isParent) => {
 
         let path = itemPath ? itemPath : "/Users/dream/test/";
+
+        callFileList(itemPath);
 
         fetch(`${hostUrl}/file/tree?path=${path}`).then((response) => {
                 console.log(response);
@@ -44,19 +49,32 @@
         );
     }
 
-    const callOpenFile = () => {
-        fetch(`${hostUrl}/file/open?filePath=/Users/dream/test/text.txt`).then((response) => {
+    const callFileList = (itemPath) => {
+        fetch(`${hostUrl}/file/lists?path=${itemPath}`).then((response) => {
                 console.log(response);
 
                 response.text().then(function(text) {
                     console.log(text);
+
+                    fileList = JSON.parse(text);
+                });
+            }
+        );
+    }
+
+    const callOpenFile = (filePath, fileName) => {
+        fetch(`${hostUrl}/file/open?filePath=${filePath}`).then((response) => {
+                console.log(response);
+
+                response.text().then(function(text) {
+                    fileTitle = fileName;
+                    fileContent = text;
                 });
             }
         );
     }
 
 </script>
-
 
 <div class="tm-section-wrap">
     <section id="intro" class="row tm-section" >
@@ -125,29 +143,11 @@
             </div>
             <hr />
             <div class="row">
-
-                <div class="col border-all-line">
-                    box 1
-                </div>
-                <div class="w-100"></div>
-                <div class="col mt-1 ">
-                    <div class="row border-all-line" >
-                        <div class="col-sm-4">
-                            Level 1: .col-sm-3
-                        </div>
-                        <div class="col-sm-4">
-                            Level 1: .col-sm-3
-                        </div>
-                        <div class="col-sm-4">
-                            Level 1: .col-sm-3
-                        </div>
-                    </div>
-                </div>
                 <div class="w-100"></div>
                 <div class="col-sm-4 border-all-line mt-1 text-left">
                     <div class="list-group">
                         {#each tree as treeItem}
-                            <button type="button" value="{treeItem.path}" on:click={() => { callFolderTree(treeItem.path); }} class="list-group-item list-group-item-action">
+                            <button type="button" value="{treeItem.path}" on:click={() => { callFolderTree(treeItem.path, treeItem.isParent); }} class="list-group-item list-group-item-action">
                                 {treeItem.label}
                                 {#if treeItem.hasChild}
                                     <span class="badge bg-primary rounded-pill">V</span>
@@ -161,33 +161,33 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">FileName</th>
+                                <th scope="col">Process</th>
+                                <th scope="col">CreationTime</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the Bird</td>
-                            <td>Thornton</td>
-                            <td>@twitter</td>
-                        </tr>
+                            {#each fileList as file}
+                                <tr>
+                                    <td> {file.fileName}</td>
+                                    <td> <button type="button" class="btn btn-primary grid-button" on:click={() => {callOpenFile(file.filePath, file.fileName)}} >Open</button></td>
+                                    <td> {file.createdDate}</td>
+                                </tr>
+                            {/each}
                         </tbody>
                     </table>
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    CMS Log Content
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title log-align ">{fileTitle}</h5>
+                    <p class="card-text log-align ">
+                        {@html fileContent}
+                    </p>
                 </div>
             </div>
         </div>
@@ -215,6 +215,14 @@
         width: 100%;
         margin-bottom: 0px;
         color: #212529;
+    }
+
+    .grid-button {
+        line-height: 0.5 !important;
+    }
+
+    .log-align {
+        text-align: left !important;
     }
 
     .w-239 {
