@@ -152,6 +152,7 @@ a {
   padding-right: 70px;
   width: 400px;
   max-width: 400px;
+  background-color: rgb(63, 191, 180) !important;
 }
 
 /* Hide scrollbar */
@@ -167,6 +168,10 @@ a {
 }
 
 .tm-sidebar-sticky {
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  bottom: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -602,7 +607,7 @@ figure.effect-bubba:hover p {
 
 @media (max-width: 991px) {
   .tm-bg-black-transparent {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(63, 191, 180) !important;
   }
 
   .tm-brand-box {
@@ -640,7 +645,7 @@ figure.effect-bubba:hover p {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(63, 191, 180) !important;
     color: white;
     padding: 10px 15px;
     transition: all 0.3s ease;

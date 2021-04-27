@@ -1,4 +1,7 @@
-<script>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js">
+    import {Container, Col, Row, Button, Card, CardBody, Form, FormGroup, FormText, Icon, 
+    Input, Label, ListGroup, ListGroupItem, Collapse,CardHeader,CardSubtitle,
+    CardText,CardTitle, Table } from 'sveltestrap';
     import Datepicker from 'svelte-calendar';
 
     let tree = [];
@@ -16,17 +19,25 @@
         "spring-boot"
     ];
 
+    const columns = ["FileName", "Process", "CreationTime"];
+
+    const dummyData = [
+        ["test1", "process1", new Date().toString()],
+        ["test1", "process2", new Date().toString()],
+        ["test1", "process3", new Date().toString()],
+    ];
+
     const clickLogPath = (event) => {
-       const groupList = document.querySelectorAll("li.list-group-item");
+       const groupList = document.querySelectorAll("item");
 
         let index = 0, length = groupList.length;
-        for ( ; index < length; index++) {
+        for ( index; index < length; index++) {
             groupList[index].classList.remove("active");
         }
 
         event.target.classList.add("active");
 
-        callFolderTree();
+        //callFolderTree();
     }
 
     const callFolderTree = (itemPath, isParent) => {
@@ -74,158 +85,190 @@
         );
     }
 
+    let isOpen = false;
+
 </script>
 
-<div class="tm-section-wrap">
-    <section id="intro" class="row tm-section" >
-        <div class="container">
-            <div class="mb-3 row">
-                <label for="serverList" class="visually-hidden">서버</label>
-                <div class="col-sm-3">
-                    <input class="form-control" list="datalistOptions" id="serverList" placeholder="서버를 선택해주세요...">
-                    <datalist id="datalistOptions">
-                        <option value="233">
-                        <option value="234">
-                    </datalist>
-                </div>
-                <label for="userId" class="visually-hidden">사용자</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="userId">
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm border-all-line">
-                    <div class="row p-1">
-                        로그 관리 항목
-                    </div>
-                    <div class="row p-1">
-                        <ul class="list-group">
-                            {#each logPaths as path}
-                                <li class="list-group-item" on:click={clickLogPath} >{path}</li>
-                            {/each}
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm border-all-line">
-                    <div class="row p-1">
-                        로그 일자
-                    </div>
-                    <div class="row">
-                        <div class="col text-left">
-                            <Datepicker  />
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-sm border-all-line">
-                    <div class="row p-1">
-                        검색조건
-                    </div>
-                    <div class="row">
-                        <div class="col text-left">
-                            <button class="w-50" >검색</button>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col text-left mt-2">
-                            <div class="md-form">
-                                <label for="timePeriodStart" class="mr-1" >수정 시간</label><input id="timePeriodStart" type="time" > ~ <input id="timePeriodEnd" type="time" >
-                            </div>
-                            <div class="md-form">
-                                <label for="searchContent" class="mr-1" >수정 내용</label><input type="text" id="searchContent" class="w-239" >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="w-100"></div>
-                <div class="col-sm-4 border-all-line mt-1 text-left">
-                    <div class="list-group">
-                        {#each tree as treeItem}
-                            <button type="button" value="{treeItem.path}" on:click={() => { callFolderTree(treeItem.path, treeItem.isParent); }} class="list-group-item list-group-item-action">
-                                {treeItem.label}
-                                {#if treeItem.hasChild}
-                                    <span class="badge bg-primary rounded-pill">V</span>
-                                {:else}
-                                {/if}
-                            </button>
+<Container>
+    <Row class='mt-3'>
+        <Col>
+            <div class="shadow mb-3 bg-white rounded">
+                <Card body class="pb-0">
+                    <FormGroup row>
+                        <Col sm='6'>
+                            <Row class='mt-3'>
+                                <Col sm='2' md={{offset:1}}>
+                                    <Label for='server'>
+                                        <div class='label'>
+                                            서버
+                                        </div>
+                                    </Label>
+                                </Col>  
+                                <Col sm='10' md={{size: 8}} class='pl-0'>  
+                                    <Input type='select' name='server' id='serverSelect'>  
+                                        <option value = "">서버를 선택하세요</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </Input>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col sm='6'>
+                            <Row class='mt-3'>
+                                <Col sm='2' md={{offset:1}}>
+                                    <Label for='user'><div class='label'>사용자</div></Label>
+                                </Col>  
+                                <Col sm='10' md={{size: 8}} class='pl-0'>
+                                    <Input 
+                                        type='text'
+                                        name='user'
+                                        id='user'
+                                    />    
+                                </Col>
+                            </Row>
+                        </Col>
+                    </FormGroup>
+                </Card>
+            </div> 
+        </Col>
+    </Row>
+    <Row class='mt-2'>
+        <Col sm='4'>
+            <div class="shadow mb-2 bg-white rounded">
+                <Card body>
+                    <Label for='list' class='m-auto'><div class='label'>로그 관리 항목</div></Label>
+                    <hr/>
+                    <div class='cardBody'>
+                        <ListGroup class='list'>
+                        {#each logPaths as log, index}
+                            {#if index == 0}
+                                <ListGroupItem tag="button" action active>{log}</ListGroupItem>
+                            {/if}
+                            <ListGroupItem tag="button" action>{log}</ListGroupItem>
                         {/each}
+                    </ListGroup>
                     </div>
-                </div>
-                <div class="col-sm-8 border-all-line mt-1">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">FileName</th>
-                                <th scope="col">Process</th>
-                                <th scope="col">CreationTime</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each fileList as file}
-                                <tr>
-                                    <td> {file.fileName}</td>
-                                    <td> <button type="button" class="btn btn-primary grid-button" on:click={() => {callOpenFile(file.filePath, file.fileName)}} >Open</button></td>
-                                    <td> {file.createdDate}</td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                    </table>
-                </div>
-
+                </Card>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    CMS Log Content
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title log-align ">{fileTitle}</h5>
-                    <p class="card-text log-align ">
-                        {@html fileContent}
-                    </p>
-                </div>
+        </Col>
+        <Col sm='4' class='pl-0'>
+            <div class="shadow mb-2 bg-white rounded">
+                <Card body>
+                    <Label for='list' class='m-auto'><div class='label'>로그 일자</div></Label>
+                    <hr/>
+                    <div class='cardBody'>
+                        <Datepicker/>
+                    </div>
+                </Card>
             </div>
-        </div>
-    </section>
-</div>
+        </Col>
+        <Col sm='4' class='pl-0'>
+            <div class="shadow mb-2 bg-white rounded">
+                <Card body>
+                    <Label for='list' class='m-auto'><div class='label'>검색 조건</div></Label>
+                    <hr/>
+                    <div class='cardBody'>    
+                        <Row class='mb-2'>
+                            <Col sm='3' class='pr-0'>
+                                <div class='title'>수정 시간</div>  
+                            </Col>
+                            <Col sm='4' class='p-0'>
+                                <Input 
+                                    type='time' 
+                                    name='from' 
+                                    id='from' 
+                                    placeholder='time placeholder' 
+                                />
+                            </Col>
+                            <div>&nbsp;~&nbsp;</div>
+                            <Col sm='4'class='p-0'>
+                                <Input
+                                    type='time' 
+                                    name='from' 
+                                    id='from' 
+                                    placeholder='time placeholder'
+                                />
+                            </Col>
+                        </Row>
+                        <Row class='mb-2'>
+                            <Col sm='3' class='pr-0'>
+                                <div class='title'>검색 조건</div>  
+                            </Col>
+                            <Col sm='9' class='pl-0'>
+                                <Input 
+                                    type='text'
+                                    name='keyword'
+                                    id='keyword'
+                                />    
+                            </Col>
+                        </Row>
+                        <div class='btn btn-outline-info' on:click={() => (isOpen = !isOpen)}>
+                            검색
+                        </div>
+                    </div>
+                </Card>
+            <div>
+        </Col>
+    </Row>
+    <br>
+    <Table hover>
+        <thead>
+            <tr>
+                <th>#</th>
+                {#each columns as column}
+                    <th>{column}</th>
+                {/each}
+            </tr>
+        </thead>
+        <tbody>
+            {#each dummyData as row, index}
+            <tr>
+                <th scope="row">{index+1}</th>
+                {#each row as cell}
+                <td>{cell}</td>
+                {/each}
+            </tr>
+	    {/each}
+        </tbody>
+    </Table>
+    
+    <Collapse {isOpen}>
+        <Card>
+        <CardHeader>
+            <Label for='content'><div class='content'>CMS Log Content</div></Label>
+        </CardHeader>
+        <CardBody>
+            <CardText>
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
+            </CardText>
+        </CardBody>
+    </Card>
+    </Collapse>
+</Container>
 
 <style>
-    .border-all-line{
-        border : solid 1px;
+    .label {
+        font-weight: bold;
+        color: #777;
     }
 
-    .table td, .table th {
-        padding: 0.15rem;
-        vertical-align: top;
+    .cardBody {
+        height: 22vh !important;
     }
 
-    .col-sm-8, .col-sm-4 {
-        position: relative;
-        width: 100%;
-        padding-right: 0px;
-        padding-left: 0px;
+    .title {
+        font-weight: bold;
+        color: #777;
+        text-align: left;
+        margin-bottom: 8px;
     }
 
-    .table {
-        width: 100%;
-        margin-bottom: 0px;
-        color: #212529;
+    .content {
+        padding-top: 5px;
+        font-weight: bold;
+        font-size: large;
+        color: #777;
+        text-align: left;
     }
 
-    .grid-button {
-        line-height: 0.5 !important;
-    }
-
-    .log-align {
-        text-align: left !important;
-    }
-
-    .w-239 {
-        width: 239px;
-    }
 </style>

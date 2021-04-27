@@ -1,45 +1,23 @@
 <script lang="ts">
 	 import Nav from './pages/Nav.svelte';
+	 import {Container, Row, Col} from 'sveltestrap';
 	 import SystemStatus from './pages/SystemStatus.svelte';
 	 import Logs from './pages/Logs.svelte';
 </script>
 
 <index>
-	<main class="container-fluid">
-		<div class="row">
-			<Nav />
-
-			<main role="main" class="ml-sm-auto col-12">
-				<div class="parallax-window"
-					 data-parallax="scroll"
-					 data-image-src="img/dream-pulse-header.jpg">
-					<SystemStatus />
-				</div>
-
-				<div class="tm-section-wrap bg-white">
-					<Logs />
-				</div>
-
-				<div class="tm-section-wrap bg-white">
-					<section id="work" class="row tm-section">
-
-					</section>
-				</div>
-
-				<div class="tm-section-wrap bg-white">
-					<section id="clients" class="row tm-section">
-
-					</section>
-				</div>
-
-				<div class="tm-section-wrap bg-white">
-					<section id="talk" class="row tm-section">
-					</section>
-				</div>
-
-			</main>
-		</div>
-	</main>
+	<Container fluid>
+		<Row>
+			<Col md='3'>
+				<Nav/>
+			</Col>
+				
+			<Col md='9 pl-0'>
+				<SystemStatus/>
+			</Col>
+		</Row>
+	</Container>
+	
 </index>
 
 <style>
