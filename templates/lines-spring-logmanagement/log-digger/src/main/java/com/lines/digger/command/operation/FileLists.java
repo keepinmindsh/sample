@@ -29,7 +29,7 @@ public class FileLists implements Operate {
 
         try (Stream<Path> stream = Files.walk(Paths.get(startPath), 1)) {
             List<LogFileVO> logTreeVOList = stream
-                    .filter(file -> !Files.isDirectory(file))
+                    .filter(file -> file.toFile().isFile())
                     .map((path) -> {
                         String creationTime = "";
                         try {
@@ -51,7 +51,7 @@ public class FileLists implements Operate {
                             .build();
                     })
                     .collect(Collectors.toList());
-
+            log.info(String.format("logFile : %s", logTreeVOList.toString()));
             return logTreeVOList;
         }catch (Exception exception){
             return new ArrayList<LogFileVO>();

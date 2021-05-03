@@ -7,14 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,17 +24,21 @@ public class FileTree implements Operate {
     @Override
     public Object operate() throws Exception {
         String startPath = serverRequest.queryParam("path").orElse("/");
+        String fixedPath = startPath.endsWith("//") ? startPath.replace("//", "/") : startPath;
 
-        try (Stream<Path> stream = Files.walk(Paths.get(startPath), 1)) {
+        System.out.println(String.format("Path : %s", fixedPath));
+
+        try (Stream<Path> stream = Files.walk(Paths.get(fixedPath).toAbsolutePath(), 1)) {
             List<LogTreeVO> logTreeVOList = stream
-                            .filter(file -> Files.isDirectory(file))
-                            .map((path) -> LogTreeVO.builder()
-                                        .hasChild(Files.exists(path))
-                                        .path(startPath + path.getFileName() + File.separator)
-                                        .isParent(false)
-                                        .label(path.getFileName().toString())
-                                        .build())
-                            .collect(Collectors.toList());
+            		 .filter(file -> Files.isDirectory(file))
+                     .map((path) -> LogTreeVO.builder()
+                                 .hasChild(Files.exists(path))
+                                 .childCount(new File(path.toString()).list().length)
+                                 .path(fixedPath + path.getFileName() + "/")
+                                 .isParent(new File(path.toString()).list().length != 0 ? true : false)
+                                 .label(path.getFileName().toString())
+                                 .build())
+                     .collect(Collectors.toList());
 
             Path rootPath = Paths.get(startPath).getParent();
 
@@ -45,8 +46,8 @@ public class FileTree implements Operate {
 
             LogTreeVO logRootVO = LogTreeVO.builder()
                     .hasChild(Files.exists(rootPath))
-                    .path(rootPath.toAbsolutePath().toString()+ File.separator)
-                    .isParent(true)
+                    .path(rootPath.toAbsolutePath().toString()+ "/")
+                    .isParent(true) 
                     .label("...")
                     .build();
 

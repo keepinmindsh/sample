@@ -1,52 +1,34 @@
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" 
         href="https://unpkg.com/mdbsvelte@latest/dist/mdbsvelte.js">
-    import { FormGroup, Input, Label, Collapse, CardHeader,CardText, Card, CardBody } from 'sveltestrap';
-    import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBBadge, MDBCardTitle, MDBCardText, MDBListGroup, MDBListGroupItem} from "mdbsvelte";
+    import { onMount } from 'svelte';
+    import { FormGroup, Input, Label,CardText, Card, CardBody } from 'sveltestrap';
+    import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBBadge, MDBListGroup, MDBListGroupItem} from "mdbsvelte";
     import { Svroller } from 'svrollbar'
     import Datepicker from 'svelte-calendar';
     import { getComparator } from "../utilities/helper.js";
     import "../../public/css/Table.css";
     import "../../public/css/button.css";
-
-    let userValue = '';
-    let tree = [];
-    $: treeClone = [...tree];
+    
+    export let hostUrl;
+    export let serverData;
+    
+    const columns = ["FileName", "Process", "CreationTime"];
+    
+    let userId = null;
     let fileList = [];
-    let hostUrl = "http://localhost:7000";
-    let fileContent = "No file selected";
-    let fileTitle = "";
+    let tree = [];    
+    let fileTitle = '';
+    let fileContent = 'No file selected';
+    let logPaths = [];
+    let logPathsCopy = [];
+    
+    $:treeClone = tree;
+    $:logPathsClone = [...logPaths]; 
     $:fileTitleClone = fileTitle;
     $:fileContentClone = fileContent;
 
-    let logPaths = [];
-    let logPathsCopy = [];
-    $: newLogPath = [...logPaths];
-
-    const logData1 = [
-        {title:"91_NextCMS_Log",path:"C:/Users/ekdldksp12/Desktop/산하정보기술/네이트온", active: false},
-        {title:"com", path:"D:/boot-workspace/WINGS-API-CMS/08_WingsCMS_Distributed", active: false},
-        {title:"oper01", path:"D:/boot-workspace/WINGS-API-CMS/11_WingsCMS", active: false},
-        {title:"oper02", path: "D:/boot-workspace/WINGS-API-CMS/21_OTA", active: false},
-        {title:"pms", path: "D:/boot-workspace/WINGS-API-CMS/99_Cloud", active: false},
-        {title:"spring-boot", path: "D:/boot-workspace/WINGS-API-CMS", active: false}
-    ];
-
-    
-    const logData2 = [
-        {title:"NextCMS_Log2",path:"C:/Users/ekdldksp12/Desktop/산하정보기술/네이트온", active: false},
-        {title:"com2", path:"D:/boot-workspace/WINGS-API-CMS/08_WingsCMS_Distributed", active: false},
-        {title:"oper03", path:"D:/boot-workspace/WINGS-API-CMS/11_WingsCMS", active: false},
-        {title:"oper04", path: "D:/boot-workspace/WINGS-API-CMS/21_OTA", active: false},
-        {title:"pms2", path: "D:/boot-workspace/WINGS-API-CMS/99_Cloud", active: false},
-        {title:"spring-boot2", path: "D:/boot-workspace/WINGS-API-CMS", active: false}
-    ];
-
-    const serverData = [
-        ["WAS7", [...logData1]],
-        ["WAS8", [...logData2]],
-    ];
-
-    const columns = ["FileName", "Process", "CreationTime"];
+    let sortColumn = null;
+    let sortDirection = null;
 
     const clickLogPath = (path, index) => {
         fileList = [];
@@ -63,42 +45,39 @@
             }
         }
         logPaths = [...logPathsCopy];
+        
         callFolderTree(path);
     }
 
-    const callFolderTree = (itemPath) => {
-        
-        callFileList(itemPath);
-        console.log('click');
-        try{
-            fetch(`${hostUrl}/file/tree?path=${itemPath+'/'}`).then((response) => {
-                response.text().then(function(text) {
-                    console.log("Success:", text);
-                    tree = JSON.parse(text);
-                });
-            }
-        );
-        }catch(error){
-            console.log(`error : ${error}`);
-        }
+    async function callFolderTreeAsync (itemPath) {
+        if(itemPath === '') return [];
+
+        const response = await fetch(`${hostUrl}/file/tree?path=${itemPath+'/'}`);
+        const text = await response.text();
+
+        if(response.ok) return JSON.parse(text);
+        else throw new Error(text);
     }
 
-    const callFileList = (itemPath) => {
-        fileList = [];
-        try {
-            fetch(`${hostUrl}/file/lists?path=${itemPath}`).then((response) => {
-                    response.text().then(function(text) {
-                        fileList = JSON.parse(text);
-                    }).catch((error) => console.log(`error : ${error}`));
-                }
-            );
-        } catch(error) {
-            console.log(`error : ${error}`);
-        }
+    async function callFolderTree (itemPath) {
+        console.log('callFolderTree');
+        fileList = await callFileList(itemPath);
+        console.log(`fileList : ${fileList}`);
+        tree = await callFolderTreeAsync(itemPath);
+        console.log(`tree : ${tree}`);
+    }
+
+    async function callFileList(itemPath) {
+        if(itemPath === '') return [];
+
+        const response = await fetch(`${hostUrl}/file/lists?path=${itemPath}`);
+        const text = await response.text();
+
+        if(response.ok) return JSON.parse(text);
+        else throw new Error(text);
     }
 
     const callOpenFile = (filePath, fileName) => {
-        console.log(`name: ${fileName}, path: ${filePath}`);
         try {
             fetch(`${hostUrl}/file/open?filePath=${filePath}`).then((response) => {
                     response.text().then(function(text) {
@@ -111,9 +90,6 @@
             console.log(`error : ${error}`);
         }
     }
-
-    let sortColumn = null;
-    let sortDirection = null;
 
     function sortBy(column) {
     const sameColumn = column === sortColumn;
@@ -128,33 +104,31 @@
       : "ASC";
     }
 
-    function sortData() {
-    let items = [...fileList];
+    const sortData = () => {
+        let items = [...fileList];
 
-    if (!fileList.length) return fileList;
+        if (!fileList.length) return fileList;
 
-    const type = typeof fileList[0][sortColumn.toLowerCase()];
+        const type = typeof fileList[0][sortColumn.toLowerCase()];
 
-    items.sort(getComparator(type, sortColumn));
+        items.sort(getComparator(type, sortColumn));
 
-    return sortDirection === "ASC" ? items : items.reverse();
-  }
+        return sortDirection === "ASC" ? items : items.reverse();
+    }
 
-  $: display = sortColumn && sortDirection ? sortData() : [...fileList];
+    $: display = sortColumn && sortDirection ? sortData() : [...fileList];
 
-  const onChange = (event) => {
-      logPaths = [];  
-      let data = serverData[event.target.value][1];
-      console.log(data);
-      logPaths = [...data];
-      tree = [];
-      fileList = [];
-  }
+    const onChange = (event) => {
+        let data = serverData[event.target.value][1];
+        console.log(data);
+        logPaths = [...data];
+        tree = [];
+        fileList = [];
+    }
 
-  const sort = (column) => {
-    return column === sortColumn ? sortDirection : null;
-  }
-
+    const sort = (column) => {
+        return column === sortColumn ? sortDirection : null;
+    }
 
 </script>
 
@@ -209,7 +183,7 @@
                                             type='text'
                                             name='user'
                                             id='user'
-                                            bind:value={userValue}
+                                            bind:value={userId}
                                         />    
                                     </MDBCol>
                                 </MDBRow>
@@ -230,7 +204,7 @@
                         <div class='overflow-hidden cardBody'>
                             <Svroller width="100%" height="25vh">
                                 <MDBListGroup>
-                                    {#each newLogPath as log, index}
+                                    {#each logPathsClone as log, index}
                                         <div class="item">
                                             <MDBListGroupItem 
                                                 on:click={() => clickLogPath(log.path, index)}
@@ -254,7 +228,7 @@
                     <div class='overflow-hidden cardBody'>
                         <Svroller width="100%" height="25vh">
                             <MDBListGroup>
-                                {#if tree.length > 0}
+                                <!-- {#if tree.length > 0} -->
                                     {#each treeClone as item}
                                         <div class="folder">
                                             <MDBListGroupItem class="d-flex justify-content-between align-items-center" on:click={() => callFolderTree(item.path)}>{item.label}
@@ -266,7 +240,36 @@
                                             </MDBListGroupItem>
                                         </div>
                                     {/each}
-                                {/if}
+                                <!-- {/if} -->
+                                <!-- {#await tree}
+                                    <div></div>
+                                {:then folder}
+                                    {#each folder as item}
+                                        <div class="folder">
+                                            <MDBListGroupItem class="d-flex justify-content-between align-items-center" on:click={() => callFolderTree(item.path)}>{item.label}
+                                            {#if item.childCount > 0 }
+                                                <MDBBadge color="deep-orange" pill>{item.childCount}</MDBBadge>
+                                            {:else}                    
+                                                <MDBBadge color="cyan" pill>{item.childCount}</MDBBadge>    
+                                            {/if}
+                                            </MDBListGroupItem>
+                                        </div>
+                                    {/each}
+                                {/await} -->
+
+                                <!-- {#each tree as items}
+                                    {#await callFolderTree(items.path) then item}
+                                    <div class="folder">
+                                        <MDBListGroupItem class="d-flex justify-content-between align-items-center" on:click={() => callFolderTree(item.path)}>{item.label}
+                                        {#if item.childCount > 0 }
+                                            <MDBBadge color="deep-orange" pill>{item.childCount}</MDBBadge>
+                                        {:else}                    
+                                            <MDBBadge color="cyan" pill>{item.childCount}</MDBBadge>    
+                                        {/if}
+                                        </MDBListGroupItem>
+                                    </div>
+                                    {/await}
+                                {/each} -->
                             </MDBListGroup>
                         </Svroller>
                     </div>
