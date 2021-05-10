@@ -10,6 +10,9 @@ module.exports = {
     css: css => {
         css.write('public/build/bundle.css');
     },
+    installOptions: {
+        rollup: { plugins: [require('rollup-plugin-svelte')()] }
+    },
     preprocess: sveltePreprocess({
         sourceMap: !production
     }),

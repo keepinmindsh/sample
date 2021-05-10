@@ -17,6 +17,7 @@ public class LogTreeVO {
     private String label;
     private String path;
     private boolean hasChild;
+    private int childCount;
     private boolean isParent;
     private List<LogTreeVO> children;
 }

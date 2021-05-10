@@ -29,14 +29,20 @@ public class LogCommand implements Command<Object> {
 
         switch (operationCode){
             case FILE_OPEN:
-                operate = new FileOpen(serverRequest);
+            	log.info("File Open!");
+        		operate = new FileOpen(serverRequest);
+                log.info(String.format("Result : %s", operate.operate()));
+                //log.info("File Open!");
 
-                log.info("File Open!");
                 break;
             case FILE_TREE:
-                operate = new FileTree(serverRequest);
-
-                log.info("File Tree!");
+            	log.info("File Tree!");
+            	try {
+            		operate = new FileTree(serverRequest);        		
+            		log.info(String.format("Result : %s", operate.operate()));
+				} catch (Exception e) {
+					log.error(String.format("File Tree Exception : %s", e.getMessage()));
+				}
                 break;
             case FILE_DOWNLOAD :
                 operate = new FileDownload(serverRequest);
@@ -49,9 +55,14 @@ public class LogCommand implements Command<Object> {
                 log.info("File Analyze!");
                 break;
             case FILE_LIST :
-                operate = new FileLists(serverRequest);
-
-                log.info("File Lists");
+            	log.info("File Lists");
+            	try {
+            		operate = new FileLists(serverRequest);
+            		log.info(String.format("Result : %s", operate.operate()));			
+				} catch (Exception e) {
+					log.error(String.format("File List Exception : %s", e.getMessage()));
+				}
+                
                 break;
             default:
                 operate = new EmptyOperation();
