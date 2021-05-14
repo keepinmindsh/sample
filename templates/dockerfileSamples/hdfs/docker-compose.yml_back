@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  namenode:
+    image: hadoop-namenode:2.10.1
+    container_name: namenode
+    hostname: namenode
+    ports:
+      - "50070:50070"
+      - "9000:9000"
+    volumes:
+      - namenode:/opt/hadoop/dfs/name
+      - /Users/dream/GIT/sample/templates/dockerfileSamples/hdfs/tmp:/tmp
+    networks:
+      - bridge
+
+volumes:
+  namenode:
+
+networks:
+  bridge:
