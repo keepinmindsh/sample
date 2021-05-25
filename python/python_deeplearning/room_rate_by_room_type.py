@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("ROOM_RATE.csv")
+df = pd.read_csv("ROOM_RATE 3.csv")
 print(df.head())
 print(df.info())
 

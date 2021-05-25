@@ -5,13 +5,15 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("ROOM_RATE 3.csv")
 print(df.head())
-print(df.info())
+
 
 df_cleaned = df.dropna(how='all')
+df_typecasting =  df_cleaned.astype({"LODG_DATE":'int64'})
 
+print(df_typecasting.info())
 
-X = df_cleaned["LODG_DATE"][:50]
-y = df_cleaned["ROOM_FEE"][:50]
+X = df_typecasting["LODG_DATE"][:50]
+y = df_typecasting["ROOM_FEE"][:50]
 #plt.plot(X, y, 'o')
 #plt.show()
 
