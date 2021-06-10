@@ -1,6 +1,7 @@
 import pandas as pd
 from statsmodels.tsa.arima_model import ARIMA
 import statsmodels.api as sm
+import matplotlib.pyplot as plt
 
 file_path = 'RoomRate_RBS.csv'
 
@@ -21,4 +22,9 @@ model = ARIMA(roomRateDf.ROOM_FEE.values, order=(2,1,2))
 #trend : constant를 가지고 있는지, c - constant / nc - no constant
 #disp : 수렴 정보를 나타냄
 model_fit = model.fit(trend='c', full_output=True, disp=True)
-print(model_fit.summary())
+
+fig = model_fit.plot_predict()
+
+residuals = pd.DataFrame(model_fit.resid)
+residuals.plot()
+plt.show()
