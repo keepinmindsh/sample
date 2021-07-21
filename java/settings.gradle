@@ -7,4 +7,5 @@ include 'patternsample'
 include 'soap'
 include 'algorithm'
 include 'algorithm'
+include 'next-step-sample'
 

@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    //id 'org.openjfx.javafxplugin' version '0.0.7'   // 추가
+    id 'org.openjfx.javafxplugin' version '0.0.7'   // 추가
 }
 
 repositories {
@@ -15,7 +15,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
-    //apply plugin: 'org.openjfx.javafxplugin'
+    apply plugin: 'org.openjfx.javafxplugin'
 
     repositories {
         maven { url "https://repo.spring.io/milestone" }
@@ -85,9 +85,9 @@ project(':javaversion'){
 project(':javafx'){
     dependencies {
 
-//        javafx {
-//            modules = [ 'javafx.controls', 'javafx.fxml' ]  // 추가
-//        }
+        javafx {
+            modules = [ 'javafx.controls', 'javafx.fxml' ]  // 추가
+        }
     }
 }
 
@@ -163,6 +163,13 @@ project(':samplecode'){
 
         implementation "com.google.zxing:core:3.3.0"
         implementation 'com.google.zxing:javase:3.3.0'
+
+        implementation group: 'org.openmuc', name: 'jrxtx', version: '1.0.0'
+        // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
+        // TODO - MAC/WINDOWS에 대한 java fx 버전 체크 필요
+        implementation group: 'org.openjfx', name: 'javafx-graphics', version: '11.0.2', classifier : 'mac'
+        implementation group: 'org.openjfx', name: 'javafx-controls', version: '11.0.2', classifier : 'mac'
+
     }
 }
 

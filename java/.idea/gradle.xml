@@ -10,14 +10,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/algorithm" />
             <option value="$PROJECT_DIR$/designpattern" />
             <option value="$PROJECT_DIR$/javafx" />
             <option value="$PROJECT_DIR$/javaversion" />
+            <option value="$PROJECT_DIR$/next-step-sample" />
             <option value="$PROJECT_DIR$/patternsample" />
             <option value="$PROJECT_DIR$/samplecode" />
+            <option value="$PROJECT_DIR$/soap" />
           </set>
         </option>
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
