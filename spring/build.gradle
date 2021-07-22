@@ -1,12 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.2'
+    id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'idea'
     id 'java'
 }
 
 repositories {
-    maven { url "https://repo.spring.io/milestone" }
     mavenCentral()
 }
 
@@ -17,13 +16,11 @@ subprojects {
     apply plugin: 'org.springframework.boot'
 
     repositories {
-        maven { url "https://repo.spring.io/milestone" }
         mavenCentral()
     }
 
     dependencyManagement {
         imports {
-            mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.3"
         }
         dependencies {
@@ -45,14 +42,10 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
-        implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.reactivestreams:reactive-streams'
         implementation 'org.slf4j:slf4j-api'
         implementation 'io.springfox:springfox-swagger2:2.9.2'
         implementation 'io.springfox:springfox-swagger-ui:2.9.2'
-
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
     sourceCompatibility = JavaVersion.VERSION_11
@@ -67,18 +60,24 @@ subprojects {
 project(':componentscan'){
     dependencies {
 
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
 
 project(':contextheirarchy'){
     dependencies {
 
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
 
 project(':customannotations'){
     dependencies {
 
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
 }
 
@@ -86,9 +85,12 @@ project(':springloaded'){
 
     buildscript {
         repositories {
+            mavenCentral()
             jcenter()
         }
         dependencies {
+
+
             classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
             classpath 'org.springframework:springloaded:1.2.5.RELEASE'
         }
@@ -104,6 +106,8 @@ project(':springloaded'){
     }
 
     dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework:springloaded:1.2.5.RELEASE'
         implementation 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
     }
@@ -115,12 +119,18 @@ project(':nestedModule01'){
 
 project(':async'){
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
     }
 }
 
 project(':imageupload'){
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         // https://mvnrepository.com/artifact/org.webjars/bootstrap
         implementation 'org.webjars:bootstrap:4.2.1'
         // https://mvnrepository.com/artifact/commons-io/commons-io
@@ -138,6 +148,8 @@ project(':eventlistener'){
 
 project(':reactive'){
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
         implementation platform('io.projectreactor:reactor-bom:Bismuth-RELEASE')
@@ -169,6 +181,9 @@ project(':reactivewebflux'){
 
 project(":reactive-rsocket"){
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-rsocket'
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.security:spring-security-messaging'
@@ -182,6 +197,9 @@ project(":reactive-rsocket"){
 project(':jpa'){
 
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0'
         runtimeOnly 'com.h2database:h2'
@@ -194,6 +212,9 @@ project(':jpa'){
 
 project(':messageQueue'){
     dependencies {
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation('org.springframework.boot:spring-boot-starter-amqp')
     }
 }
@@ -201,5 +222,24 @@ project(':messageQueue'){
 project(':propertysetting'){
     dependencies {
 
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
     }
+}
+
+project(':spring-cloud-gateway-sample'){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'io.projectreactor:reactor-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
 }

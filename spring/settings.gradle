@@ -18,4 +18,5 @@ include 'nestedModule01'
 
 project(":nestedModule01").projectDir = file("nestedmodule/nestedModule01")
 include 'spring-beans'
+include 'spring-cloud-gateway-sample'
 
