@@ -27,22 +27,25 @@ public class RequestHandler extends Thread{
             String line = " ";
 
             StringBuffer resultContent = new StringBuffer();
-            while (!"".equals(line)){
+            while (line != null){
                 line = bufferedReader.readLine();
 
-                if( line == null ) return;
+                log.debug("Http Content : {}", line );
+
+//                if( line == null ) return;
+                // TODO - 해당 코드 실행시 응답값이 제대로 반환되지 않음.
 
                 if(line.indexOf("index.html") > 0){
-                    InputStream inputStream = RequestHandler.class.getResourceAsStream("templa:q!@:q/tes/index.html");
+                    InputStream inputStream = new FileInputStream("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html");
 
                     BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(inputStream));
 
-                    while (!"".equals(line)){
+                    while (line != null){
                         line = bufferedReader1.readLine();
 
                         if(line == null) return;
 
-                        resultContent.append(line);
+                        resultContent.append(line + "\r\n");
                     }
                 }
 
@@ -56,6 +59,7 @@ public class RequestHandler extends Thread{
             responseBody(dos, body);
         }catch (Exception exception){
             log.error(exception.getMessage());
+            exception.printStackTrace();
         }
     }
 
