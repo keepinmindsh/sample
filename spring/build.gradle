@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'idea'
     id 'java'
 }
@@ -23,8 +23,8 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:2.3.2.RELEASE"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.RELEASE"
+            mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.3"
         }
         dependencies {
 
@@ -55,8 +55,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
     compileJava.options.encoding = 'UTF-8'
 
     test {

@@ -230,14 +230,16 @@ public class HandlingErrors {
         log.info("Reactor Error Handling ---------  14. Reactive Programming : retryWhen -- START ------------------  ");
         log.info(" retryWhen은 Flux에 의해서 아이템을 실행하고, 하나의 실행된 아이템에서 에러가 발생했을 때 해당 에러가 발생한 아이템을 아래의 코드에서는 retryWhen을 이용해서 3회 재시도를 실시한다.   ");
 
-        try{
+        // TODO Spring 2.5.2로 업그레이드 후 동작 안함 -> 수정 필요
+
+        /*try{
             Flux.<String>error(new IllegalArgumentException())
                     .doOnError(System.out::println)
                     .retryWhen(companion -> companion.take(3))
                     .subscribe();
         }catch(Exception exception){
             log.error(exception.getMessage());
-        }
+        }*/
 
         log.info("  ");
         log.info("Reactor Error Handling ---------  14. Reactive Programming : retryWhen -- END ------------------  ");
@@ -245,7 +247,9 @@ public class HandlingErrors {
         log.info("Reactor Error Handling ---------  15. Reactive Programming : zipWith-- START ------------------  ");
         log.info("  ");
 
-        try{
+
+        // TODO Spring 2.5.2로 업그레이드 후 동작 안함 -> 수정 필요
+       /* try{
             Flux.<String>error(new IllegalArgumentException())
                     .retryWhen(companion ->
                         companion.zipWith(Flux.range(1,4),
@@ -256,7 +260,7 @@ public class HandlingErrors {
                     ).subscribe();
         }catch (Exception exception){
             log.error(exception.getMessage());
-        }
+        }*/
 
         log.info("  ");
         log.info("Reactor Error Handling ---------  15. Reactive Programming : zipWith -- END ------------------  ");
