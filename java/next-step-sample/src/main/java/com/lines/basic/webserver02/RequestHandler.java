@@ -43,6 +43,8 @@ public class RequestHandler extends Thread{
                     while (line != null){
                         line = bufferedReader1.readLine();
 
+                        log.info("{}", line);
+
                         if(line == null) return;
 
                         resultContent.append(line + "\r\n");
