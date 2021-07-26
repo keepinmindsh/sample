@@ -55,6 +55,8 @@ public class RequestHandler extends Thread{
                 log.debug("Buffered Reader : {}", line );
             }
 
+            // TODO 해당 부분부터 다시 코딩 체크 시작
+
             DataOutputStream dos = new DataOutputStream(out);
             byte[] body = resultContent.toString().getBytes(StandardCharsets.UTF_8);
             response200Header(dos, body.length);
