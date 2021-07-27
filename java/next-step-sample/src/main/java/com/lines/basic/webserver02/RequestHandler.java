@@ -37,7 +37,6 @@ public class RequestHandler extends Thread{
 
                 log.debug("Http Content : {}", line );
 
-                // TODO - 해당 코드 실행시 응답값이 제대로 반환되지 않음.
                 if(line.indexOf("index.html") > 0){
                     body = Files.readAllBytes(new File("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
                 }
@@ -50,8 +49,6 @@ public class RequestHandler extends Thread{
             }
 
             log.debug("Making response start!");
-
-            // TODO 해당 부분부터 다시 코딩 체크 시작
 
             DataOutputStream dos = new DataOutputStream(out);
 
