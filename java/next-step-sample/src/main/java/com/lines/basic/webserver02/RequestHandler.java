@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class RequestHandler extends Thread{
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
@@ -27,40 +28,37 @@ public class RequestHandler extends Thread{
             String line = " ";
 
             StringBuffer resultContent = new StringBuffer();
-            while (line != null){
+            byte[] body = null;
+
+
+            while (!"".equals(line)){
+
                 line = bufferedReader.readLine();
 
                 log.debug("Http Content : {}", line );
 
-//                if( line == null ) return;
                 // TODO - 해당 코드 실행시 응답값이 제대로 반환되지 않음.
-
                 if(line.indexOf("index.html") > 0){
-                    InputStream inputStream = new FileInputStream("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html");
-
-                    BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(inputStream));
-
-                    while (line != null){
-                        line = bufferedReader1.readLine();
-
-                        log.info("{}", line);
-
-                        if(line == null) return;
-
-                        resultContent.append(line + "\r\n");
-                    }
+                    body = Files.readAllBytes(new File("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
                 }
 
+                if( line == null){
+                    return;
+                }
 
                 log.debug("Buffered Reader : {}", line );
             }
 
+            log.debug("Making response start!");
+
             // TODO 해당 부분부터 다시 코딩 체크 시작
 
             DataOutputStream dos = new DataOutputStream(out);
-            byte[] body = resultContent.toString().getBytes(StandardCharsets.UTF_8);
+
             response200Header(dos, body.length);
             responseBody(dos, body);
+
+            log.debug("Making response end!");
         }catch (Exception exception){
             log.error(exception.getMessage());
             exception.printStackTrace();
@@ -84,7 +82,8 @@ public class RequestHandler extends Thread{
             dos.writeBytes("\r\n");
             dos.flush();
         }catch (Exception exception){
-            exception.getMessage();
+            exception.printStackTrace();
+            log.error(exception.getMessage());
         }
     }
 }
