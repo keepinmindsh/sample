@@ -1,0 +1,101 @@
+[ ENT_YANOLJA ]
+G - 청소필요
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=G, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403G, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OD, OR
+	
+N - 청소 중
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=N, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403N, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OD, NG
+
+C - 청소 완료
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=C, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403C, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OC, ED
+
+
+I - 청소 점검 완료
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=I, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403I, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI
+
+  - 공실
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus= , createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403 , userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI
+
+E - 재실
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=E, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403E, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI, 재실 아이콘
+
+T - 외출
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=T, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=ENT_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=ENT_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403T, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=ENT_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI
+
+
+[ EXP_YANOLJA ]
+G - 청소필요
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=G, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403G, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OD, OR
+	
+N - 청소 중
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=N, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403N, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OD, NG
+
+C - 청소 완료
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=C, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403C, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OC, ED
+
+I - 청소 점검 완료
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=I, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403I, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI
+
+  - 공실
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI
+  
+E - 재실
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=E, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403E, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI, 재실 아이콘
+
+T - 외출
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [START] roomStatus -------------------------------------------------------- 
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - RECEIVED ROOM STATUS PARAM : YN_YN01_RoomStatusFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, roomId=0403, cleanStatus=T, createdAt=0, userId=admin, userIp=0.0.0.0, langType=KOR, outYN=null, outMSG=null, outResultVal=null, outRefCursor=null)
+c.s.y.c.i.ReceiveRoomCleanCommand VENDOR_ID=EXP_YANOLJA - YN_YN01_RoomStatusResponseFromYanoljaToPMSVO(intfType=ROOM_CLEAN_STATUS, companyId=EXP_YANOLJA, bsnsCode=11, propertyNo=11, recvVal=                 0403T, userId=null, userIp=null, outYN=Y, outMSG=?뺤긽::Success)
+com.sanha.yninf.controller.RMS VENDOR_ID=EXP_YANOLJA - --------------------------------------------------------- [END] roomStatus -------------------------------------------------------- 
+	→ OI

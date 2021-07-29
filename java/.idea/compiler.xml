@@ -10,7 +10,6 @@
         </processorPath>
         <module name="java.algorithm.main" />
         <module name="java.next-step-sample.main" />
-        <module name="java.javafx.main" />
         <module name="java.samplecode.main" />
         <module name="java.javaversion.main" />
         <module name="java.designpattern.main" />
