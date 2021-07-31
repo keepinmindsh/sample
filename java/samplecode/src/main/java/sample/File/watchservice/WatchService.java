@@ -1,16 +1,16 @@
 package sample.File.watchservice;
 
-import javafx.application.Application;
+/*import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.stage.Stage;*/
 
 import java.nio.file.*;
 import java.util.List;
 
-public class WatchService extends Application {
+public class WatchService { //extends Application {
     class WatchServiceThread extends Thread {
 
         @Override
@@ -53,10 +53,10 @@ public class WatchService extends Application {
 
     }
 
-    TextArea textArea;
+    //TextArea textArea;
 
-    @Override
-    public void start(Stage arg0) throws Exception {
+//    @Override
+//    public void start(Stage arg0) throws Exception {
 //        BorderPane root = new BorderPane();
 //        root.setPrefSize(500, 300);
 //
@@ -71,9 +71,9 @@ public class WatchService extends Application {
 //
 //        WatchServiceThread wst = new WatchServiceThread();
 //        wst.start();
-    }
+//    }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+ //   public static void main(String[] args) {
+ //       launch(args);
+ //   }
 }
