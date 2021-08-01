@@ -30,14 +30,13 @@ public class RequestHandler extends Thread{
             StringBuffer resultContent = new StringBuffer();
             byte[] body = null;
 
-
-            while (!"".equals(line)){
+            do {
 
                 line = bufferedReader.readLine();
 
-                log.debug("Http Content : {}", line );
+                if(line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1){
 
-                if(line.indexOf("index.html") > 0){
+                    String screenName = line.split(" ")[1];
                     // body = Files.readAllBytes(new File("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
                     // body = Files.readAllBytes(new File("D:/GIT/01_GIT/02_sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
 
@@ -51,25 +50,16 @@ public class RequestHandler extends Thread{
 
                     body = RequestHandler
                             .class
-                            .getResourceAsStream("/templates/index.html")
+                            .getResourceAsStream("/templates" + screenName)
                             .readAllBytes();
                 }
+            } while (body == null);
 
-                if( line == null){
-                    return;
-                }
-
-                log.debug("Buffered Reader : {}", line );
+            if(body != null){
+                DataOutputStream dos = new DataOutputStream(out);
+                response200Header(dos, body.length);
+                responseBody(dos, body);
             }
-
-            log.debug("Making response start!");
-
-            DataOutputStream dos = new DataOutputStream(out);
-
-            response200Header(dos, body.length);
-            responseBody(dos, body);
-
-            log.debug("Making response end!");
         }catch (Exception exception){
             log.error(exception.getMessage());
             exception.printStackTrace();
