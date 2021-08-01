@@ -38,7 +38,21 @@ public class RequestHandler extends Thread{
                 log.debug("Http Content : {}", line );
 
                 if(line.indexOf("index.html") > 0){
-                    body = Files.readAllBytes(new File("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
+                    // body = Files.readAllBytes(new File("/Users/dream/GIT/sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
+                    // body = Files.readAllBytes(new File("D:/GIT/01_GIT/02_sample/java/next-step-sample/src/main/resources/templates/index.html").toPath());
+
+                    //Class clazz = RequestHandler.class;
+                    //body = Files.readAllBytes(new File(clazz.getResource("/templates/index.html").getFile()).toPath());
+
+                    //Class clazz = RequestHandler.class;
+                    //InputStream inputStream = clazz.getResourceAsStream("/templates/index.html");
+                    //log.info("Length Size : {}" , inputStream.available());
+                    //body = inputStream.readAllBytes();
+
+                    body = RequestHandler
+                            .class
+                            .getResourceAsStream("/templates/index.html")
+                            .readAllBytes();
                 }
 
                 if( line == null){
