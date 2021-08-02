@@ -2,10 +2,10 @@ package com.lines.basic.webserver03.core;
 
 import com.lines.basic.webserver03.core.mapper.ModelMapper;
 import com.lines.basic.webserver03.core.mapper.ModelParam;
-import com.lines.basic.webserver03.core.mapper.ParserType;
+import com.lines.basic.webserver03.core.mapper.code.ParserType;
 import com.lines.basic.webserver03.core.resourceviews.Resource;
 import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
-import com.lines.basic.webserver03.core.resourceviews.ResourceType;
+import com.lines.basic.webserver03.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver03.core.resourceviews.factory.ResourceFactory;
 import com.lines.basic.webserver03.domain.user.controller.UserMapping;
 import org.slf4j.Logger;

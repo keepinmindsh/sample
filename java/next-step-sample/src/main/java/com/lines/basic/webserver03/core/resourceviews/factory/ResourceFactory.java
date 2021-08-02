@@ -2,7 +2,7 @@ package com.lines.basic.webserver03.core.resourceviews.factory;
 
 import com.lines.basic.webserver03.core.resourceviews.Resource;
 import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
-import com.lines.basic.webserver03.core.resourceviews.ResourceType;
+import com.lines.basic.webserver03.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver03.core.resourceviews.viewer.DataView;
 import com.lines.basic.webserver03.core.resourceviews.viewer.HTMLView;
 

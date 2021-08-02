@@ -1,4 +1,4 @@
-package com.lines.basic.webserver03.core.resourceviews;
+package com.lines.basic.webserver03.core.resourceviews.code;
 
 public enum ResourceType {
     VIEW_HTML(".html"),

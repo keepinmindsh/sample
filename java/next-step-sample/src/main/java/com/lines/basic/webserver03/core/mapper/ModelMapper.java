@@ -1,5 +1,6 @@
 package com.lines.basic.webserver03.core.mapper;
 
+import com.lines.basic.webserver03.core.mapper.code.ParserType;
 import com.lines.basic.webserver03.core.mapper.type.CustomParser;
 import com.lines.basic.webserver03.core.mapper.type.QueryStringParser;
 import com.lines.basic.webserver03.core.mapper.type.ViewParser;
