@@ -26,6 +26,7 @@ public class RequestHandlerTemplate extends Thread{
         this.connection = connection;
     }
 
+    // TODO - 엄청 궁금한 부분이 생김 - form.html을 초기 로딩 이후에 form.html에 일부분을 수정하고 저장한뒤 재조회를 하더라고 서비스를 끄지 않으면 계속 동일한 값이 표시됨 - 해당 부분에 대해서 확인 필요
     @Override
     public void run() {
         log.debug("New Client Connect! Connected IP : {}, Port : {}, Host Address : {}", connection.getInetAddress(), connection.getPort(), connection.getInetAddress().getHostAddress());
