@@ -2,7 +2,9 @@ package com.lines.basic.webserver03.domain.user.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @Builder
 public class User {

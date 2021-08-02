@@ -1,11 +1,13 @@
 package com.lines.basic.webserver03.core;
 
 import com.lines.basic.webserver03.core.mapper.ModelMapper;
+import com.lines.basic.webserver03.core.mapper.ModelParam;
 import com.lines.basic.webserver03.core.mapper.ParserType;
 import com.lines.basic.webserver03.core.resourceviews.Resource;
-import com.lines.basic.webserver03.core.resourceviews.factory.ResourceFactory;
 import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
 import com.lines.basic.webserver03.core.resourceviews.ResourceType;
+import com.lines.basic.webserver03.core.resourceviews.factory.ResourceFactory;
+import com.lines.basic.webserver03.domain.user.controller.UserMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +17,8 @@ import java.net.Socket;
 public class RequestHandlerTemplate extends Thread{
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandlerTemplate.class);
-    private static final ModelMapper<String, String> modelmapper = new ModelMapper();
+    private static final ModelMapper<String, String> modelmapperForString = new ModelMapper();
+    private static final ModelMapper<String, Object> modelmapperForObject = new ModelMapper();
 
     private Socket connection;
 
@@ -41,7 +44,7 @@ public class RequestHandlerTemplate extends Thread{
 
                 if(line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1){
 
-                    String screenName = modelmapper.parse(ParserType.ViewString , line);
+                    String screenName = modelmapperForString.parse(ParserType.ViewString , line);
 
                     log.debug("screenName : {}", screenName);
 
@@ -52,7 +55,21 @@ public class RequestHandlerTemplate extends Thread{
 
                     body = (byte[]) resource.call();
                 }else{
-                    String urlName = modelmapper.parse(ParserType.QueryString , line);
+                    String urlName = "";
+
+                    if(line.indexOf("/user/create") > -1){
+
+                        line = line.split("\\?")[1];
+
+                        urlName = modelmapperForObject.parse(ParserType.CustomMapping ,
+                                ModelParam.builder()
+                                        .mapping(new UserMapping(line))
+                                .build()
+                        ).toString();
+                    }else{
+                        urlName = modelmapperForString.parse(ParserType.QueryString , line);
+                    }
+
 
                     log.debug("urlName : {}", urlName);
 
@@ -62,6 +79,8 @@ public class RequestHandlerTemplate extends Thread{
                                         .url(urlName)
                                         .build()
                             );
+
+
 
                     body = (byte[]) resource.call();
                 }

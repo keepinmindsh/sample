@@ -5,7 +5,7 @@
     <title>User</title>
 </head>
 <body>
-    <form action="http://localhost:8080/user/create?userId=javajigi&password=password&name=JeaSun&email=javajigi%40slipp.net" method="get" class="form-example">
+    <form action="http://localhost:8080/user/create" method="get" class="form-example">
         <div class="form-example">
             <label for="name">Enter your name: </label>
             <input type="text" name="name" id="name" required>
@@ -15,7 +15,15 @@
             <input type="email" name="email" id="email" required>
         </div>
         <div class="form-example">
-            <input type="submit" value="Subscribe!">
+            <label for="userId">Enter User ID: </label>
+            <input type="text" name="name" id="userId" required>
+        </div>
+        <div class="form-example">
+            <label for="password">Enter Password: </label>
+            <input type="text" name="name" id="password" required>
+        </div>
+        <div class="form-example">
+            <input type="submit" value="Subscribe for Test!">
         </div>
     </form>
 </body>
