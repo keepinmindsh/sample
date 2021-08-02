@@ -1,4 +1,4 @@
-package com.lines.basic.webserver03.resourceviews;
+package com.lines.basic.webserver03.core.resourceviews;
 
 import lombok.Builder;
 import lombok.Getter;

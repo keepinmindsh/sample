@@ -1,11 +1,9 @@
-package com.lines.basic.webserver03.resourceviews.viewer;
+package com.lines.basic.webserver03.core.resourceviews.viewer;
 
-import com.lines.basic.webserver03.RequestHandler;
-import com.lines.basic.webserver03.resourceviews.Resource;
-import com.lines.basic.webserver03.resourceviews.ResourceParam;
+import com.lines.basic.webserver03.core.RequestHandlerTemplate;
+import com.lines.basic.webserver03.core.resourceviews.Resource;
+import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
 import lombok.RequiredArgsConstructor;
-
-import java.io.IOException;
 
 @RequiredArgsConstructor
 public class HTMLView implements Resource {
@@ -13,7 +11,7 @@ public class HTMLView implements Resource {
 
     @Override
     public Object call() throws Exception {
-        return RequestHandler
+        return RequestHandlerTemplate
                 .class
                 .getResourceAsStream("/templates" + resourceParam.getScreen())
                 .readAllBytes();

@@ -1,26 +1,25 @@
-package com.lines.basic.webserver03;
+package com.lines.basic.webserver03.core;
 
-import com.lines.basic.webserver03.mapper.ModelMapper;
-import com.lines.basic.webserver03.mapper.ParserType;
-import com.lines.basic.webserver03.resourceviews.Resource;
-import com.lines.basic.webserver03.resourceviews.factory.ResourceFactory;
-import com.lines.basic.webserver03.resourceviews.ResourceParam;
-import com.lines.basic.webserver03.resourceviews.ResourceType;
-import lombok.extern.slf4j.Slf4j;
+import com.lines.basic.webserver03.core.mapper.ModelMapper;
+import com.lines.basic.webserver03.core.mapper.ParserType;
+import com.lines.basic.webserver03.core.resourceviews.Resource;
+import com.lines.basic.webserver03.core.resourceviews.factory.ResourceFactory;
+import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
+import com.lines.basic.webserver03.core.resourceviews.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
 
-@Slf4j
-public class RequestHandler extends Thread{
+public class RequestHandlerTemplate extends Thread{
 
+    private static final Logger log = LoggerFactory.getLogger(RequestHandlerTemplate.class);
     private static final ModelMapper<String, String> modelmapper = new ModelMapper();
 
     private Socket connection;
 
-    public RequestHandler(Socket connection) {
+    public RequestHandlerTemplate(Socket connection) {
         this.connection = connection;
     }
 
@@ -38,11 +37,13 @@ public class RequestHandler extends Thread{
             do {
                 line = bufferedReader.readLine();
 
+                if(line.indexOf(".ico") > -1) return;
+
                 if(line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1){
 
                     String screenName = modelmapper.parse(ParserType.ViewString , line);
 
-                    log.info("screenName : {}", screenName);
+                    log.debug("screenName : {}", screenName);
 
                     Resource resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
                             ResourceParam.builder()
@@ -53,7 +54,7 @@ public class RequestHandler extends Thread{
                 }else{
                     String urlName = modelmapper.parse(ParserType.QueryString , line);
 
-                    log.info("urlName : {}", urlName);
+                    log.debug("urlName : {}", urlName);
 
                     Resource resource = ResourceFactory.getResource(ResourceType.DATA,
                                 ResourceParam

@@ -1,7 +1,7 @@
-package com.lines.basic.webserver03.mapper;
+package com.lines.basic.webserver03.core.mapper;
 
-import com.lines.basic.webserver03.mapper.type.QueryStringParser;
-import com.lines.basic.webserver03.mapper.type.ViewParser;
+import com.lines.basic.webserver03.core.mapper.type.QueryStringParser;
+import com.lines.basic.webserver03.core.mapper.type.ViewParser;
 
 public class ModelMapper<ParamT, ReturnT> {
     public ReturnT parse(ParserType parserType, ParamT paramT){

@@ -1,10 +1,10 @@
-package com.lines.basic.webserver03.resourceviews.factory;
+package com.lines.basic.webserver03.core.resourceviews.factory;
 
-import com.lines.basic.webserver03.resourceviews.Resource;
-import com.lines.basic.webserver03.resourceviews.ResourceParam;
-import com.lines.basic.webserver03.resourceviews.ResourceType;
-import com.lines.basic.webserver03.resourceviews.viewer.DataView;
-import com.lines.basic.webserver03.resourceviews.viewer.HTMLView;
+import com.lines.basic.webserver03.core.resourceviews.Resource;
+import com.lines.basic.webserver03.core.resourceviews.ResourceParam;
+import com.lines.basic.webserver03.core.resourceviews.ResourceType;
+import com.lines.basic.webserver03.core.resourceviews.viewer.DataView;
+import com.lines.basic.webserver03.core.resourceviews.viewer.HTMLView;
 
 public class ResourceFactory {
     public static Resource getResource(ResourceType resourceType, ResourceParam resourceParam) throws Exception{

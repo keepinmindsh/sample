@@ -1,7 +1,5 @@
-package com.lines.basic.webserver03;
+package com.lines.basic.webserver03.core;
 
-import com.lines.basic.webserver02.RequestHandler;
-import com.lines.basic.webserver02.WebServerIndexHelloWorld;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WebServerTemplate {
-    private static final Logger log = LoggerFactory.getLogger(WebServerIndexHelloWorld.class);
+    private static final Logger log = LoggerFactory.getLogger(WebServerTemplate.class);
 
     private static final int DEFAULT_PORT = 8080;
 
@@ -29,7 +27,7 @@ public class WebServerTemplate {
             Socket connection;
 
             while((connection = listenSocket.accept()) != null){
-                com.lines.basic.webserver02.RequestHandler requestHandler = new RequestHandler(connection);
+                RequestHandlerTemplate requestHandler = new RequestHandlerTemplate(connection);
 
                 requestHandler.start();
 

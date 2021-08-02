@@ -1,4 +1,4 @@
-package com.lines.basic.webserver03.mapper.type;
+package com.lines.basic.webserver03.core.mapper.type;
 
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +9,11 @@ public class QueryStringParser<ParamT> implements Parser<String> {
 
     @Override
     public String execute() {
-        return ((String)paramT).split(" ")[1];
+
+        String url = ((String)paramT).split(" ")[1];
+
+        String parameter = url.split("\\?")[1];
+
+        return parameter;
     }
 }

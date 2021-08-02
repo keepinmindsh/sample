@@ -1,4 +1,4 @@
-package com.lines.basic.webserver03.mapper.type;
+package com.lines.basic.webserver03.core.mapper.type;
 
 import lombok.RequiredArgsConstructor;
 
