@@ -1,4 +1,4 @@
-package lines.client;
+package lines.sample01.client;
 import io.rsocket.SocketAcceptor;
 import io.rsocket.metadata.WellKnownMimeType;
 import lombok.AllArgsConstructor;

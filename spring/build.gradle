@@ -181,7 +181,6 @@ project(':reactivewebflux'){
 
 project(":reactive-rsocket"){
     dependencies {
-
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-rsocket'
@@ -195,9 +194,7 @@ project(":reactive-rsocket"){
 }
 
 project(':jpa'){
-
     dependencies {
-
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -212,7 +209,6 @@ project(':jpa'){
 
 project(':messageQueue'){
     dependencies {
-
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation('org.springframework.boot:spring-boot-starter-amqp')
@@ -221,7 +217,6 @@ project(':messageQueue'){
 
 project(':propertysetting'){
     dependencies {
-
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
     }
@@ -241,5 +236,4 @@ project(':spring-cloud-gateway-sample'){
     test {
         useJUnitPlatform()
     }
-
 }

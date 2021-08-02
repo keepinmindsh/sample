@@ -1,4 +1,4 @@
-package lines.service;
+package lines.sample01.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 
 @SpringBootApplication
 @PropertySource(value= {
-        "classpath:static/application.properties"
+        "classpath:application-client.properties"
 })
 public class ServiceApplication {
 
