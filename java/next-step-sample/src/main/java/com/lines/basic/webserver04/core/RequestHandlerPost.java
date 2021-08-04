@@ -8,6 +8,7 @@ import com.lines.basic.webserver04.core.resourceviews.Resource;
 import com.lines.basic.webserver04.core.resourceviews.ResourceParam;
 import com.lines.basic.webserver04.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver04.core.resourceviews.factory.ResourceFactory;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +40,7 @@ public class RequestHandlerPost extends Thread{
             byte[] body = null;
 
             do {
-                // TODO 아래의 코드가 확인 중 - POST 전송시 제대로 호출되지 않음.
-                line = bufferedReader.readLine();
-
-                log.info("line - {}", line);
-
-                if(line != null && line.indexOf(".ico") > -1) return;
-
-                //body = getBytesFromRequest(line);
+                body = getBytesFromRequest(bufferedReader);
             } while (line == null);
 
             if(body != null){
@@ -61,10 +55,17 @@ public class RequestHandlerPost extends Thread{
         }
     }
 
-    private byte[] getBytesFromRequest(String line) throws Exception {
-        byte[] body;
-        if(line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1){
+    private byte[] getBytesFromRequest(BufferedReader bufferedReader ) throws Exception {
+        // TODO 아래의 코드가 확인 중 - POST 전송시 제대로 호출되지 않음.
+        String line = bufferedReader.readLine();
 
+        log.info("line - {}", line);
+
+        if(isIco(line)) return null;
+
+        byte[] body = null;
+
+        if(isGet(line)){
             String screenName = modelmapperForString.parse(ParserType.ViewString , line);
 
             log.debug("screenName : {}", screenName);
@@ -75,6 +76,23 @@ public class RequestHandlerPost extends Thread{
                         .build());
 
             body = (byte[]) resource.call();
+        }else if(isPost(line, "POST")){
+            // TODO - POST REQUEST에 대한 데이터 처리가 안됨.
+            do {
+                log.info("Result : {}", bufferedReader.readLine());
+            } while (bufferedReader.read()  != -1);
+
+
+            /*String urlName = modelmapperForObject.parse(ParserType.CustomMapping,line).toString();
+
+            log.debug("urlName : {}", urlName);
+
+            Resource resource = ResourceFactory.getResource(ResourceType.DATA,
+                    ResourceParam.builder()
+                            .screen(urlName)
+                            .build());
+
+            body = (byte[]) resource.call();*/
         }else{
             String urlName = "";
 
@@ -101,11 +119,21 @@ public class RequestHandlerPost extends Thread{
                                 .build()
                     );
 
-
-
             body = (byte[]) resource.call();
         }
         return body;
+    }
+
+    private boolean isPost(String line, String post) {
+        return line != null && line.indexOf(post) > -1;
+    }
+
+    private boolean isIco(String line) {
+        return line != null && line.indexOf(".ico") > -1;
+    }
+
+    private boolean isGet(String line) {
+        return line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1;
     }
 
     private void response200Header(DataOutputStream dos, int lengthOfBodyContent){
