@@ -62,12 +62,22 @@ name=1431243&email=keepinmindsh%40gmail.com&name=asdfmin&name=12321342134
 
 ### Header 영역
 
+HTTP 헤더는 HTTP 본문(body) 및 요청/응답에 대한 정보를 포함한다. 
+
+- 일반 헤더 
+
+- 요청 / 응답 헤ㅓ 
+
+- 엔터티 헤더 
 
 ### Body 영역
+
+
 
  
 
 참고 링크 : <https://www.baeldung.com/reading-file-in-java>
+참고 링크 : <https://blueyikim.tistory.com/1999>
 
 
  
