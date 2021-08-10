@@ -1,6 +1,5 @@
 package com.lines.basic.webserver04.core;
 
-import com.lines.basic.webserver04.domain.user.controller.UserMapping;
 import com.lines.basic.webserver04.core.mapper.ModelMapper;
 import com.lines.basic.webserver04.core.mapper.ModelParam;
 import com.lines.basic.webserver04.core.mapper.code.ParserType;
@@ -8,12 +7,16 @@ import com.lines.basic.webserver04.core.resourceviews.Resource;
 import com.lines.basic.webserver04.core.resourceviews.ResourceParam;
 import com.lines.basic.webserver04.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver04.core.resourceviews.factory.ResourceFactory;
+import com.lines.basic.webserver04.domain.user.controller.UserMapping;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RequestHandlerPost extends Thread{
 
@@ -33,15 +36,9 @@ public class RequestHandlerPost extends Thread{
         log.debug("New Client Connect! Connected IP : {}, Port : {}, Host Address : {}", connection.getInetAddress(), connection.getPort(), connection.getInetAddress().getHostAddress());
 
         try(InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
-
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            String line = " ";
 
-            byte[] body = null;
-
-            do {
-                body = getBytesFromRequest(bufferedReader);
-            } while (line == null);
+            byte[] body = getBytesFromRequest(bufferedReader);
 
             if(body != null){
 
@@ -55,7 +52,7 @@ public class RequestHandlerPost extends Thread{
         }
     }
 
-    private byte[] getBytesFromRequest(BufferedReader bufferedReader ) throws Exception {
+    private byte[] getBytesFromRequest(BufferedReader bufferedReader) throws Exception {
         // TODO 아래의 코드가 확인 중 - POST 전송시 제대로 호출되지 않음.
         String line = bufferedReader.readLine();
 
@@ -77,13 +74,39 @@ public class RequestHandlerPost extends Thread{
 
             body = (byte[]) resource.call();
         }else if(isPost(line, "POST")){
-            // TODO - POST REQUEST에 대한 데이터 처리가 안됨.
-            do {
-                log.info("Result : {}", bufferedReader.readLine());
-            } while (bufferedReader.read()  != -1);
+            // TODO - Socket을 통해서 들어온 데이터에 대해서 content-length를 지정해서 자르지 않을 경우 제대로 동작하지 않는 이유는?
+            String lineForPost = null;
 
+            int contentLength = 0;
 
-            /*String urlName = modelmapperForObject.parse(ParserType.CustomMapping,line).toString();
+            while (!(lineForPost = bufferedReader.readLine()).equals("")){
+                log.info("Result : {} {}", lineForPost, Optional.ofNullable(lineForPost).isPresent());
+
+                if(lineForPost.contains("Content-Length")){
+                    contentLength = Integer.valueOf(lineForPost.replace("Content-Length:", "").trim());
+                    log.info("check content length : {}", contentLength );
+                }
+            }
+
+            char[] charArray = new char[contentLength];
+            bufferedReader.read(charArray, 0, contentLength);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.insert(0, charArray);
+
+            lineForPost =  stringBuilder.toString();
+            log.info("form data : {}", lineForPost);
+
+            log.info("mapping data : {}", modelmapperForObject.parse(ParserType.CustomMapping ,
+                    ModelParam.builder()
+                            .mapping(new UserMapping(lineForPost))
+                            .build()
+            ));
+
+            //log.info("form data : {}",  IOUtils.toString(bufferedReader));
+            //log.info("buffer checked length : {}", bufferedReader.lines().collect(Collectors.joining()));
+
+            /*
+            String urlName = modelmapperForObject.parse(ParserType.CustomMapping,line).toString();
 
             log.debug("urlName : {}", urlName);
 
@@ -92,7 +115,8 @@ public class RequestHandlerPost extends Thread{
                             .screen(urlName)
                             .build());
 
-            body = (byte[]) resource.call();*/
+            body = (byte[]) resource.call();
+            */
         }else{
             String urlName = "";
 
@@ -121,6 +145,7 @@ public class RequestHandlerPost extends Thread{
 
             body = (byte[]) resource.call();
         }
+
         return body;
     }
 

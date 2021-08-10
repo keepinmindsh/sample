@@ -30,7 +30,53 @@ body = RequestHandler
 
 ```
 
+# Reqeust의 구성 
+
+Header와 Body를 구성하는 영역은 한줄의 공백으로 구분된다. 예를 들면 헤더 정보가 들어오고 그 아래로 내가 전송한 데이터가 들어오는 방식이다.
+
+여기에서 Body 영역으로 구분되는 한 줄의 공백으로 파라미터가 구분되어야 할 때, HTTP Method는 POST 일 경우이다. 
+
+```shell
+
+Host: localhost:8080 true
+Connection: keep-alive true
+Content-Length: 73 true
+Cache-Control: max-age=0 true
+sec-ch-ua: "Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92" true
+sec-ch-ua-mobile: ?0 true
+Upgrade-Insecure-Requests: 1 true
+Origin: http://localhost:8080 true
+Content-Type: application/x-www-form-urlencoded true
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 true
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 true
+Sec-Fetch-Site: same-origin true
+Sec-Fetch-User: ?1 true
+Sec-Fetch-Dest: document true
+Referer: http://localhost:8080/user/form_post.html true
+Accept-Encoding: gzip, deflate, br true
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7 true
+
+name=1431243&email=keepinmindsh%40gmail.com&name=asdfmin&name=12321342134
+
+```
+
+### Header 영역
+
+HTTP 헤더는 HTTP 본문(body) 및 요청/응답에 대한 정보를 포함한다. 
+
+- 일반 헤더 
+
+- 요청 / 응답 헤ㅓ 
+
+- 엔터티 헤더 
+
+### Body 영역
+
+데이터 컨텐츠 / 메세지 본문이 나타난다. 콘텐츠는 요청한 리소스에 따라 HTML 코드, 이미지, CSS 스타일 시트 또는 Javascript 파일이 포함될 수 있다. 
+ 
+
 참고 링크 : <https://www.baeldung.com/reading-file-in-java>
+참고 링크 : <https://blueyikim.tistory.com/1999>
 
 
  
