@@ -13,7 +13,7 @@ plt.figure()
 
 # TODO 코드가 에러가 발생함.
 # Traceback (most recent call last):
-#   File "D:/GIT/sample/sample/python/python_deeplearning/dataanalysys_20210811.py", line 13, in <module>
+#   File "D:/GIT/sample/sample/python/python_deeplearning/dataanalysis_20210811.py", line 13, in <module>
 #     plt.there('Pizza price plotted against diameter')
 # AttributeError: module 'matplotlib.pyplot' has no attribute 'there'
 
