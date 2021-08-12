@@ -14,3 +14,5 @@ model.fit(X, y)            # 훈련 데이터에 모델 적합화
 test_pizza = np.array([[12]])
 predicted_price = model.predict(test_pizza)[0]
 print('A 12" pizza should code : $%.2f' % predicted_price)
+
+print('Residual sume of squares : %.2f' % np.mean((model.predict(X) - y) ** 2))
