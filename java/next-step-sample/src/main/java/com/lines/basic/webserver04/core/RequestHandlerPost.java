@@ -1,5 +1,7 @@
 package com.lines.basic.webserver04.core;
 
+import com.lines.basic.webserver04.core.code.ResponseCode;
+import com.lines.basic.webserver04.core.dto.ResponseDTO;
 import com.lines.basic.webserver04.core.mapper.ModelMapper;
 import com.lines.basic.webserver04.core.mapper.ModelParam;
 import com.lines.basic.webserver04.core.mapper.code.ParserType;
@@ -8,15 +10,12 @@ import com.lines.basic.webserver04.core.resourceviews.ResourceParam;
 import com.lines.basic.webserver04.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver04.core.resourceviews.factory.ResourceFactory;
 import com.lines.basic.webserver04.domain.user.controller.UserMapping;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.Charset;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class RequestHandlerPost extends Thread{
 
@@ -38,12 +37,12 @@ public class RequestHandlerPost extends Thread{
         try(InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 
-            byte[] body = getBytesFromRequest(bufferedReader);
+            ResponseDTO responseDTO = getBytesFromRequest(bufferedReader);
 
-            if(body != null){
-
+            if(responseDTO.getBody() != null){
+                byte[] body = responseDTO.getBody();
                 DataOutputStream dos = new DataOutputStream(out);
-                response200Header(dos, body.length);
+                response200Header(dos, body.length, responseDTO.getResponseCode());
                 responseBody(dos, body);
             }
         }catch (Exception exception){
@@ -52,7 +51,7 @@ public class RequestHandlerPost extends Thread{
         }
     }
 
-    private byte[] getBytesFromRequest(BufferedReader bufferedReader) throws Exception {
+    private ResponseDTO getBytesFromRequest(BufferedReader bufferedReader) throws Exception {
         // TODO 아래의 코드가 확인 중 - POST 전송시 제대로 호출되지 않음.
         String line = bufferedReader.readLine();
 
@@ -60,93 +59,122 @@ public class RequestHandlerPost extends Thread{
 
         if(isIco(line)) return null;
 
-        byte[] body = null;
+        ResponseDTO.ResponseDTOBuilder responseDTOBuilder;
 
         if(isGet(line)){
-            String screenName = modelmapperForString.parse(ParserType.ViewString , line);
-
-            log.debug("screenName : {}", screenName);
-
-            Resource resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
-                    ResourceParam.builder()
-                        .screen(screenName)
-                        .build());
-
-            body = (byte[]) resource.call();
+            responseDTOBuilder = getResponseDTOForGet(line);
         }else if(isPost(line, "POST")){
-            // TODO - Socket을 통해서 들어온 데이터에 대해서 content-length를 지정해서 자르지 않을 경우 제대로 동작하지 않는 이유는?
-            String lineForPost = null;
-
-            int contentLength = 0;
-
-            while (!(lineForPost = bufferedReader.readLine()).equals("")){
-                log.info("Result : {} {}", lineForPost, Optional.ofNullable(lineForPost).isPresent());
-
-                if(lineForPost.contains("Content-Length")){
-                    contentLength = Integer.valueOf(lineForPost.replace("Content-Length:", "").trim());
-                    log.info("check content length : {}", contentLength );
-                }
-            }
-
-            char[] charArray = new char[contentLength];
-            bufferedReader.read(charArray, 0, contentLength);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.insert(0, charArray);
-
-            lineForPost =  stringBuilder.toString();
-            log.info("form data : {}", lineForPost);
-
-            log.info("mapping data : {}", modelmapperForObject.parse(ParserType.CustomMapping ,
-                    ModelParam.builder()
-                            .mapping(new UserMapping(lineForPost))
-                            .build()
-            ));
-
-            //log.info("form data : {}",  IOUtils.toString(bufferedReader));
-            //log.info("buffer checked length : {}", bufferedReader.lines().collect(Collectors.joining()));
-
-            /*
-            String urlName = modelmapperForObject.parse(ParserType.CustomMapping,line).toString();
-
-            log.debug("urlName : {}", urlName);
-
-            Resource resource = ResourceFactory.getResource(ResourceType.DATA,
-                    ResourceParam.builder()
-                            .screen(urlName)
-                            .build());
-
-            body = (byte[]) resource.call();
-            */
+            responseDTOBuilder = getResponseDTOForPost(bufferedReader);
         }else{
-            String urlName = "";
-
-            if(line.indexOf("/user/create") > -1){
-
-                line = line.split("\\?")[1];
-
-                urlName = modelmapperForObject.parse(ParserType.CustomMapping ,
-                        ModelParam.builder()
-                                .mapping(new UserMapping(line))
-                        .build()
-                ).toString();
-            }else{
-                urlName = modelmapperForString.parse(ParserType.QueryString , line);
-            }
-
-
-            log.debug("urlName : {}", urlName);
-
-            Resource resource = ResourceFactory.getResource(ResourceType.DATA,
-                        ResourceParam
-                                .builder()
-                                .url(urlName)
-                                .build()
-                    );
-
-            body = (byte[]) resource.call();
+            responseDTOBuilder = getResponseDTOForETC(line);
         }
 
-        return body;
+        return responseDTOBuilder.build();
+    }
+
+    private ResponseDTO.ResponseDTOBuilder getResponseDTOForETC(String line) throws Exception {
+        ResponseDTO.ResponseDTOBuilder responseDTOBuilder;
+        String urlName = "";
+
+        if(line.indexOf("/user/create") > -1){
+
+            line = line.split("\\?")[1];
+
+            urlName = modelmapperForObject.parse(ParserType.CustomMapping ,
+                    ModelParam.builder()
+                            .mapping(new UserMapping(line))
+                    .build()
+            ).toString();
+        }else{
+            urlName = modelmapperForString.parse(ParserType.QueryString , line);
+        }
+
+
+        log.debug("urlName : {}", urlName);
+
+        Resource resource = ResourceFactory.getResource(ResourceType.DATA,
+                    ResourceParam
+                            .builder()
+                            .url(urlName)
+                            .build()
+                );
+
+        responseDTOBuilder =
+                ResponseDTO.builder()
+                        .body((byte[]) resource.call())
+                        .responseCode(ResponseCode.HTTP_200);
+        return responseDTOBuilder;
+    }
+
+    private ResponseDTO.ResponseDTOBuilder getResponseDTOForPost(BufferedReader bufferedReader) throws Exception {
+        ResponseDTO.ResponseDTOBuilder responseDTOBuilder;
+        // TODO - Socket을 통해서 들어온 데이터에 대해서 content-length를 지정해서 자르지 않을 경우 제대로 동작하지 않는 이유는?
+        String lineForPost = null;
+
+        int contentLength = 0;
+
+        while (!(lineForPost = bufferedReader.readLine()).equals("")){
+            log.info("Result : {} {}", lineForPost, Optional.ofNullable(lineForPost).isPresent());
+
+            if(lineForPost.contains("Content-Length")){
+                contentLength = Integer.valueOf(lineForPost.replace("Content-Length:", "").trim());
+                log.info("check content length : {}", contentLength );
+            }
+        }
+
+        char[] charArray = new char[contentLength];
+        bufferedReader.read(charArray, 0, contentLength);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.insert(0, charArray);
+
+        lineForPost =  stringBuilder.toString();
+        log.info("form data : {}", lineForPost);
+
+        ModelParam modelParam = ModelParam.builder()
+                .mapping(new UserMapping(lineForPost))
+                .build();
+
+        log.info("mapping data : {}", modelmapperForObject.parse(ParserType.CustomMapping ,
+                modelParam
+        ));
+
+        Resource resource = null;
+
+
+        resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                ResourceParam.builder()
+                        .screen("/index.html")
+                        .build());
+
+
+        resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                ResourceParam.builder()
+                        .screen("/user/login_failed.html")
+                        .build());
+
+        responseDTOBuilder =
+                ResponseDTO.builder()
+                        .body((byte[]) resource.call())
+                        .responseCode(ResponseCode.HTTP_302);
+        return responseDTOBuilder;
+    }
+
+    private ResponseDTO.ResponseDTOBuilder getResponseDTOForGet(String line) throws Exception {
+        ResponseDTO.ResponseDTOBuilder responseDTOBuilder;
+        String screenName = modelmapperForString.parse(ParserType.ViewString , line);
+
+        log.debug("screenName : {}", screenName);
+
+        Resource resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                ResourceParam.builder()
+                    .screen(screenName)
+                    .build());
+
+        responseDTOBuilder =
+                ResponseDTO.builder()
+                    .body((byte[]) resource.call())
+                    .responseCode(ResponseCode.HTTP_200);
+        return responseDTOBuilder;
     }
 
     private boolean isPost(String line, String post) {
@@ -161,9 +189,9 @@ public class RequestHandlerPost extends Thread{
         return line != null && line.indexOf("GET") > -1 && line.indexOf(".html") > -1;
     }
 
-    private void response200Header(DataOutputStream dos, int lengthOfBodyContent){
+    private void response200Header(DataOutputStream dos, int lengthOfBodyContent, ResponseCode responseCode){
         try{
-            dos.writeBytes("HTTP/1.1 200 OK \r\n");
+            dos.writeBytes("HTTP/1.1 " + responseCode.toString() + " OK \r\n");
             dos.writeBytes("Content-Type: text/html;charset=utf-8 \r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");

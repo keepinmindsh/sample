@@ -66,17 +66,34 @@ HTTP 헤더는 HTTP 본문(body) 및 요청/응답에 대한 정보를 포함한
 
 - 일반 헤더 
 
-- 요청 / 응답 헤ㅓ 
+- 요청 / 응답 헤더
 
 - 엔터티 헤더 
 
 ### Body 영역
 
 데이터 컨텐츠 / 메세지 본문이 나타난다. 콘텐츠는 요청한 리소스에 따라 HTML 코드, 이미지, CSS 스타일 시트 또는 Javascript 파일이 포함될 수 있다. 
+
+# Response의 구성
+
+### 응답 코드의 정의 
+
+하이퍼텍스트 전송 프로토콜(HTTP) 의 302 Found 리다이렉트 상태 응답 코드는 클라이언트가 요청한 리소스가 헤더에 주어진 URL에 일시적으로 이동되었음을 가리킨다. 
+
+- 301, Permanently Moved 
+
+ Permanently라는 뜻이 영구히, 영구적인 이라는 뜻이므로, 영구적으로 이동한다는 것이다. 요청된 리소스가 영구적으로 이동 페이지로 이동되었다는 것이다.
+
+- 302, Temporarily Moved
+ 
+ Temporarily라는 뜻이 임시적, 임시적인 이라는 뜻이므로, 임시적으로 이동했다는 것을 나타냅니다. 요청된 리소스가 임시적으로 이동 페이지로 이동되었다는 것이다.
+ 
+ 
  
 
 참고 링크 : <https://www.baeldung.com/reading-file-in-java>
 참고 링크 : <https://blueyikim.tistory.com/1999>
+참고 링크: <https://im-first-rate.tistory.com/73> [웃으면 1류다]
 
 
  
