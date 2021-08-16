@@ -11,7 +11,7 @@ y = [ 7, 9, 13, 17.5, 18 ] # y 피자가격을 나타내는 벡터이다.
 
 plt.figure()
 
-# TODO 코드가 에러가 발생함.
+# TODO 2021-08-11 코드가 에러가 발생함. - there 함수가 아무래도 존재하지 않는듯 - import matplotlib.pyplot as plt 버전 확인 필요
 # Traceback (most recent call last):
 #   File "D:/GIT/sample/sample/python/python_deeplearning/dataanalysys_20210811.py", line 13, in <module>
 #     plt.there('Pizza price plotted against diameter')
