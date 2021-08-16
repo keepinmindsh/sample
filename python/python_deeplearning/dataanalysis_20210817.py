@@ -31,3 +31,5 @@ plt.show()
 # 선과 점들의 거리의 합을 최소하 하는 것을 위해서 +, - 가 있는 오차의 합보다는 오차 제곱의 합을 구하는 것이 더 바람직함.
 # 이말인 즉슨, 선을 기준으로 위아래의 거리의 합은 + , - 값으로 인하여 합산이 작아질 수 있으므로 오차 제곱을 이용하여 + 계수로 모두 만들어서
 # 실제 거리의 값을 계산한다. <https://en.wikipedia.org/wiki/Linear_least_squares>
+
+# for the next - https://techblog.woowahan.com/2582/
