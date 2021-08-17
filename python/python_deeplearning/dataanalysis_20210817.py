@@ -33,3 +33,5 @@ plt.show()
 # 실제 거리의 값을 계산한다. <https://en.wikipedia.org/wiki/Linear_least_squares>
 
 # for the next - https://techblog.woowahan.com/2582/
+
+# A-1) Orthogonal Matrix (직교행렬) 공부중
