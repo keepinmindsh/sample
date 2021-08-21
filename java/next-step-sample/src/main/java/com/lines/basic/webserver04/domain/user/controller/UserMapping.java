@@ -1,7 +1,9 @@
 package com.lines.basic.webserver04.domain.user.controller;
 
+import com.lines.basic.webserver04.core.code.StatusCode;
 import com.lines.basic.webserver04.core.mapper.Mapping;
 import com.lines.basic.webserver04.domain.user.model.User;
+import com.lines.basic.webserver04.domain.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -12,32 +14,42 @@ public class UserMapping implements Mapping {
     @Override
     public Object map() {
 
-        String[] paramBySplit = parameter.split("&");
+        UserDto.Result.ResultBuilder resultBuilder = null;
 
-        User.UserBuilder userBuilder = User.builder();
+        try{
+            String[] paramBySplit = parameter.split("&");
 
-        for (int i = 0; i < paramBySplit.length; i++) {
+            User.UserBuilder userBuilder = User.builder();
 
-            String[] parameters = paramBySplit[i].split("=");
+            for (int i = 0; i < paramBySplit.length; i++) {
 
-            for (int j = 0; j < parameters.length; j++) {
-                switch (parameters[0]){
-                    case "name" :
-                        userBuilder.name(parameters[1]);
-                        break;
-                    case "email" :
-                        userBuilder.email(parameters[1]);
-                        break;
-                    case "password" :
-                        userBuilder.password(parameters[1]);
-                        break;
-                    case "userId" :
-                        userBuilder.userId(parameters[1]);
-                        break;
+                String[] parameters = paramBySplit[i].split("=");
+
+                for (int j = 0; j < parameters.length; j++) {
+                    switch (parameters[0]){
+                        case "name" :
+                            userBuilder.name(parameters[1]);
+                            break;
+                        case "email" :
+                            userBuilder.email(parameters[1]);
+                            break;
+                        case "password" :
+                            userBuilder.password(parameters[1]);
+                            break;
+                        case "userId" :
+                            userBuilder.userId(parameters[1]);
+                            break;
+                    }
                 }
             }
+
+            resultBuilder.result(userBuilder.build());
+            resultBuilder.statusCode(StatusCode.SUCCESS);
+        }catch (Exception exception){
+            resultBuilder.result(exception.getMessage());
+            resultBuilder.statusCode(StatusCode.ERROR);
         }
 
-        return userBuilder.build();
+        return resultBuilder.build();
     }
 }

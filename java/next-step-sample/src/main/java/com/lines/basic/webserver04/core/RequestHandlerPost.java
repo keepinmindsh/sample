@@ -10,6 +10,7 @@ import com.lines.basic.webserver04.core.resourceviews.ResourceParam;
 import com.lines.basic.webserver04.core.resourceviews.code.ResourceType;
 import com.lines.basic.webserver04.core.resourceviews.factory.ResourceFactory;
 import com.lines.basic.webserver04.domain.user.controller.UserMapping;
+import com.lines.basic.webserver04.domain.user.model.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ public class RequestHandlerPost extends Thread{
 
     private static final Logger log = LoggerFactory.getLogger(RequestHandlerPost.class);
     private static final ModelMapper<String, String> modelmapperForString = new ModelMapper();
-    private static final ModelMapper<String, Object> modelmapperForObject = new ModelMapper();
+    private static final ModelMapper<String, UserDto.Result> modelmapperForObject = new ModelMapper();
 
     private Socket connection;
 
@@ -130,27 +131,37 @@ public class RequestHandlerPost extends Thread{
         lineForPost =  stringBuilder.toString();
         log.info("form data : {}", lineForPost);
 
-        ModelParam modelParam = ModelParam.builder()
-                .mapping(new UserMapping(lineForPost))
-                .build();
+        UserDto.Result userDtoResult = modelmapperForObject.parse(ParserType.CustomMapping ,
+                ModelParam.builder()
+                        .mapping(new UserMapping(lineForPost))
+                        .build());
 
-        log.info("mapping data : {}", modelmapperForObject.parse(ParserType.CustomMapping ,
-                modelParam
-        ));
+        log.info("Status Code : {}",
+                userDtoResult.getStatusCode()
+        );
 
         Resource resource = null;
 
-
-        resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
-                ResourceParam.builder()
-                        .screen("/index.html")
-                        .build());
-
-
-        resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
-                ResourceParam.builder()
-                        .screen("/user/login_failed.html")
-                        .build());
+        switch (userDtoResult.getStatusCode()){
+            case SUCCESS:
+                resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                        ResourceParam.builder()
+                                .screen("/index.html")
+                                .build());
+                break;
+            case ERROR:
+                resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                        ResourceParam.builder()
+                                .screen("/user/login_failed.html")
+                                .build());
+                break;
+            case FAILED:
+                resource = ResourceFactory.getResource(ResourceType.VIEW_HTML,
+                        ResourceParam.builder()
+                                .screen("/user/login_failed.html")
+                                .build());
+                break;
+        }
 
         responseDTOBuilder =
                 ResponseDTO.builder()
