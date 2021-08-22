@@ -5,7 +5,11 @@ import com.lines.basic.webserver04.core.mapper.Mapping;
 import com.lines.basic.webserver04.domain.user.model.User;
 import com.lines.basic.webserver04.domain.user.model.UserDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
+@Slf4j
 @RequiredArgsConstructor
 public class UserMapping implements Mapping {
 
@@ -14,7 +18,7 @@ public class UserMapping implements Mapping {
     @Override
     public Object map() {
 
-        UserDto.Result.ResultBuilder resultBuilder = null;
+        UserDto.Result resultDto = null;
 
         try{
             String[] paramBySplit = parameter.split("&");
@@ -43,13 +47,17 @@ public class UserMapping implements Mapping {
                 }
             }
 
-            resultBuilder.result(userBuilder.build());
-            resultBuilder.statusCode(StatusCode.SUCCESS);
+            resultDto = UserDto.Result.builder()
+                    .result(userBuilder.build())
+                    .statusCode(StatusCode.SUCCESS).build();
         }catch (Exception exception){
-            resultBuilder.result(exception.getMessage());
-            resultBuilder.statusCode(StatusCode.ERROR);
+            log.error("Error : " + exception.getMessage());
+
+            resultDto = UserDto.Result.builder()
+                    .result(exception.getMessage())
+                    .statusCode(StatusCode.ERROR).build();
         }
 
-        return resultBuilder.build();
+        return resultDto;
     }
 }

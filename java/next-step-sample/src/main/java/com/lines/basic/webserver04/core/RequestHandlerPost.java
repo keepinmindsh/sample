@@ -40,12 +40,23 @@ public class RequestHandlerPost extends Thread{
 
             ResponseDTO responseDTO = getBytesFromRequest(bufferedReader);
 
-            if(responseDTO.getBody() != null){
-                byte[] body = responseDTO.getBody();
+            Optional.ofNullable(responseDTO)
+                    .ifPresent(
+                    responseItem -> {
+                        byte[] body = responseItem.getBody();
+                        DataOutputStream dos = new DataOutputStream(out);
+                        response200Header(dos, body.length, responseDTO.getResponseCode());
+                        responseBody(dos, body);
+                    }
+            );
+
+            if(!Optional.ofNullable(responseDTO).isPresent()) {
+                byte[] body = null;
                 DataOutputStream dos = new DataOutputStream(out);
                 response200Header(dos, body.length, responseDTO.getResponseCode());
                 responseBody(dos, body);
             }
+
         }catch (Exception exception){
             log.error(exception.getMessage());
             exception.printStackTrace();
@@ -131,8 +142,10 @@ public class RequestHandlerPost extends Thread{
         lineForPost =  stringBuilder.toString();
         log.info("form data : {}", lineForPost);
 
-        UserDto.Result userDtoResult = modelmapperForObject.parse(ParserType.CustomMapping ,
-                ModelParam.builder()
+        UserDto.Result userDtoResult = modelmapperForObject.parse(
+                ParserType.CustomMapping ,
+                ModelParam
+                        .builder()
                         .mapping(new UserMapping(lineForPost))
                         .build());
 
