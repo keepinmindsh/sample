@@ -1,7 +1,6 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 df = pd.read_csv("ROOM_RATE.csv")
 print(df.head())
