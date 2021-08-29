@@ -13,6 +13,13 @@ public class SpringCloudGatewayApplication2 {
         SpringApplication.run(SpringCloudGatewayApplication2.class, args);
     }
 
+    // TODO - https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector
+
+    // TODO - Actuator를 통한 Metrics 확인
+    // http://localhost:9999/actuator/metrics
+    // http://localhost:9999/actuator/metrics/spring.cloud.gateway.requests
+    // http://localhost:9999/twitter/starbuxman
+
     RouteLocator gateway ( RouteLocatorBuilder rlb ) {
         return rlb
                 .routes()
