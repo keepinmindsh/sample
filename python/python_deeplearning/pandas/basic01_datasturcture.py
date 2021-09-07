@@ -10,3 +10,9 @@ mytuple = ( 1, 2, 3)
 # 딕셔너리 -> key:value 쌍을 저장
 
 mydic = { 'gugucon' : 500 , 'merona' : 300 }
+
+print(mylist)
+
+print(mytuple)
+
+print(mydic)
