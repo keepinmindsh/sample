@@ -1,0 +1,127 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+repositories {
+    maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    repositories {
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.2.5.RELEASE"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.RELEASE"
+        }
+        dependencies {
+
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.reactivestreams:reactive-streams'
+        implementation 'org.slf4j:slf4j-api'
+        implementation 'io.springfox:springfox-swagger2:2.9.2'
+        implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    compileJava.options.encoding = 'UTF-8'
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+
+project(':service_registry'){
+
+    bootJar {
+        mainClassName= 'com.sanha.eureka.WingsApiEurekaServerApplication'
+        enabled = true;
+    }
+
+    jar {
+        enabled = true;
+    }
+
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    }
+}
+
+project(':service_discovery'){
+
+    bootJar {
+        mainClassName= 'com.sanha.eureka.WingsApiEurekaGatewayApplication'
+        enabled = true;
+    }
+
+    jar {
+        enabled = true;
+    }
+
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+project(':test_call'){
+
+    bootJar {
+        mainClassName= 'com.sanha.eureka.WingsApiEurekaServerApplication'
+        enabled = true;
+    }
+
+    jar {
+        enabled = true;
+    }
+
+    dependencies {
+    }
+}
+
+project(':business_api'){
+
+    bootJar {
+        mainClassName= 'com.sanha.eureka.WingsApiEurekaServerApplication'
+        enabled = true;
+    }
+
+    jar {
+        enabled = true;
+    }
+
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard'
+        implementation 'com.netflix.hystrix:hystrix-javanica:1.5.18'
+    }
+}
