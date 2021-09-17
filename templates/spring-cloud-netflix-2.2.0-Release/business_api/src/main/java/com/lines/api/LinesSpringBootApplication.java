@@ -20,8 +20,10 @@ public class LinesSpringBootApplication {
 
     @GetMapping("/call_test")
     public String helloWorld(){
+        System.out.println("111111111");
         try {
-            Thread.sleep(30000);
+            Thread.sleep(10000);
+            System.out.println("222222222222222222222222");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -31,6 +33,16 @@ public class LinesSpringBootApplication {
     @GetMapping("/hello")
     public String hello(){
         return "Hello World";
+    }
+
+    @GetMapping("/info")
+    public String info(){
+        return "info";
+    }
+
+    @GetMapping("/health")
+    public String health(){
+        return "health";
     }
 
     public static void main(String[] args) {

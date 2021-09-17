@@ -1,8 +1,12 @@
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -12,23 +16,45 @@ public class CallTest {
 
     public static void main(String[] args) {
 
-        AtomicInteger atomicInteger =new AtomicInteger();
+        AtomicInteger atomicIntegerForError =new AtomicInteger();
+        AtomicInteger atomicIntegerForSuccess = new AtomicInteger();
+
+
+        List<Future> futureList = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
 
-            executorService.submit(() -> {
+            futureList.add(executorService.submit(() -> {
                 try{
+
                     RestTemplate restTemplate = new RestTemplate();
-
                     String result = restTemplate.getForObject("http://localhost:8762/business-api/call_test", String.class);
-
-                    log.info("result : {}", result);
+                    atomicIntegerForSuccess.incrementAndGet();
+              //      log.info("result : {}", result);
                 }catch (Exception exception){
-                    log.error("Error : count - {}", atomicInteger.incrementAndGet());
+                    atomicIntegerForError.incrementAndGet();
+
                 }
 
-            });
+            }));
             
+        }
+
+        futureList.forEach(future -> {
+            try {
+                future.get();
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            } catch (ExecutionException exception) {
+                exception.printStackTrace();
+            }
+        });
+
+        if(!executorService.isShutdown()){
+            executorService.shutdown();
+
+            log.error("Success : count - {}", atomicIntegerForSuccess.incrementAndGet());
+            log.error("Error : count - {}", atomicIntegerForError.incrementAndGet());
         }
     }
 }
