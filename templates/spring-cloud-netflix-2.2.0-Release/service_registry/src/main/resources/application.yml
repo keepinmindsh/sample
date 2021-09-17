@@ -1,0 +1,42 @@
+server:
+  port: 8761
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+eureka:
+  instance:
+    hostname: localhost
+# Standalone Mode Setting
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost/eureka/
+
+---
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost/eureka/

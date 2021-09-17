@@ -1,0 +1,6 @@
+rootProject.name = 'spring-cloud-netflix-2.2.0-Release'
+include 'service_registry'
+include 'service_discovery'
+include 'business_api'
+include 'test_call'
+

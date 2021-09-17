@@ -53,7 +53,7 @@ public class RequestHandlerPost extends Thread{
             if(!Optional.ofNullable(responseDTO).isPresent()) {
                 byte[] body = null;
                 DataOutputStream dos = new DataOutputStream(out);
-                response200Header(dos, body.length, responseDTO.getResponseCode());
+                response200Header(dos, body.length, ResponseCode.HTTP_500);
                 responseBody(dos, body);
             }
 
@@ -215,7 +215,7 @@ public class RequestHandlerPost extends Thread{
 
     private void response200Header(DataOutputStream dos, int lengthOfBodyContent, ResponseCode responseCode){
         try{
-            dos.writeBytes("HTTP/1.1 " + responseCode.toString() + " OK \r\n");
+            dos.writeBytes("HTTP/1.1 " + responseCode + " OK \r\n");
             dos.writeBytes("Content-Type: text/html;charset=utf-8 \r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");

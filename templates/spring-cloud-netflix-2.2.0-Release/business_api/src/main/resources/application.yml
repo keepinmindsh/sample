@@ -1,0 +1,26 @@
+server:
+  port: 9090
+  tomcat:
+    max-threads: 500
+spring:
+  profiles:
+    active: local
+---
+spring:
+  application:
+    name: business-api
+  profiles: local
+  cloud:
+    circuitbreaker:
+      hystrix:
+        enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    metadata-map:
+      management.port: ${management.port:8081}
