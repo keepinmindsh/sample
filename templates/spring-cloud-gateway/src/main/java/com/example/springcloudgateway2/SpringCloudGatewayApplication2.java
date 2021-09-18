@@ -25,22 +25,8 @@ public class SpringCloudGatewayApplication2 {
 
     RouteLocator gateway2 ( RouteLocatorBuilder routeLocatorBuilder){
         return routeLocatorBuilder.routes()
-                .route("after_route", routeSpec ->
-                        routeSpec.uri("routeSpec.path()")
-                                .
-                                .predicate(new Predicate<ServerWebExchange>() {
-                                    @Override
-                                    public boolean test(ServerWebExchange serverWebExchange) {
-
-
-                                        return false;
-                                    }
-                                })
-
-
-                ).build()
+                .route("after_route", null ).build();
     }
-
 
     RouteLocator gateway ( RouteLocatorBuilder rlb ) {
         return rlb
