@@ -1,4 +1,4 @@
-package com.example.springcloudgateway;
+package com.example.springcloudgateway2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
