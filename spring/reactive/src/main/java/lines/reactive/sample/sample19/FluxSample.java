@@ -16,8 +16,8 @@ public class FluxSample {
 
         System.out.println("Exit");
 
-                // Daemon Thread
-                Flux.interval(Duration.ofMillis(100))
+        // Daemon Thread
+        Flux.interval(Duration.ofMillis(100))
                 .take(10)
                 .subscribe(System.out::println);
     }
