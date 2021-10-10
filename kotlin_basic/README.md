@@ -64,3 +64,5 @@ fun sum(a: Int, b: Int): Int {
     return a + b
 }
 ```
+
+> https://kotlinlang.org/docs/basic-syntax.html#creating-classes-and-instances
