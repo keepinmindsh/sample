@@ -7,6 +7,12 @@
 
 ### Kotlin Basic 
 
+##### Kotlin의 기본 사항 
+
+ - 문장의 마지막에 정의하는 마침표, 세미 콜론 불필요함. 
+
+##### 코드 샘플
+
 **Package definition / imports**  
 
 - Package 의 정의는 반드시 소스 상단에 정의되어야 한다.
@@ -47,3 +53,84 @@ fun standardOutputPrint() {
 ```
 
 **Functions**  
+
+```kotlin
+
+fun main() {
+    print(sum(100, 100));
+
+    print(printSum(100, 100));
+}
+
+fun sum(a: Int, b: Int): Int {
+    return a + b
+}
+
+fun printSum(a: Int, b: Int): Unit {
+    println("sum of $a and $b is ${a + b}")
+}
+
+```
+
+**Variables**  
+
+- val : read-only 의 로컬 변수, 오직 단 한번만 값에 대해서 할당이 가능하다.  
+- var : 재할당이 가능한 로컬 변수 
+
+```kotlin
+
+fun main() {
+    val a: Int = 1  // immediate assignment
+    val b = 2   // `Int` type is inferred
+    val c: Int  // Type required when no initializer is provided
+    c = 3       // deferred assignment
+
+    print(a)
+    print(b)
+    print(c)
+
+    incrementX()
+}
+
+// 변수가 함수보다 위쪽에 선언되어 사용될 수 있음 
+
+val PI = 3.14
+var x = 0
+
+fun incrementX() {
+    x += 1
+}
+
+```
+
+**Classes**  
+
+- 클래스가 정의되는 시점에 파라미터를 Class와 함께 정의가 가능하다.
+
+```kotlin
+
+fun main() {
+
+    var rectangle = Rectangle(5.0, 10.0);
+
+    println("The parameter is ${rectangle.perimeter}")
+}
+
+class Rectangle (var height: Double, var length: Double) {
+    var perimeter = (height + length) * 2
+}
+
+```
+
+- 상속은 : 의해서 정의할 수 있다. 
+- 기본적으로 class는 final 로 인식되기 때문에 상속할 수 없는데, 외부 공개를 위해서 open을 정의해야 한다. 
+
+```kotlin
+
+open class Shape
+
+class Rectangle (var height: Double, var length: Double) : Shape() {
+    var perimeter = (height + length) * 2
+}
+
+```
