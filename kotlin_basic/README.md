@@ -33,6 +33,17 @@ fun main(args: Array<String>) {
 }
 ```
 
+```kotlin
+suspend fun main() = coroutineScope {
+    for (i in 0 until  10) {
+        launch {
+            delay(1000L - i * 10)
+            print("$i ")
+        }
+    }
+}
+```
+
 **표준 출력**   
 
 ```kotlin
