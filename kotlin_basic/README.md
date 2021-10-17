@@ -145,3 +145,24 @@ class Rectangle (var height: Double, var length: Double) : Shape() {
 }
 
 ```
+
+**String Templates** 
+
+- 문자열 템플릿의 경우, "" 내에서 달러 표시 및 {} 의해서 코틀린 문법 및 변수를 매핑할 수 있다. 
+- 문자열 템플릿이 자바에 비해 직관적으로 바인딩 및 표시가 가능하다. 
+
+```kotlin
+
+fun main() {
+    var a = "1"
+
+    var s1 = "a is $a"
+
+    a = "2"
+
+    val s2 = "${s1.replace("is", "was")}, but now is $a"
+
+    println(s2)
+}
+
+```
