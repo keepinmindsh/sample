@@ -1,9 +1,6 @@
 # Kotlin 
 
-## https://kotlinlang.org/docs/getting-started.html#create-your-powerful-application-with-kotlin
-
-
-## https://kotlinlang.org/docs/basic-syntax.html
+- https://kotlinlang.org/docs/getting-started.html#create-your-powerful-application-with-kotlin
 
 ### Kotlin Basic 
 
@@ -163,6 +160,285 @@ fun main() {
     val s2 = "${s1.replace("is", "was")}, but now is $a"
 
     println(s2)
+}
+
+```
+
+**Conditional Expression**
+
+```kotlin
+fun main() {
+    println(maxOf1(10, 20))
+
+    println(maxOf2(10, 20))
+}
+
+fun maxOf1(a: Int, b:Int) = if ( a > b ) a else b
+
+fun maxOf2(a: Int, b: Int): Int {
+    if (a > b) {
+        return a
+    } else {
+        return b
+    }
+}
+```
+
+**For Loop**    
+
+```kotlin
+
+fun main() {
+    forLoopLogic()
+
+    forLoopLogics2()
+}
+
+fun forLoopLogic(){
+    val items = listOf("apple", "banana", "kiwifruit")
+
+    for (item in items) {
+        println(item)
+    }
+}
+
+fun forLoopLogics2(){
+    val items = listOf("apple", "banana", "kiwifruit")
+    for (index in items.indices) {
+        println("item at $index is ${items[index]}")
+    }
+}
+
+
+```
+
+**While Loop**
+
+```kotlin
+
+fun main() {
+    whileLoopLogic()
+}
+
+fun whileLoopLogic(){
+    val items = listOf("apple", "banana", "kiwifruit")
+    var index = 0
+    while (index < items.size) {
+        println("item at $index is ${items[index]}")
+        index++
+    }
+}
+
+```
+
+**When Expression**
+
+```kotlin
+
+fun main() {
+    println(describe(1))
+
+    println(describe("1"))
+}
+
+// Object로 파라미터를 받아 when 절에서 타입과 값에 따라 체크가 가능함.
+fun describe(obj: Any): String =
+    when (obj) {
+        1          -> "One"
+        "1"        -> "StringOne"
+        "Hello"    -> "Greeting"
+        is Long    -> "Long"
+        !is String -> "Not a string"
+        else       -> "Unknown"
+    }
+
+```
+
+**Ranges**  
+
+```kotlin
+    
+fun main() {
+    rangeLogic()
+
+    rangeLogic2()
+
+    rangeWithIterator()
+
+    rangeWithProgression()
+}
+
+fun rangeLogic(){
+    val x = 9
+    var y = 10
+
+    if(x in 1..y+1){
+        println("fits in range")
+    }
+
+}
+
+fun rangeLogic2(){
+    val list = listOf("a", "b", "c")
+
+    if (-1 !in 0..list.lastIndex) {
+        println("-1 is out of range")
+    }
+    if (list.size !in list.indices) {
+        println("list size is out of valid list indices range, too")
+    }
+}
+
+fun rangeWithIterator(){
+    for (x in 1..5) {
+        print(x)
+    }
+}
+
+fun rangeWithProgression(){
+    for (x in 1..10 step 2) {
+        print(x)
+    }
+    println()
+    for (x in 9 downTo 0 step 3) {
+        print(x)
+    }
+}
+
+```
+
+**Collections**
+
+```kotlin
+
+fun main() {
+    collectionsWithForIn()
+
+    collectionWithIn()
+
+    collectionWithFilterMapLoop()
+}
+
+fun collectionsWithForIn(){
+    val items = listOf("apple", "banana", "kiwifruit")
+    for (item in items) {
+        println(item)
+    }
+}
+
+fun collectionWithIn(){
+    val items = setOf("apple", "banana", "kiwifruit")
+    when {
+        "orange" in items -> println("juicy")
+        "apple" in items -> println("apple is fine too")
+    }
+}
+
+
+fun collectionWithFilterMapLoop(){
+    val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+    fruits
+        .filter { it.startsWith("a") }
+        .sortedBy { it }
+        .map { it.uppercase() }
+        .forEach { println(it) }
+}
+
+```
+
+**Null Value/Check**   
+
+```kotlin
+
+fun parseInt(str: String): Int? {
+    return str.toIntOrNull()
+}
+
+fun printProduct1(arg1: String, arg2: String) {
+    val x = parseInt(arg1)
+    val y = parseInt(arg2)
+
+    // ...
+    if (x == null) {
+        println("Wrong number format in arg1: '$arg1'")
+        return
+    }
+    if (y == null) {
+        println("Wrong number format in arg2: '$arg2'")
+        return
+    }
+
+    // x and y are automatically cast to non-nullable after null check
+    println(x * y)
+}
+
+
+fun printProduct2(arg1: String, arg2: String) {
+    val x = parseInt(arg1)
+    val y = parseInt(arg2)
+
+    // Using `x * y` yields error because they may hold nulls.
+    if (x != null && y != null) {
+        // x and y are automatically cast to non-nullable after null check
+        println(x * y)
+    }
+    else {
+        println("'$arg1' or '$arg2' is not a number")
+    }
+}
+
+fun main() {
+    printProduct1("6", "7")
+    printProduct1("99", "b")
+    printProduct1("a", "7")
+
+
+    printProduct2("6", "7")
+    printProduct2("99", "b")
+    printProduct2("a", "7")
+}
+
+```
+
+**Type Check**      
+
+```kotlin
+
+fun getStringLength1(obj: Any): Int? {
+    if (obj is String) {
+        // `obj` is automatically cast to `String` in this branch
+        return obj.length
+    }
+
+    // `obj` is still of type `Any` outside of the type-checked branch
+    return null
+}
+
+fun getStringLength2(obj: Any): Int? {
+    // `obj` is automatically cast to `String` on the right-hand side of `&&`
+    if (obj is String && obj.length > 0) {
+        return obj.length
+    }
+
+    return null
+}
+
+fun main() {
+    fun printLength(obj: Any) {
+        println("Getting the length of '$obj'. Result: ${getStringLength1(obj) ?: "Error: The object is not a string"} ")
+    }
+
+    printLength("Incomprehensibilities")
+    printLength(1000)
+    printLength(listOf(Any()))
+
+    fun printLength2(obj: Any) {
+        println("Getting the length of '$obj'. Result: ${getStringLength2(obj) ?: "Error: The object is not a string"} ")
+    }
+
+    printLength2("Incomprehensibilities")
+    printLength2(1000)
+    printLength2(listOf(Any()))
 }
 
 ```
