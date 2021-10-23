@@ -44,7 +44,7 @@ suspend fun main() = coroutineScope {
 **표준 출력**   
 
 ```kotlin
-package bong.lines.standard_output
+package bong.lines.basic.standard_output
 
 fun main(){
     standardOutputPrint()
@@ -52,7 +52,7 @@ fun main(){
 ```
 
 ```kotlin
-package bong.lines.standard_output
+package bong.lines.basic.standard_output
 
 fun standardOutputPrint() {
     print("Hello ")
@@ -440,5 +440,42 @@ fun main() {
     printLength2(1000)
     printLength2(listOf(Any()))
 }
+
+```
+
+# Idioms
+
+**POJOs/POCOs**
+
+```kotlin
+
+// auto making getter for variables in data class, It is better than lombok of java
+// val -> get
+// var -> get, set
+data class Sample(val name : String, var age : Int){
+
+    var testValue : Int = 0;
+}
+
+data class Data1(val name : String)
+
+fun main() {
+    val sample = Sample("Hong Gil Dong", 50)
+
+    sample.testValue = 20
+
+    println(sample.testValue)
+
+    val data = Data1("GilDong")
+
+    // we cannot reassign variables with "val"
+    println(data.name)
+    println(data.toString())
+}
+
+// HashCode 
+// 객체 해시 코드란 객체를 식별할 하나의 정수 값을 말한다.
+// Object는 클래스의 최상위 타입이고 Object의 hashCode() 메서드는 객체의 메모리 번지를 이용해서 해시 코드를
+// 만들어 리턴하기 때문에 객체마다 다른 값을 가지게 된다.
 
 ```
