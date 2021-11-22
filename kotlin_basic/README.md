@@ -504,3 +504,36 @@ fun main() {
 // 만들어 리턴하기 때문에 객체마다 다른 값을 가지게 된다.
 
 ```
+
+**Default Value**  
+
+
+```kotlin
+
+package bong.lines.idioms
+
+fun main() {
+    println(foo( b = "1241243"))
+}
+
+fun foo(a : Int = 10, b: String = ""):String{
+    return "$a is $b";
+}
+
+``` 
+
+**Filter** 
+
+```kotlin
+
+val valueList = listOf(1,2,3,4,5,6,7,8,9,10)
+
+val filteredList = valueList.filter { x -> x > 5 }
+
+println("$filteredList is a List")
+
+val filteredListValues = valueList.filter { it > 5 }
+
+println("$filteredListValues is a List")
+
+```
