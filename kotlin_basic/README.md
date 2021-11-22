@@ -537,3 +537,41 @@ val filteredListValues = valueList.filter { it > 5 }
 println("$filteredListValues is a List")
 
 ```
+
+**Check Presence of en element in a collection**
+
+```kotlin
+
+fun main() {
+    val valueList = listOf("value@gmail.com", "john@example.com", "bong@gmail.com")
+
+    if("bong@gmail.com" in valueList){
+        println(valueList)
+    }
+
+    if("bongvalue@gmail.com" in valueList){
+        println(valueList)
+    }
+}
+
+```
+
+**String Interpolation**
+
+```kotlin
+
+fun main() {
+    val name = "Bong!"
+
+    println("Name $name")
+}
+
+```
+
+**Instance Checks**
+
+```kotlin
+
+
+
+```
