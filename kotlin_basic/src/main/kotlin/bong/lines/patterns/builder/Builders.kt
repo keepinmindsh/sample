@@ -11,15 +11,15 @@ class MemberBuilder {
     private var year: Int = 0
 
     fun name(lambda: () -> String) {
-        name(lambda)
+        name = lambda()
     }
 
     fun alias(lambda: () -> String) {
-        alias(lambda)
+        alias = lambda()
     }
 
     fun year(lambda: () -> Int) {
-        year(lambda)
+        year = lambda()
     }
 
     fun build() = Member(name, alias, year)
