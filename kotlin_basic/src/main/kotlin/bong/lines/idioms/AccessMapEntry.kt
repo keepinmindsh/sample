@@ -1,7 +1,7 @@
 package bong.lines.idioms
 
 
-class Person(var name: String, var lastName: String, var age: Int)
+data class Person(var name: String, var lastName: String, var age: Int)
 
 val nameTable = mutableMapOf<String, Person>()
 val example = Person("Josh", "Cohen", 24)
