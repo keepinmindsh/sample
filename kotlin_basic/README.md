@@ -593,3 +593,97 @@ class XValue {
 }
 
 ```
+
+**Read-only DataStructure** 
+
+```kotlin
+
+val list = listOf("a", "b", "c")
+
+val map = mapOf("a" to 1, "b" to 2, "c" to 3)
+
+```
+
+**Access Map Entry**
+
+```kotlin
+
+println(map["key"])
+map["key"] = value
+
+```
+
+**Traverse a map or a list of pairs**
+
+```kotlin
+
+for ((k, v) in map) {
+    println("$k -> $v")
+}
+
+```
+
+**Iterate over a range**
+
+```kotlin
+
+fun main(){
+    for (i in 1..100) {
+        println(i)
+    }  // closed range: includes 100
+
+    for (i in 1 until 100) {
+        println(i)
+    } // half-open range: does not include 100
+
+    for (x in 2..10 step 2) {
+        println(x)
+    }
+
+    for (x in 10 downTo 1) {
+        println(x)
+    }
+
+    (1..10).forEach {
+        run {
+            println(it)
+        }
+    }
+}
+
+```
+
+**Lazy Property**
+
+```kotlin
+
+fun main() {
+    /*
+
+    1. lazy()는 람다를 전달받아 저장한 Lazy<T> 인스턴스를 반환합니다.
+    2. 최초 getter 실행은 lazy()에 넘겨진 람다를 실행하고, 결과를 기록합니다.
+    3. 이후 getter 실행은 기록된 값을 반환합니다.
+
+    즉, lazy는 프로퍼티의 값에 접근하는 최초 시점에 초기화를 수행하고 이 결과를 저장한 뒤 기록된 값을 재반환하는 인스턴스를 생성하는 함수입니다.
+
+    Link : https://medium.com/til-kotlin-ko/kotlin-delegated-property-by-lazy%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%98%EB%8A%94%EA%B0%80-74912d3e9c56
+
+     */
+    val p: String by lazy {
+        "Value"
+    }
+
+    print(p)
+}
+
+```
+
+**Extension functions**
+
+```kotlin
+
+fun String.spaceToCamelCase() { ... }
+
+"Convert this to camelcase".spaceToCamelCase()
+
+```
