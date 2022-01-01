@@ -19,7 +19,7 @@ fun rentPrice(standardDays: Int, festivityDays: Int, specialDays: Int): Unit {  
 
     val total = dayRates.standard + dayRates.festivity + dayRates.special       //3
 
-    print("Total price: $$total")                                               //4
+    print("Total price: $total")                                               //4
 }
 
 object DoAuth {                                                 //1
