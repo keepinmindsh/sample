@@ -40,9 +40,15 @@
         - hibernate.dialect : 데이터베이스 방언, 다양하게 존재하는 DB의 DDL,DML 등의 특성, 고유한 기능에 맞춰 사용할 수 있게 해주는 설정
     - javax. ~ : 표준에서 제정한 것 
     - hibernate. ~ : 하이버네이트 전용 옵션
+    
 
 ---
 
 > https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
 > https://joont92.github.io/db/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80-isolation-level/
 > https://effectivesquid.tistory.com/entry/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Isolation-Level
+
+h2 database 설정이 잘 안될 때, 
+> https://roadrunner.tistory.com/646
+> https://hororolol.tistory.com/373
+> https://bluayer.com/23
