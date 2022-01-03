@@ -10,3 +10,5 @@
   - 마치 자바 Collection에 값을 넣었다 가져왔다하는 역할들과 같음 
 
 > https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
+
+- JPA는 애플리케이션과 JDBC 사이에서 동작 
