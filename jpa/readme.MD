@@ -27,6 +27,19 @@
 - 객체지향과 RDB의 적절한 Balance를 잘 맞춰야 한다. 
 - RDB에 대한 이해가 더욱더 중요함. 
 
+### JPA Hello World 
+
+- Environments
+  - https://www.h2database.com/html/main.html 를 이용한 H2 Database 구성 
+  - JPA Java Project 구성시 Maven 모듈 ( Gradle Or Maven )
+    - https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
+    - https://mvnrepository.com/artifact/com.h2database/h2
+  - persistence.xml 설정 
+    - jpa의 경우, 기본적인 설정 파일을 필요로 함. 순수 자바 프로젝트에서 사용할 경우 META-INF 하위에 persistence.xml 를 위치시키는 것이 중요함.
+      - 항목별 설명
+        - hibernate.dialect : 데이터베이스 방언, 다양하게 존재하는 DB의 DDL,DML 등의 특성, 고유한 기능에 맞춰 사용할 수 있게 해주는 설정 
+  - 
+
 > https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
 > https://joont92.github.io/db/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80-isolation-level/
 > https://effectivesquid.tistory.com/entry/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Isolation-Level
