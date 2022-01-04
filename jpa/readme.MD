@@ -43,7 +43,12 @@
       - hibernate.show_sql : query를 출력함
       - hibernate.format_sql : sql을 예쁘게
       - hibernate.use_sql_comments : 쿼리 실행사유를 표시
-    
+
+###  중요
+
+- 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에서 공유
+- Entity Manager는 쓰레드 간에 공유 X ( 사용하고 버려야 한다 )
+- JPA의 모든 데이터 변경은 트랜잭션 안에서 실행 
 
 ---
 
