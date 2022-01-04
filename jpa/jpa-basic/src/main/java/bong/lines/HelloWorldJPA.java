@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class HelloWorldJPA {
     public static void main(String[] args) {
@@ -31,8 +32,19 @@ public class HelloWorldJPA {
             //entityManager.remove(findMember);
 
             // TODO 수정 - JPA를 통해서 객체를 반환하면 해당 객체는 JPA에서 관리하여 변경사항을 Transaction Commit시 반영한다.
-            Member findMember = entityManager.find(Member.class, 1L);
-            findMember.setName("Good!");
+            //Member findMember = entityManager.find(Member.class, 1L);
+            //findMember.setName("Good!");
+
+            // TODO QUERY - JPQL 방언에 맞춰서 Paging 등의 쿼리 적용이 가능함.
+            List<Member> memberList = entityManager.createQuery("select m from Member as m", Member.class)
+                    .setFirstResult(1)
+                    .setMaxResults(10)
+                    .getResultList();
+            memberList.forEach(
+                    item -> {
+                        System.out.println("name : " + item.getName());
+                    }
+            );
 
             entityTransaction.commit();
         }catch (Exception exception){
