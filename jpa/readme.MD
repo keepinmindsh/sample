@@ -44,6 +44,10 @@
       - hibernate.format_sql : sql을 예쁘게
       - hibernate.use_sql_comments : 쿼리 실행사유를 표시
 
+### JPQL 
+
+- 복합적으로 연관되어 있는 RDB의 특성상 복잡 쿼리를 활용해야하는 경우 
+
 ###  중요
 
 - 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에서 공유
