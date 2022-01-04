@@ -50,5 +50,22 @@
 
 h2 database 설정이 잘 안될 때, 
 > https://roadrunner.tistory.com/646
+> 
 > https://hororolol.tistory.com/373
-> https://bluayer.com/23
+> 
+> https://bluayer.com/23 - 해당 방식으로 해결함. 
+> - http://localhost:8082/login.do?jsessionid=f57abf88ef88382b4baa02d0827b298f
+
+spring을 사용하지 않고, JPA만 사용하는 경우 Unkown Entity가 표시될때, 
+
+- https://inf.run/jGHt
+```
+빌드 환경에 따라서 클래스 인식이 자동으로 안되는 경우도 있습니다.
+따라서 이때는 persistence.xml에 다음과 같이 <class></class>로 엔티티를 추가해주세요.
+<persistence-unit name="hello">
+   <class>hellojpa.Member</class>
+   <properties>
+그런데 이 부분은 크게 걱정을 안하셔도 되는 것이, 실무에서는 보통 스프링과 함께 JPA를 사용하게 됩니다. 스프링과 함께 사용하면 자동으로 엔티티를 스캔하는 기능이 내장되어 있어서 이런 추가 설정없이 잘 동작합니다.
+
+지금처럼 순수 JPA를 학습할 때만 이렇게 클래스를 추가하는게 빌드 환경에 따라 필요할 수 있습니다
+```
