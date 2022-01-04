@@ -59,6 +59,8 @@
 h2 database 설정이 잘 안될 때, 
 > https://roadrunner.tistory.com/646
 > 
+> https://dololak.tistory.com/285
+> 
 > https://hororolol.tistory.com/373
 > 
 > https://bluayer.com/23 - 해당 방식으로 해결함. 
