@@ -15,16 +15,20 @@ public class HelloWorldJPA {
 
         entityTransaction.begin();
 
-        Member member = new Member();
+        try{
+            Member member = new Member();
 
-        member.setId(1L);
-        member.setName("Hello");
+            member.setId(2L);
+            member.setName("Hello");
 
-        entityManager.persist(member);
+            entityManager.persist(member);
 
-        entityTransaction.commit();
-
-        entityManager.close();
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
 
         entityManagerFactory.close();
     }

@@ -2,10 +2,8 @@ package bong.lines;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table
 public class Member {
     @Id
     private Long id;

@@ -40,6 +40,9 @@
         - hibernate.dialect : 데이터베이스 방언, 다양하게 존재하는 DB의 DDL,DML 등의 특성, 고유한 기능에 맞춰 사용할 수 있게 해주는 설정
     - javax. ~ : 표준에서 제정한 것 
     - hibernate. ~ : 하이버네이트 전용 옵션
+      - hibernate.show_sql : query를 출력함
+      - hibernate.format_sql : sql을 예쁘게
+      - hibernate.use_sql_comments : 쿼리 실행사유를 표시
     
 
 ---
