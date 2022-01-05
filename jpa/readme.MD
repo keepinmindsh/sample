@@ -61,6 +61,50 @@
   - 눈에 보이지 않음 
   - Entity Manager를 통해 영속성 컨텍스트에 접근 
 
+##### 비영속 상태 
+
+```java
+class Sample {
+
+  public static void main(String[] args) {
+    // 객체가 생성된 비영속 상태 
+    Member member = new Member();
+    member.setId(2L);
+    member.setName("Hello");
+  }
+}
+```
+
+##### 영속 상태 
+
+```java
+class Sample {
+
+  public static void main(String[] args) {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+    entityTransaction.begin();
+
+
+    try {
+      
+      Member member = new Member();
+      member.setId(2L);
+      member.setName("Hello");
+      
+      // 객체를 저장하는 영속 상태 
+      entityManager.persist(member);
+    }catch (Exception exception){
+        
+    }
+  }
+}
+```
+
 ###  중요
 
 - 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에서 공유

@@ -17,6 +17,15 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+            // 비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("Bong JPA");
+
+            // 영속 상태
+            // persist 시점에는 실제로 데이터가 저장되는 시점이 아님.
+            entityManager.persist(member);
+
             // TODO 저장 클래스 분리
             //Member member = new Member();
             //member.setId(2L);
@@ -36,15 +45,15 @@ public class HelloWorldJPA {
             //findMember.setName("Good!");
 
             // TODO QUERY - JPQL 방언에 맞춰서 Paging 등의 쿼리 적용이 가능함.
-            List<Member> memberList = entityManager.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
-            memberList.forEach(
-                    item -> {
-                        System.out.println("name : " + item.getName());
-                    }
-            );
+//            List<Member> memberList = entityManager.createQuery("select m from Member as m", Member.class)
+//                    .setFirstResult(1)
+//                    .setMaxResults(10)
+//                    .getResultList();
+//            memberList.forEach(
+//                    item -> {
+//                        System.out.println("name : " + item.getName());
+//                    }
+//            );
 
             entityTransaction.commit();
         }catch (Exception exception){
