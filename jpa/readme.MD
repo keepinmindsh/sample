@@ -60,6 +60,11 @@
   - 논리적인 개념
   - 눈에 보이지 않음 
   - Entity Manager를 통해 영속성 컨텍스트에 접근 
+  - 1차 캐시 
+  - 동일성 보장 
+  - 트랜잭션을 지원하는 쓰기 지연
+  - 변경 감지 
+  - 지연 로딩 
 
 ##### 비영속 상태 
 
@@ -73,6 +78,26 @@ class Sample {
     member.setName("Hello");
   }
 }
+```
+
+##### 준영속, 삭제 
+
+```java
+
+class Sample {
+  public static void main(String[] args) {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    // 영속성 컨텍스트에서 분리, 준영속 상태 
+    entityManager.detach(member);
+    
+    // 객체를 삭제한 상태 ( 삭제 ) 
+    entityManager.remove(member);
+  }
+}
+
 ```
 
 ##### 영속 상태 
