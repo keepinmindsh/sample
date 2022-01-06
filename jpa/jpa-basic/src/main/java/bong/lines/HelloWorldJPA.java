@@ -17,14 +17,25 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+
+            // TODO 1차 캐시
+//            Member member = new Member();
+//            member.setId(101L);
+//            member.setName("Hello");
+//            entityManager.persist(member);
+
+            //Member member1 = entityManager.find(Member.class, 101L);
+            //Member member2 = entityManager.find(Member.class, 101L);
+
+            // TODO - 비영속, 영속 상태
             // 비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("Bong JPA");
+            //Member member = new Member();
+            //member.setId(100L);
+            //member.setName("Bong JPA");
 
             // 영속 상태
             // persist 시점에는 실제로 데이터가 저장되는 시점이 아님.
-            entityManager.persist(member);
+            //entityManager.persist(member);
 
             // TODO 저장 클래스 분리
             //Member member = new Member();
