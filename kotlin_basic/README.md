@@ -184,8 +184,7 @@ fun maxOf2(a: Int, b: Int): Int {
 }
 ```
 
-**For Loop**    
-
+**For Loop**
 ```kotlin
 
 fun main() {
