@@ -17,7 +17,7 @@ fun log(vararg entries: String) {
     printAll(*entries)                                             // 5
 }
 
-// TODO - https://velog.io/@milkcoke/Kotlin-varargs 참고 할 것 
+// TODO - https://velog.io/@milkcoke/Kotlin-varargs 참고 할 것
 fun main() {
     printAll("Hello", "Hallo", "Salut", "Hola", "你好")                 // 2
 
