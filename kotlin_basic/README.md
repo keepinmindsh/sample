@@ -8,13 +8,13 @@
 
  - 문장의 마지막에 정의하는 마침표, 세미 콜론 불필요함. 
 
-##### 코드 샘플
+### 코드 샘플
 
-**Package definition / imports**  
+##### **Package definition / imports**  
 
 - Package 의 정의는 반드시 소스 상단에 정의되어야 한다.
 
-**Program entry point**  
+##### **Program entry point**  
 
 - Kotlin의 메인 진입점은 main 함수로 정의되고, 정의 방식은 아래와 같다.
 
@@ -41,7 +41,7 @@ suspend fun main() = coroutineScope {
 }
 ```
 
-**표준 출력**   
+##### **표준 출력**   
 
 ```kotlin
 package bong.lines.basic.standard_output
@@ -60,7 +60,7 @@ fun standardOutputPrint() {
 }
 ```
 
-**Functions**  
+##### **Functions**  
 
 ```kotlin
 
@@ -80,7 +80,7 @@ fun printSum(a: Int, b: Int): Unit {
 
 ```
 
-**Variables**  
+##### **Variables**  
 
 - val : read-only 의 로컬 변수, 오직 단 한번만 값에 대해서 할당이 가능하다.  
 - var : 재할당이 가능한 로컬 변수 
@@ -111,7 +111,31 @@ fun incrementX() {
 
 ```
 
-**Classes**  
+Properties에서 사용될 때,    
+
+Kotlin의 클래스에서 프로퍼티는 Mutable(변경가능 - var) 또는 Read-Only(읽기전용 - val)로 사용 가능하다.  
+
+```kotlin
+
+class Address {
+    var name: String = "Holmes, Sherlock"
+    var street: String = "Baker"
+    var city: String = "London"
+    var state: String? = null
+    var zip: String = "123456"
+}
+
+fun copyAddress(address: Address): Address {
+    val result = Address() // there's no 'new' keyword in Kotlin
+    result.name = address.name // accessors are called
+    result.street = address.street
+    // ...
+    return result
+}
+
+```
+
+##### **Classes**  
 
 - 클래스가 정의되는 시점에 파라미터를 Class와 함께 정의가 가능하다.
 
@@ -139,6 +163,26 @@ open class Shape
 
 class Rectangle (var height: Double, var length: Double) : Shape() {
     var perimeter = (height + length) * 2
+}
+
+```
+
+- class 생성시, 
+
+```kotlin
+
+class Sample2(firstName: String){
+    val firstProperty = "First property: $firstName".also(::println)
+
+    init {
+        println("First initializer block that prints $firstName")
+    }
+
+    val secondProperty = "Second property: ${firstName.length}".also(::println)
+
+    init {
+        println("Second initializer block that prints ${firstName.length}")
+    }
 }
 
 ```

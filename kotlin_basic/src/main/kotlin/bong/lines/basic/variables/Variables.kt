@@ -6,7 +6,6 @@ fun sample1() {
     val c: Int  // Type required when no initializer is provided
     c = 3       // deferred assignment
 
-
     print(a)
     print(b)
     print(c)
@@ -26,6 +25,21 @@ fun incrementX() {
     x += 1
 }
 
+class Address {
+    var name: String = "Holmes, Sherlock"
+    var street: String = "Baker"
+    var city: String = "London"
+    var state: String? = null
+    var zip: String = "123456"
+}
+
+fun copyAddress(address: Address): Address {
+    val result = Address() // there's no 'new' keyword in Kotlin
+    result.name = address.name // accessors are called
+    result.street = address.street
+    // ...
+    return result
+}
 
 fun main(){
     sample1()
@@ -33,4 +47,6 @@ fun main(){
     sample2()
 
     incrementX()
+
+    println("Value is ${copyAddress(Address()).city}")
 }
