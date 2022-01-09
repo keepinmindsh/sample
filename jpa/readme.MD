@@ -75,8 +75,22 @@
     - 영속 컨텍스트에 의해서 Transaction Commit (flush) 시점에 entity와 snapshot를 비교하는데, 
       entity와 snapshot을 비교하여 변경된 값에 대해서 update query를 생성하여 commit 시점에 database에 반영된다. 
   - 지연 로딩 
-  - 플러시 
-    - 
+
+##### 플러쉬 ( Flush )
+
+ - 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영
+   - 변경 감지 
+   - 수정된 엔티티 쓰기 지연 SQL 저장도에 등록
+   - 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송 ( 등록, 수정, 삭제 쿼리 )
+
+ - 사용 방법
+   - em.flush
+   - 트랜잭션 커밋
+   - JPQL 쿼리 실행시
+   
+ - FlushMode 옵션
+   - FlushModeType.AUTO : 커밋이나 쿼리를 실행할 때 플러시
+   - FlushModeType.COMMIT : 커밋할 때만 플러시 
 
 ##### 비영속 상태 
 

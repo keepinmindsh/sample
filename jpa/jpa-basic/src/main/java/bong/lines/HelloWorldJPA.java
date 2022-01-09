@@ -1,9 +1,6 @@
 package bong.lines;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class HelloWorldJPA {
@@ -17,6 +14,17 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+
+            // TODO - Flush 모드 옵션
+            //entityManager.setFlushMode(FlushModeType.AUTO);
+
+            // TODO - Flush
+            /*Member member1 = new Member(250L, "A");
+            entityManager.persist(member1);
+
+            entityManager.flush();  // flush 시점에 1차 캐쉬를 삭제하지 않음
+
+            System.out.println("====================");*/
 
             // TODO 변경 감지
 //            Member member = entityManager.find(Member.class, 150L);
