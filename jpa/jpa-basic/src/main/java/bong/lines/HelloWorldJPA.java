@@ -19,8 +19,8 @@ public class HelloWorldJPA {
         try{
 
             // TODO 변경 감지
-            Member member = entityManager.find(Member.class, 150L);
-            member.setName("ZZZZZ");
+//            Member member = entityManager.find(Member.class, 150L);
+//            member.setName("ZZZZZ");
 
             // TODO Transaction 쓰기 지연
 //             Member member1 = new Member(150L, "A");
