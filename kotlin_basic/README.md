@@ -187,6 +187,26 @@ class Sample2(firstName: String){
 
 ```
 
+- class에서 다중 supertype을 지정하고, 할당받는 변수의 타입에 따라 특정 supertype에 맞춰 호출할 수 있음
+
+```kotlin
+
+open class A(x: Int) {
+    public open val y: Int = x
+}
+
+interface B {
+    fun calculate() : Int
+}
+
+val ab: B = object : A(1), B {
+    override val y = 15
+
+    override fun calculate(): Int = y * 400
+}
+
+```
+
 **String Templates** 
 
 - 문자열 템플릿의 경우, "" 내에서 달러 표시 및 {} 의해서 코틀린 문법 및 변수를 매핑할 수 있다. 
