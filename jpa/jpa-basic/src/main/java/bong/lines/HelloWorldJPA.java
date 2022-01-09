@@ -14,6 +14,11 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+            // TODO - 준영속 상태
+//            Member member = entityManager.find(Member.class, 150L);
+//            member.setName("AAAAA");
+//
+//            entityManager.detach(member);
 
             // TODO - Flush 모드 옵션
             //entityManager.setFlushMode(FlushModeType.AUTO);
