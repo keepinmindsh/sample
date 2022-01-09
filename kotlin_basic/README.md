@@ -207,7 +207,7 @@ val ab: B = object : A(1), B {
 
 ```
 
-**String Templates** 
+##### **String Templates** 과 문자열 처리
 
 - 문자열 템플릿의 경우, "" 내에서 달러 표시 및 {} 의해서 코틀린 문법 및 변수를 매핑할 수 있다. 
 - 문자열 템플릿이 자바에 비해 직관적으로 바인딩 및 표시가 가능하다. 
@@ -215,6 +215,20 @@ val ab: B = object : A(1), B {
 ```kotlin
 
 fun main() {
+    StringTemplate()
+
+    forLoopForEachStringCharacter()
+
+    applyUppercase()
+
+    stringLiteral()
+
+    trimMargin()
+
+    displayPrice()
+}
+
+private fun StringTemplate() {
     var a = "1"
 
     var s1 = "a is $a"
@@ -226,9 +240,50 @@ fun main() {
     println(s2)
 }
 
+fun forLoopForEachStringCharacter(){
+    val str = "abcd 123"
+
+    for (c in str) {
+        println(c)
+    }
+}
+
+fun applyUppercase(){
+    val str = "abcd"
+    println(str.uppercase()) // Create and print a new String object
+    println(str) // the original string remains the same
+}
+
+fun stringLiteral(){
+    val text = """
+    for (c in "foo")
+        print(c)
+"""
+
+    println(text)
+}
+
+fun trimMargin(){
+    val text = """
+    |Tell me and I forget.
+    |Teach me and I remember.
+    |Involve me and I learn.
+    |(Benjamin Franklin)
+    """.trimMargin()
+
+    println(text)
+}
+
+fun displayPrice(){
+    val price = """
+${'$'}_9.99
+"""
+
+    println(price)
+}
 ```
 
-**Conditional Expression**
+##### **Conditional Expression**
 
 ```kotlin
 fun main() {
