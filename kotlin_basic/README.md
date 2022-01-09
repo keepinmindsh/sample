@@ -285,6 +285,8 @@ ${'$'}_9.99
 
 ##### **Conditional Expression**
 
+- 함수를 정의하는 시점에 if-else 내에 추가적인 처리 없이 하나의 값을 반환할 때는 {} 없이 선언 및 사용이 가능하다. 
+
 ```kotlin
 fun main() {
     println(maxOf1(10, 20))
@@ -317,13 +319,27 @@ fun maxOf3(a: Int, b: Int): Int {
 }
 ```
 
-**For Loop**
+##### **For Loop**
+
+ - for loop를 사용하는 방식 
+   - downTo, step, until 
+
 ```kotlin
 
 fun main() {
     forLoopLogic()
 
-    forLoopLogics2()
+    forLoopLogic2()
+
+    forLoopLogic3()
+    
+    println()
+
+    forLoopLogic4()
+
+    println()
+
+    forLoopLogic5()
 }
 
 fun forLoopLogic(){
@@ -334,13 +350,30 @@ fun forLoopLogic(){
     }
 }
 
-fun forLoopLogics2(){
+fun forLoopLogic2(){
     val items = listOf("apple", "banana", "kiwifruit")
     for (index in items.indices) {
         println("item at $index is ${items[index]}")
     }
 }
 
+fun forLoopLogic3(){
+    var index = 30
+    for ( i in 1..index)
+        print(i)
+}
+
+fun forLoopLogic4(){
+    var index = 30
+    for ( i in 1..index step 3)
+        print(i)
+}
+
+fun forLoopLogic5(){
+    var index = 30
+    for ( i in index downTo 1 step 2)
+        print(i)
+}
 
 ```
 

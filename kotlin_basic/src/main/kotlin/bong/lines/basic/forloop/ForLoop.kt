@@ -3,7 +3,7 @@ package bong.lines.basic.forloop
 fun main() {
     forLoopLogic()
 
-    forLoopLogics2()
+    forLoopLogic2()
 
     val cakes = listOf("carrot", "cheese", "chocolate")
 
@@ -24,6 +24,17 @@ fun main() {
         bakeACake()
         cakesBaked++
     } while (cakesBaked < cakesEaten)
+
+
+    forLoopLogic3()
+
+    println()
+
+    forLoopLogic4()
+
+    println()
+
+    forLoopLogic5()
 }
 
 fun eatACake() = println("Eat a Cake")
@@ -37,9 +48,27 @@ fun forLoopLogic(){
     }
 }
 
-fun forLoopLogics2(){
+fun forLoopLogic2(){
     val items = listOf("apple", "banana", "kiwifruit")
     for (index in items.indices) {
         println("item at $index is ${items[index]}")
     }
+}
+
+fun forLoopLogic3(){
+    var index = 30
+    for ( i in 1..index)
+        print(i)
+}
+
+fun forLoopLogic4(){
+    var index = 30
+    for ( i in 1..index step 3)
+        print(i)
+}
+
+fun forLoopLogic5(){
+    var index = 30
+    for ( i in index downTo 1 step 2)
+        print(i)
 }
