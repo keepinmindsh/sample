@@ -70,8 +70,13 @@
   - 트랜잭션을 지원하는 쓰기 지연
     - persist 시점에 데이터를 DB Insert 처리하지 않고 Commit 시점에 처리된다. 
     - persist를 다수 호출 후에 commit 명령어에 의해서 실행되므로, jdbc batch insert 와 동일하게 동작한다. 
-  - 변경 감지 
+      - bufferning을 모아서 적용 가능 
+  - 변경 감지 ( Dirty Checking )
+    - 영속 컨텍스트에 의해서 Transaction Commit (flush) 시점에 entity와 snapshot를 비교하는데, 
+      entity와 snapshot을 비교하여 변경된 값에 대해서 update query를 생성하여 commit 시점에 database에 반영된다. 
   - 지연 로딩 
+  - 플러시 
+    - 
 
 ##### 비영속 상태 
 

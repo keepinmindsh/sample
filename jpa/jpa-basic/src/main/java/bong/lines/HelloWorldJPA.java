@@ -17,14 +17,19 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+
+            // TODO 변경 감지
+            Member member = entityManager.find(Member.class, 150L);
+            member.setName("ZZZZZ");
+
             // TODO Transaction 쓰기 지연
-             Member member1 = new Member(150L, "A");
-             Member member2 = new Member(160L, "B");
+//             Member member1 = new Member(150L, "A");
+//             Member member2 = new Member(160L, "B");
+//
+//             entityManager.persist(member1);
+//             entityManager.persist(member2);
 
-             entityManager.persist(member1);
-             entityManager.persist(member2);
-
-//            // TODO 동일성 보장
+            // TODO 동일성 보장
 //            Member member1 = entityManager.find(Member.class, 101L);
 //            Member member2 = entityManager.find(Member.class, 101L);
 //
