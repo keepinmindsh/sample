@@ -1,5 +1,6 @@
 package bong.lines;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,6 +10,8 @@ import javax.persistence.Table;
 public class Member {
     @Id
     private Long id;
+
+    @Column(nullable = false, length = 500, unique = false)
     private String name;
 
     public Member() {

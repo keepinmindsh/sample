@@ -188,13 +188,43 @@ class Sample {
 
 - DLL을 애플리케이션 실행 시점에 자동 생성 
 - 테이블 중심 -> 객체 중심 
-- 데이터 베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성 
+- 데이터 베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL, DML 생성 
+  - 데이터베이스 방언별로 달라지는 것 확인 필요 
 - 이렇게 생성된 DDL은 개발장비에서만 사용 
+- hibernate.hbm2ddl.auto
+  - create : 기존 테이블 삭제후 다시 생성 ( drop 하고 create가 됨 )
+  - create-drop : create와 같으나 종료 시점에 테이블 DROP
+  - update : 변경 분만 반영 ( 운영 db에서 절대 사용하면 안됨 )
+  - validate : 엔티티와 테이블이 정상 매핑되었는지만 확인 - 확인 용도 
+  - none : 사용하지 않음 
+- DDL 생성 기능 
+  - 제약조건 추가 
+    - @Column(nullable = false, name= "", unique = true, length = 10 )
+      - DDL 생성을 도와주는 기능을 제공함. 실행 로직에는 영향을 주지 않음 
+
+hibernate.hbm2ddl.auto=create 일 때, @Column(nullable = false, length = 500, unique = false) 는 아래와 같이 동작함. 
+
+```shell
+
+Hibernate: 
+    
+    drop table if exists MBR cascade 
+Hibernate: 
+    
+    create table MBR (
+       id bigint not null,
+        name varchar(500) not null,
+        primary key (id)
+    )
+
+```
+
+
 - 주의 
   - 운영 장비에는 절대 create, create-drp, update 사용하면안된다.
   - 개발 초기 단계는 create 또는 update
   - 테스트 서버는 update 또는 validate
-  - 스테이징과 운영 서버는 validate or none 
+  - 스테이징과 운영 서버는 validate or none
 
 ###  중요
 
@@ -208,7 +238,7 @@ class Sample {
 
 ---
 
-> https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
+> 참고 정리 - https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
 > https://joont92.github.io/db/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80-isolation-level/
 > https://effectivesquid.tistory.com/entry/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Isolation-Level
 
