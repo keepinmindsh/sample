@@ -170,6 +170,32 @@ class Sample {
 }
 ```
 
+### 엔티티 매핑 
+
+- @Entity, @Table 
+  - @Entity 가 붙은 클래스는 JPA가 관리
+  - 기본 생성자 필요 
+    - 속성 
+      - name : 매핑할 테이블 이름 지정 
+      - catalog : 데이터 베이스 catalog 매핑
+      - schema : 데이터 베이스 schema 매핑
+      - uniqueConstraints : DDL 생성 시에 유니크 제약 조건 생성 
+- @Column
+- @Id
+- @ManyToOne, @JoinColumn 
+
+### 데이터베이스 스키마 자동 생성 
+
+- DLL을 애플리케이션 실행 시점에 자동 생성 
+- 테이블 중심 -> 객체 중심 
+- 데이터 베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성 
+- 이렇게 생성된 DDL은 개발장비에서만 사용 
+- 주의 
+  - 운영 장비에는 절대 create, create-drp, update 사용하면안된다.
+  - 개발 초기 단계는 create 또는 update
+  - 테스트 서버는 update 또는 validate
+  - 스테이징과 운영 서버는 validate or none 
+
 ###  중요
 
 - 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에서 공유
