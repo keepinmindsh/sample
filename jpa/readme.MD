@@ -219,12 +219,104 @@ Hibernate:
 
 ```
 
-
-- 주의 
+- 주의
   - 운영 장비에는 절대 create, create-drp, update 사용하면안된다.
   - 개발 초기 단계는 create 또는 update
   - 테스트 서버는 update 또는 validate
   - 스테이징과 운영 서버는 validate or none
+  
+### Mapping Annotations
+
+- @Column  - 컬럼 매핑
+  - name
+  - insertable : 등록 여부 
+  - updatable  : 변경 여부 
+  - nullable   : null 값의 허용 여부 설정 
+  - unique     : @Table의 uniqueConstraint와 같이만 한 컬럼에 간단히 유니크 제약조건을 걸 때 사용한다. 
+    - 잘 사용하지 않는 값 - unique 인덱스 생성시 , 유니크 제약조건을 이름이 반영이 어려워 @Table 에 같이 선언하여 사용한다. 
+    - @Table(uniqueConstraint=~~~)
+  - columnDefinition
+    - 컬럼 정의를 직접하고 싶은 경우, 
+  - length
+    - 문자길이 제약 조건, String 타입에 사용한다. 
+  - precision
+    - BigDecimal 타입에서 사용한다. 아주 큰 숫자나 소수점 사용할 경우 
+- @Temporal - 날짜 타입 매핑
+  - DATE : 날짜, 데이터 베이스 date 타입과 매핑 ( 2021-01-12 )
+  - TIME : 시간, 데이터 베이스 time 타입과 매핑 ( 11:11:11 )
+  - TIMESTAMP : 날짜와 시간, 데이터베이스 timestamp 타입과 매핑 ( 2021-01-12 11:11:11 ) 
+  - 최근에는 ~ LocalDate(년월)와 LocalDateTime ( 년월일) - 최신 버전의 경우 변수 선언서 데이터 타입을 LocalDate와 LocalDateTime를 적용하는 경우
+    그에 맞게 호출됨. 아래의 test1과 test2를 참고할 것 
+  
+```java
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Entity
+//@Table(name = "MBR")
+public class Member {
+    @Id
+    private Long id;
+
+    @Column(nullable = false, length = 500, unique = false, name = "name")
+    private String name;
+
+    private Integer age;
+    
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDAte;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    private LocalDate test1;
+    private LocalDateTime test2;
+    
+    @Lob
+    private String description;
+
+    public Member() {
+    }
+}
+
+```
+
+```shell
+
+    create table Member (
+       id bigint not null,
+        age integer,
+        createDAte timestamp(6),
+        description clob,
+        lastModifiedDate timestamp(6),
+        name varchar(500) not null,
+        roleType varchar(255),
+        test1 date,
+        test2 timestamp(6),
+        primary key (id)
+    )
+
+
+```
+
+- @Enumerated - Enum Type 활용
+  - 기본값 : ORDINAL - Enum의 순서를 저장하는 것 
+    - 쓰면 문제가 되는 이유는, enum에 값을 정의할 때, 내부에서 정해지는 enum의 index 값에 따라 순번이 변경되어 이슈가 발생할 수 있음
+    - 운영상에서는 ORDINAL를 사용하지 않음 
+    - 반드시 String으로 EnumType을 사용할 것 
+- @Lob - Clob, Blob
+  - @Lob에는 지정할 수 있는 속성이 없다. 
+  - 매핑하는 필드 타입이 문자면 CLOB 매핑, 나머지는 BLOB 매핑
+    - CLOB : String, char[], java.sql.CLOB
+    - BLOB : byte[], java.sql.BLOB
+- @Transient - 매핑을 안하고 싶을 경우
+
 
 ###  중요
 
