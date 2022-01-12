@@ -14,6 +14,12 @@ public class HelloWorldJPA {
         entityTransaction.begin();
 
         try{
+
+            // TODO - Sequence
+            MemberForSeq memberForSeq = new MemberForSeq();
+            memberForSeq.setName("TEST");
+            entityManager.persist(memberForSeq);
+
             // TODO - 준영속 상태
 //            Member member = entityManager.find(Member.class, 150L);
 //            member.setName("AAAAA");
