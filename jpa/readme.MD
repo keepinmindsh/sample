@@ -321,12 +321,13 @@ public class Member {
 
 - 직접 할당 : @Id만 사용 
 - 자동 생성 : @GeneratedValue
-  - IDENTITY
-    - 기본키 생성을 데이터 베이스에 위임 
-    - 주로 MySQL, PostgreSQL, SQL Server, DB2 에서 사용 
-    - JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행 
-    - AUTO_INCREMENT는 데이터베이스에 INSERT SQL을 실행한 이후에 ID 값을 알 수 있음
-    - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT_SQL 실행하고 DB에서 식별자 조회 
+  
+- IDENTITY
+  - 기본키 생성을 데이터 베이스에 위임 
+  - 주로 MySQL, PostgreSQL, SQL Server, DB2 에서 사용 
+  - JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행 
+  - AUTO_INCREMENT는 데이터베이스에 INSERT SQL을 실행한 이후에 ID 값을 알 수 있음
+  - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT_SQL 실행하고 DB에서 식별자 조회 
 
 ```java
 
@@ -362,14 +363,30 @@ public class MemberForSeq {
 ```
 
   - TABLE 
-    - 키 생성 전용 테이블을 하나 만들어서 데이터베이스 시퀀스를 흉내내는 전략 
+    - 키 생성 전용 테이블을 하나 만들어서 데이터베이스 시퀀스를 흉내내는 전략
+      - name : 식별자 생성기 이름 
+      - table : 키 생성 테이블 명 
+      - pkColumnName : 시퀀스 컬럼명
+      - valueColumnName : 시퀀스 값 컬럼명
+      - pkColumnValue : 키로 사용할 값 이름 
+      - initialValue : 초기값, 마지막으로 생성된 값이 기준이다. 
+      - allocationSize : 시퀀스 한번 호출에 증가하는 수(성능 최적화에 사용됨)
+      - catalog, schema : 데이터베이스 catalog, schema 이름 
+      - uniqueConstraint : 유니크 제약 조건을 지정할 수 있다. 
     - 장점 : 모든 데이터베이스에 적용 가능 
     - 단점 : 성능 
+
+
 
 ```java
 
 @Entity
-
+@TableGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        table = "MY_SEQUENCE",
+        pkColumnValue = "MEMBER_SEQ",
+        allocationSize = 1
+)
 public class MemberForSeq {
 
   @Id
@@ -403,6 +420,21 @@ public class MemberForSeq {
 
 ```
 
+- 권장하는 식별자 전략
+  - 키본키 제약 조건 : null 아님, 유일, 변하면 안된다. 
+  - 미래까지 이 조건을 만족하는 자연키를 찾기 어렵다. 대리키를 사용하자. 
+  - 예를 들어 주민등록번호도 기본 키로 적절하지 않다. 
+  - 권장 : Long 형 + 대체키 + 키 생성 전략 사용  
+    
+
+- IDENTITY 전략 
+  - 기본키 생성을 데이터베이스에 위임
+    - 영속성 컨텍스트를 위해서 PK 값이 있어야 아는데, PK 값을 알 수 있는 시기가 Commit 이후임.
+  - 주로 MySQL, PostgreSQL, SQL Server, DB2에서 사용 ( 예: MySQL의 AUTO_INCREMENT )
+  - JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행 
+  - AUTO_INCREMENT는 데이터베이스에 INSERT_SQL을 실행한 이후에 ID 값을 알 수 있음 
+  - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT_SQL 실행하고 DB에서 식별자 조회 
+    - identity 전략은 persist() 시점에 insert 값을 처리하고 pk 값을 확인할 수 있다. 
 
 ###  중요
 
