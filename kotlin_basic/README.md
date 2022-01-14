@@ -871,3 +871,37 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 
 ```
+
+**Create a Singleton**
+
+```kotlin
+
+package bong.lines.idioms
+
+// 선언은 object로 사용은 별도의 생성자 없이 사용한다. 
+object Resource{
+    val name = "Name"
+}
+
+// 생성자를 통해 요소를 주입하고 싶을때 사용할 수 있다. 
+class Singleton private constructor() {
+
+   companion object {
+      @Volatile private var instance: Singleton? = null
+
+      @JvmStatic fun getInstance(): Singleton =
+         instance ?: synchronized(this) {
+            instance ?: Singleton().also {
+               instance = it
+            }
+         }
+   }
+}
+
+fun main() {
+    print(Resource.name)
+}
+
+```
+
+
