@@ -374,9 +374,7 @@ public class MemberForSeq {
       - catalog, schema : 데이터베이스 catalog, schema 이름 
       - uniqueConstraint : 유니크 제약 조건을 지정할 수 있다. 
     - 장점 : 모든 데이터베이스에 적용 가능 
-    - 단점 : 성능 
-
-
+    - 단점 : 성능
 
 ```java
 
@@ -431,8 +429,8 @@ public class MemberForSeq {
   - 기본키 생성을 데이터베이스에 위임
     - 영속성 컨텍스트를 위해서 PK 값이 있어야 아는데, PK 값을 알 수 있는 시기가 Commit 이후임.
   - 주로 MySQL, PostgreSQL, SQL Server, DB2에서 사용 ( 예: MySQL의 AUTO_INCREMENT )
-  - JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행 
-  - AUTO_INCREMENT는 데이터베이스에 INSERT_SQL을 실행한 이후에 ID 값을 알 수 있음 
+  - JPA 는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행 
+  - AUTO_INCREMENT 는 데이터베이스에 INSERT_SQL을 실행한 이후에 ID 값을 알 수 있음 
   - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT_SQL 실행하고 DB에서 식별자 조회 
     - identity 전략은 persist() 시점에 insert 값을 처리하고 pk 값을 확인할 수 있다. 
 
