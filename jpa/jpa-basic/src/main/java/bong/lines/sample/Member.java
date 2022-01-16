@@ -1,4 +1,4 @@
-package bong.lines;
+package bong.lines.sample;
 
 import javax.persistence.*;
 import java.time.LocalDate;

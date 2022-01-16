@@ -1,7 +1,6 @@
-package bong.lines;
+package bong.lines.sample;
 
 import javax.persistence.*;
-import java.util.List;
 
 public class HelloWorldJPA {
     public static void main(String[] args) {

@@ -402,6 +402,10 @@ public class MemberForSeq {
   - allocationSize : 시퀀스 한 번 호출에 증가하는 수(성능 최적화에 사용됨). 데이터베이스 시퀀스 값이 하나씩 증가하도록 설정되어 있으면 이 
     값을 반드시 1로 설정해야한다. ! 주의 - 기본값 : 50
   - catalog, schema : 데이터베이스 catalog, schema 이름 
+  
+- SEQUENCE 전략
+  - Commit 이전에 Sequences 에 의해서 미리 할당해둔 값 까지 성능 최적화를 위해서 가져올 수 있게 처리한다. 
+  - 미리 값을 올려두는 방식이기 때문에 크게 상관이 없음 
 
 ```java
 
@@ -423,8 +427,7 @@ public class MemberForSeq {
   - 미래까지 이 조건을 만족하는 자연키를 찾기 어렵다. 대리키를 사용하자. 
   - 예를 들어 주민등록번호도 기본 키로 적절하지 않다. 
   - 권장 : Long 형 + 대체키 + 키 생성 전략 사용  
-    
-
+  
 - IDENTITY 전략 
   - 기본키 생성을 데이터베이스에 위임
     - 영속성 컨텍스트를 위해서 PK 값이 있어야 아는데, PK 값을 알 수 있는 시기가 Commit 이후임.
@@ -433,6 +436,11 @@ public class MemberForSeq {
   - AUTO_INCREMENT 는 데이터베이스에 INSERT_SQL을 실행한 이후에 ID 값을 알 수 있음 
   - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT_SQL 실행하고 DB에서 식별자 조회 
     - identity 전략은 persist() 시점에 insert 값을 처리하고 pk 값을 확인할 수 있다. 
+
+### 실전 예제 1 
+
+- 도메인 모델 분석 > 테이블 설계 [연관관계 확인] -> Entity 설계/매핑 
+
 
 ###  중요
 
@@ -465,10 +473,13 @@ spring을 사용하지 않고, JPA만 사용하는 경우 Unkown Entity가 표�
 - https://inf.run/jGHt
 ```
 빌드 환경에 따라서 클래스 인식이 자동으로 안되는 경우도 있습니다.
+
 따라서 이때는 persistence.xml에 다음과 같이 <class></class>로 엔티티를 추가해주세요.
+
 <persistence-unit name="hello">
    <class>hellojpa.Member</class>
    <properties>
+   
 그런데 이 부분은 크게 걱정을 안하셔도 되는 것이, 실무에서는 보통 스프링과 함께 JPA를 사용하게 됩니다. 스프링과 함께 사용하면 자동으로 엔티티를 스캔하는 기능이 내장되어 있어서 이런 추가 설정없이 잘 동작합니다.
 
 지금처럼 순수 JPA를 학습할 때만 이렇게 클래스를 추가하는게 빌드 환경에 따라 필요할 수 있습니다

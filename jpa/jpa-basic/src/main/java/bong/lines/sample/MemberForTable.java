@@ -1,13 +1,18 @@
-package bong.lines;
+package bong.lines.sample;
 
 import javax.persistence.*;
 
 @Entity
-@SequenceGenerator(name="member_seq_generator", sequenceName = "member_seq", allocationSize = 1)
-public class MemberForSeq {
+@TableGenerator(
+    name = "MEMBER_SEQ_GENERATOR",
+    table = "MY_SEQUENCE",
+    pkColumnValue = "MEMBER_SEQ",
+    allocationSize = 1
+)
+public class MemberForTable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
     @Column(nullable = false, length = 500, unique = false, name = "name")
