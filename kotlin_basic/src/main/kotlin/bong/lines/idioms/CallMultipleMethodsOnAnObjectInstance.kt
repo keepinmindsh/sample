@@ -2,16 +2,16 @@ package bong.lines.idioms
 
 class Turtle {
     fun penDown(){
-
+        println("pen Down")
     }
     fun penUp(){
-
+        println("pen Up")
     }
     fun turn(degrees: Double){
-
+        println(degrees)
     }
     fun forward(pixels: Double){
-
+        println(pixels)
     }
 }
 
