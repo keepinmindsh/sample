@@ -1,4 +1,4 @@
-package bong.lines.jpashoping;
+package bong.lines.jpashoping.step1;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package bong.lines.jpashoping;
+package bong.lines.jpashoping.step2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,21 +18,29 @@ public class JPAMain {
         try{
 
             Team team = new Team();
-            team.setName("Bong Team");
+            team.setName("TEAM A");
             entityManager.persist(team);
 
             Member member = new Member();
-            member.setUsername("Member 1");
-            member.setTeamId(team.getTeamId());
+            member.setUsername("Lines Bong");
+            member.setTeam(team);
+
             entityManager.persist(member);
 
-            Member findMember = entityManager.find(Member.class, member.getId());
+            // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
+            entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+            entityManager.clear(); // 영속성 컨텍스트 초기화
 
-            Long findTeamId = findMember.getTeamId();
-            Team findTeam = entityManager.find(Team.class, findTeamId);
+            Member member1 = entityManager.find(Member.class, member.getId());
 
-            System.out.println("findTeam.getTeamId() = " + findTeam.getTeamId());
-            System.out.println("findTeam.getName() = " + findTeam.getName());
+            Team team1 = member.getTeam();
+
+            System.out.println("team1.getTeamId() = " + team1.getTeamId());
+            System.out.println("team1.getName() = " + team1.getName());
+
+            // TODO - Team을 업데이트 할 수 있는 방법 - 문서 정리 필요
+            Team newTeam = entityManager.find(Team.class, 1L);
+            member1.setTeam(newTeam);
 
             entityTransaction.commit();
         }catch (Exception exception){

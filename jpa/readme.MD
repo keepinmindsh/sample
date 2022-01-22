@@ -516,9 +516,124 @@ public class JPAMain {
 ```
 
 ##### 단방향 연관 관계
+ 
+- JPA에서의 객체지향 모델링의 방식은 아래와 같다. 
 
+```java
 
+package bong.lines.jpashoping.step2;
 
+import javax.persistence.*;
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+```
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            Team team = new Team();
+            team.setName("TEAM A");
+            entityManager.persist(team);
+
+            Member member = new Member();
+            member.setUsername("Lines Bong");
+            member.setTeam(team);
+
+            entityManager.persist(member);
+
+            // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
+            entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+            entityManager.clear(); // 영속성 컨텍스트 초기화
+
+            Member member1 = entityManager.find(Member.class, member.getId());
+
+            Team team1 = member.getTeam();
+
+            System.out.println("team1.getTeamId() = " + team1.getTeamId());
+            System.out.println("team1.getName() = " + team1.getName());
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+
+```
+
+```shell
+
+Hibernate: 
+    select
+        m1_0.MEMBER_ID,
+        t1_0.TEAM_ID,
+        t1_0.name,
+        m1_0.USERNAME 
+    from
+        Member as m1_0 
+    left outer join
+        Team as t1_0 
+            on m1_0.TEAM_ID = t1_0.TEAM_ID 
+    where
+        m1_0.MEMBER_ID = ?
+team1.getTeamId() = 1
+team1.getName() = TEAM A
+
+```
 
 
 ###  중요
