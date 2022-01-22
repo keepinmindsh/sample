@@ -3,11 +3,13 @@
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="hello">
-        <class>bong.lines.order.domain.Member</class>
-        <class>bong.lines.order.domain.Item</class>
-        <class>bong.lines.order.domain.Order</class>
-        <class>bong.lines.order.domain.OrderItem</class>
-        <class>bong.lines.order.domain.OrderStatus</class>
+        <class>bong.lines.jpashoping.Member</class>
+        <class>bong.lines.jpashoping.Team</class>
+<!--        <class>bong.lines.order.domain.Member</class>-->
+<!--        <class>bong.lines.order.domain.Item</class>-->
+<!--        <class>bong.lines.order.domain.Order</class>-->
+<!--        <class>bong.lines.order.domain.OrderItem</class>-->
+<!--        <class>bong.lines.order.domain.OrderStatus</class>-->
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
@@ -20,7 +22,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>

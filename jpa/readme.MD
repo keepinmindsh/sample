@@ -464,6 +464,62 @@ public class MemberForSeq {
 
 - 객체를 테이블에 맞추어 모델링 
 
+##### 객체를 테이블에 맞추어 데이터 중심으로 모델링하면, 협력 관계를 만들수 없다. 
+
+- 테이블은 외래키로 조인을 사용해서 연관된 테이블을 찾는다. 
+- 객체는 참조를 사용해서 연관된 객체를 찾는다. 
+- 테이블과 객체 사이에 이런 큰 간격이 있다. 
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            Team team = new Team();
+            team.setName("Bong Team");
+            entityManager.persist(team);
+
+            Member member = new Member();
+            member.setUsername("Member 1");
+            member.setTeamId(team.getTeamId());
+            entityManager.persist(member);
+
+            Member findMember = entityManager.find(Member.class, member.getId());
+
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = entityManager.find(Team.class, findTeamId);
+
+            System.out.println("findTeam.getTeamId() = " + findTeam.getTeamId());
+            System.out.println("findTeam.getName() = " + findTeam.getName());
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+
+
+```
+
+##### 단방향 연관 관계
+
+
+
+
 
 ###  중요
 
