@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name="team_seq_generator", sequenceName = "team_seq", allocationSize = 1)
 public class Team {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_seq_generator")
     @Column(name="TEAM_ID")
     private Long teamId;
 

@@ -679,6 +679,8 @@ team1.getName() = TEAM A
     - 진짜 매핑 - 연관관계의 주인 Member.team 
     - 가짜 매핑 - 주인의 반대편 Team.members
 
+- Entity의 기본 정의는 아래와 같이 !
+
 ```java
  
 @Entity
@@ -716,6 +718,151 @@ public class Team {
 }
 
 ```
+
+- Insert를 잘못하는 경우 
+  - mappedBy 객체는 읽기 전용이기 때문에 값이 저장될 수 없음. 
+  - 연관관계의 주인에 값을 입력하지 않음 
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            Member member = new Member();
+            member.setUsername("Lines Bong");
+            entityManager.persist(member);
+
+            // Team을 저장하는 방법
+            Team team = new Team();
+            team.setName("TEAM A");
+            team.getMembers().add(member);
+            entityManager.persist(team); // 영속 상태가 되면 무조건 pk 값은 생성됨.
+
+
+            // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
+            entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+            entityManager.clear(); // 영속성 컨텍스트 초기화
+
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+
+```
+
+- Insert가 제대로 되는 경우 
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            // Team을 저장하는 방법
+            Team team = new Team();
+            team.setName("TEAM A");
+            entityManager.persist(team); // 영속 상태가 되면 무조건 pk 값은 생성됨.
+
+            Member member = new Member();
+            member.setUsername("Lines Bong");
+            member.setTeam(team);
+            entityManager.persist(member);
+
+            // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
+            entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+            entityManager.clear(); // 영속성 컨텍스트 초기화
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+```
+
+- 양방향 매핑시 연관관계의 주인에 값을 입력해야한다 
+  - 순수한 객체 관계를 고려하면 항상 양쪽다 값을 입력해야한다.
+  - 이유는 영속성 컨택스트의 개념으로 인하여 만약 entityManager의 flush(), clear()가 실행되지 않는 상태라면, 1차 캐시에 값이 존재하지 않는다. 
+    - 왜냐면 mappedBy가 선언된 객체에서 값이 지정되지 않았기 때문에 영속성 컨텍스트가 초기화 되기 전까지 메모리에 값이 없기 때문임 
+  - 테스트 코드 작성시 JPA 없이 사용하는 경우, 
+    - 코드 상의 이슈 , 에러를 발생시킬 수 있기 때문임. 
+
+```java
+
+public class JPAMain {
+  public static void main(String[] args) {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+    entityTransaction.begin();
+
+    try {
+
+      // Team을 저장하는 방법
+      Team team = new Team();
+      team.setName("TEAM A");
+      entityManager.persist(team); // 영속 상태가 되면 무조건 pk 값은 생성됨.
+
+      Member member = new Member();
+      member.setUsername("Lines Bong");
+      member.setTeam(team);
+
+      team.getMembers().add(member);
+
+      entityManager.persist(member);
+
+      // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
+      entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+      entityManager.clear(); // 영속성 컨텍스트 초기화
+
+      entityTransaction.commit();
+    } catch (Exception exception) {
+      entityTransaction.rollback();
+    } finally {
+      entityManager.close();
+    }
+
+    entityManagerFactory.close();
+  }
+}
+
+```
+
+- 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자 
+- 연관관계 편의 메소드를 생성하자 
+- 양방향 매핑시 무한 루프를 조심하자
+  - 예) toString(), lombok, JSON 생성 라이브러리
 
 
 ###  중요

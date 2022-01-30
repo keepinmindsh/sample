@@ -27,20 +27,16 @@ public class JPAMain {
             member.setUsername("Lines Bong");
             member.setTeam(team);
 
+            team.getMembers().add(member);
+
             entityManager.persist(member);
 
             // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
             entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
             entityManager.clear(); // 영속성 컨텍스트 초기화
 
-            Member member1 = entityManager.find(Member.class, member.getId());
-
-            Team team1 = member.getTeam();
-
-            List<Member> members = member1.getTeam().getMembers();;
-            
-            for(Member m : members){
-                System.out.println("m.getUsername() = " + m.getUsername());
+            for (Member teamMember : team.getMembers()) {
+                System.out.println("teamMember.getUsername() = " + teamMember.getUsername());
             }
 
             entityTransaction.commit();
