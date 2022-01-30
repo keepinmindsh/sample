@@ -948,7 +948,34 @@ public class Team {
 
 - 양방향 매핑시 무한 루프를 조심하자
   - 예) toString(), lombok, JSON 생성 라이브러리
+    - toString() 의 무한 루프 사례
+  
+```java
 
+public class Team {
+    @Override
+    public String toString(){
+        return "Team (" +
+                "id=" + id +
+                ", name=" + name + '\'' +
+                ", members=" + members + 
+                ")";
+    }
+}
+
+```
+
+- Entity를 바로 Controller로 반환하는 경우,
+  - 많은 문제가 생길 수 있음. 
+    - JSON 생성 라이브러리를 사용하는 경우, 
+      - 컨트롤러에는 Entity를 절대 반환하지 말 것! 절때 반환하지 말 것! 
+      - Entity를 DTO로 변환하여 반환하라! 
+
+- **양방향 매핑 정리**
+  - 단방향 매핑 만으로도 이미 연관관계 매핑은 완료 
+  - 양방향 매핑은 반대방향으로 조회 ( 객체 그래프 탐색 ) 기능이 추가된 것 뿐 
+  - JPQL에서 역방향 탐색할 일이 많음 
+  - 단방향 매핑을 잘하고 양방향 은 필요할 때 추가해도됨. ( 테이블에 영향을 주지 않음 )
 
 ###  중요
 
