@@ -25,7 +25,7 @@ public class JPAMain {
 
             Member member = new Member();
             member.setUsername("Lines Bong");
-            member.setTeam(team);
+            member.changeTeam(team);
 
             entityManager.persist(member);
 

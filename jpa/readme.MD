@@ -863,8 +863,12 @@ public class JPAMain {
 - **연관관계 편의 메소드를 생성하자 : changeTeam(Team team) 부분 참고!**
   - 해당 시점에 선언하는 team에 대해서는 getter/setter보다는 명시적으로 함수를 정의하여 사용한다. 
   - lombok 등에 의한 자동화로 setter가 가지는 의미가 중요하지 않을 수 있기 때문에 개념적으로 분리한다. 
+  - 연관관계 편의 메서드는 사용에 따라서 Member에 정의하거나, Team에 정의할 수 있는데, 양쪽에 존재하는 경우에는 문제가 있을 수 있음 
+    - 따라서 한쪽에 정의하였을 경우에는 다른 한쪽은 제거 
 
 ```java
+
+// Member에 연관관계 편의 메서드를 제공하는 경우 
 
 @Entity
 public class Member {
@@ -892,6 +896,56 @@ public class Member {
 }
 
 ```
+
+```java
+
+// Team에 연관관계 편의 메서드를 제공하는 경우 
+
+@Entity
+@SequenceGenerator(name="team_seq_generator", sequenceName = "team_seq", allocationSize = 1)
+public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_seq_generator")
+    @Column(name="TEAM_ID")
+    private Long teamId;
+
+    private String name;
+
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
+
+    public void addMember(Member member){
+        member.setTeam(this);
+        members.add(member);
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+}
+```
+
 - 양방향 매핑시 무한 루프를 조심하자
   - 예) toString(), lombok, JSON 생성 라이브러리
 
