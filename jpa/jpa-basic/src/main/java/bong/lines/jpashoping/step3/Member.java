@@ -1,4 +1,4 @@
-package bong.lines.jpashoping.step2;
+package bong.lines.jpashoping.step3;
 
 import javax.persistence.*;
 

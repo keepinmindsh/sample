@@ -634,6 +634,88 @@ team1.getTeamId() = 1
 team1.getName() = TEAM A
 
 ```
+### 양방향 연관 관계와 연관관계의 주인 
+
+- 양방향 매핑 
+  - 양쪽으로 참조해서 값을 가질 수 있을 경우 
+    - 객체의 참조와 테이블의 외래키의 차이
+
+- 연관관계의 주인과 mappedBy
+  - 객체와 테이블 간에 연관관계를 맺는 차이를 이해한다.
+    - 객체 연관관계 2개 
+      - 회원 -> 팀 연관관계 1개 ( 단방향 )
+      - 팀 -> 회원 연관관계 1개 ( 단방향 )
+    - 테이블 연관관계 = 1 개 
+      - 회원 <-> 팀의 연관관계 1개 ( 양방향 )
+
+- 객체의 양방향 관계 
+  - 객체의 양방향 관계는 사실 양방향 관계가 아니라 서로 다른 단방향 관계 2개다. 
+  - 객체를 양방향으로 참조하려면 단방향 연관관계 2개를 만들어야 한다. 
+
+- 테이블의 양방향 관계 
+  - 테이블은 외래키 하나로 두 테이블의 연관관계를 관리 
+  - MEMBER.TEAM_ID 외래키 하나로 양방향 연관관계 가짐 ( 양쪽으로 조인할 수 있다. )
+
+
+- 딜레마를 해결하는 방법
+  - 딜레마 : Team 객체와 Member 객체에 존재하는 teamId를 어느 곳에서든 업데이트 할 수 있는데.. 어디서 해야하지?
+  - Member와 Team의 객체 내에 존재하는 member의 값을 어떻게 관리해야 하는가?
+    - 둘 중 하나로 외래키를 관리해야 한다.
+
+- 연관관계의 주인 
+  - 양방향 매핑 규칙 
+    - 객체의 두 관계 중 하나를 연관관계의 주인으로 지정
+    - **연관관계의 주인만이 외래키를 관리 ( 등록, 수정 )**
+    - **주인이 아닌 쪽은 읽기만 가능**
+    - 주인은 mappedBy 속성 사용 불가 
+    - 주인이 아닌면 mappedBy 속성으로 주인 지정
+      - mappedBy의 속성의 값에 대해서는 값을 수정하는 것은 변경 불가
+
+- 그렇다면 누구를 주인으로? 
+  - **외래키가 있는 곳을 주인으로 정해라** 
+    - ManyToOne의 Many가 연관관계의 주인이 되고 
+    - N:1의 N이 주인 
+  - 여기서는 Member.team이 연관관계의 주인 
+    - 진짜 매핑 - 연관관계의 주인 Member.team 
+    - 가짜 매핑 - 주인의 반대편 Team.members
+
+```java
+ 
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    /**
+     * 여러 N의 Team에 하나의 Member
+     */
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+}
+
+
+@Entity
+public class Team {
+
+  @Id
+  @GeneratedValue
+  @Column(name="TEAM_ID")
+  private Long teamId;
+
+  private String name;
+
+  @OneToMany(mappedBy = "team")
+  private List<Member> members = new ArrayList<>();
+}
+
+```
 
 
 ###  중요

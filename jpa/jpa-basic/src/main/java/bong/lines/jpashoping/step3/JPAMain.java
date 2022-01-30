@@ -1,9 +1,10 @@
-package bong.lines.jpashoping.step2;
+package bong.lines.jpashoping.step3;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JPAMain {
     public static void main(String[] args) {
@@ -36,12 +37,11 @@ public class JPAMain {
 
             Team team1 = member.getTeam();
 
-            System.out.println("team1.getTeamId() = " + team1.getTeamId());
-            System.out.println("team1.getName() = " + team1.getName());
-
-            // TODO - Team을 업데이트 할 수 있는 방법 - 문서 정리 필요
-            Team newTeam = entityManager.find(Team.class, 1L);
-            member1.setTeam(newTeam);
+            List<Member> members = member1.getTeam().getMembers();;
+            
+            for(Member m : members){
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
 
             entityTransaction.commit();
         }catch (Exception exception){
