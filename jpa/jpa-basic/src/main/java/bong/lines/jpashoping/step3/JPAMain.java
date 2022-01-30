@@ -27,15 +27,18 @@ public class JPAMain {
             member.setUsername("Lines Bong");
             member.setTeam(team);
 
-            team.getMembers().add(member);
-
             entityManager.persist(member);
 
+            // 양방향 관계의 Mapping 시 영속성 컨텍스트의 이해를 위하여
             // 만약 영속성 컨텍스트가 아닌 db에서 쿼리로 조회해오고 싶다면,
-            entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
-            entityManager.clear(); // 영속성 컨텍스트 초기화
+            // entityManager.flush(); // db에 모든 값 반영 - commit 전에 반영 가능
+            // entityManager.clear(); // 영속성 컨텍스트 초기화
 
-            for (Member teamMember : team.getMembers()) {
+            Team findTeam = entityManager.find(Team.class, 1L);
+
+            List<Member> teamMembers = findTeam.getMembers();
+
+            for (Member teamMember : teamMembers) {
                 System.out.println("teamMember.getUsername() = " + teamMember.getUsername());
             }
 

@@ -860,7 +860,38 @@ public class JPAMain {
 ```
 
 - 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자 
-- 연관관계 편의 메소드를 생성하자 
+- **연관관계 편의 메소드를 생성하자 : changeTeam(Team team) 부분 참고!**
+  - 해당 시점에 선언하는 team에 대해서는 getter/setter보다는 명시적으로 함수를 정의하여 사용한다. 
+  - lombok 등에 의한 자동화로 setter가 가지는 의미가 중요하지 않을 수 있기 때문에 개념적으로 분리한다. 
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
+}
+
+```
 - 양방향 매핑시 무한 루프를 조심하자
   - 예) toString(), lombok, JSON 생성 라이브러리
 
