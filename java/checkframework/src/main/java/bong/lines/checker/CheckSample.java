@@ -9,6 +9,5 @@ public class CheckSample {
 
 
         System.out.println("dataForChecker.getName1() = " + dataForChecker.getName1());
-        
     }
 }
