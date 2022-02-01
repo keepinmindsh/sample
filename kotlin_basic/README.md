@@ -80,6 +80,70 @@ fun printSum(a: Int, b: Int): Unit {
 
 ```
 
+- Default Argument 
+
+코틀린에서 함수는 파타미터의 기본 값을 가져갈 수 있음. 
+
+```kotlin
+
+fun defaultFunction() {
+    val value = function() 
+    println("값 = $value") 
+}
+
+fun function(x: Int = 10): Int {
+    return x * 2
+}
+
+```
+
+- Named arguments 
+
+함수의 파라미터 내에 파라미터 변수 명을 지정하여 사용할 수 있다. 
+
+```kotlin
+
+fun namedArguments() {
+    val value = arguments(y = 2, x = 5) // double(5, 2) 와 동일
+    println("값 = $value") // 결과 : 값 = 10
+}
+
+fun arguments(x: Int = 10, y: Int): Int {
+    return x * y
+}
+
+```
+
+- Single Expression
+
+함수의 본문이 바로 return 값을 가질 때 이를 단일 표현식으로 표현할 수 있다. 
+
+```kotlin
+
+fun singleExpression(){
+    var value = express(5, 2)
+}
+
+fun express(x: Int = 10, y:Int):Int = x * y
+
+```
+
+- Trailling Comma
+  - 소스 비교 명확히 가능 - git 등을 사용하여 코드를 비교할 때 , 는 변화로 잡지 않기 때문에 값의 변화에 집중할 수 있습니다.
+  - 순서 재정렬이 편함 - 함수, enum 등에서 재정렬할때 , 를 신경쓰지 않아도 됩니다.
+  - 코드 자동생성 만들 시 편함 - 마지막 파라미터일 때는 ,를 뺀다라는 로직이 필요없으므로 코드 자동생성을 만들때 좋습니다.
+
+```kotlin
+
+fun traillingComma(
+        x: Int = 10,
+        y: Int,
+    ): Int {
+        return x * y
+    }
+
+```
+
 ##### **Variables**  
 
 - val : read-only 의 로컬 변수, 오직 단 한번만 값에 대해서 할당이 가능하다.  
