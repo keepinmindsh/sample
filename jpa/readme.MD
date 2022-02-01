@@ -1007,12 +1007,208 @@ public class Team {
 
 ##### 일대다 ( 1 : N ) @OneToMany 
 
-- 일대다 단방향은 일ㅐ다(1:N)에서 일(1)이 연관관계의 주인 
+- 일대다 단방향은 일대다(1:N)에서 일(1)이 연관관계의 주인 
 - 테이블 일대다 관계는 항상 다(N) 쪽에 외래키가 있음 
 - 객체와 테이블의 차이 때문에 반대편 테이블의 외래키를 관리하는 특이한 구조 
 - @JoinColumn을 꼭 사용해야함. 그렇지 않으면 조인 테이블 방식을 사용함 ( 중간에 테이블을 하나 추가함 )
+  - 테이블이 신규로 하나더 추가되기 때문에 성능상, 운영상 좋은 방식은 아님 ( 조인 테이블 )
+
+```java
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+```
+
+```java
+@Entity
+@SequenceGenerator(name="team_seq_generator", sequenceName = "team_seq", allocationSize = 1)
+public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_seq_generator")
+    @Column(name="TEAM_ID")
+    private Long teamId;
+
+    private String name;
+
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
+    private List<Member> members = new ArrayList<>();
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+}
+```
+
+- 1:N - OneToMany 연관관계 코드 
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            Member member = new Member();
+            member.setUsername("bong1");
+
+            entityManager.persist(member);
+
+            Team team = new Team();
+
+            team.setName("Bong Team");
+            team.getMembers().add(member);
+
+            entityManager.persist(team);
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+
+```
+
+- 실행 결과 
+
+```shell
+Hibernate: 
+    /* insert bong.lines.jpashoping.step5.Member
+        */ insert 
+        into
+            Member
+            (USERNAME, MEMBER_ID) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert bong.lines.jpashoping.step5.Team
+        */ insert 
+        into
+            Team
+            (name, TEAM_ID) 
+         values
+            (?, ?)
+Hibernate: 
+    /* create one-to-many row bong.lines.jpashoping.step5.Team.members */ update
+        Member 
+    set
+        TEAM_ID=? 
+    where
+        MEMBER_ID=?
+```
+
+- 일대다 연관관계를 잘 사용하지 않는 이유 
+  - 자바 코드 상에서 로직과 테이블의 연관관계 상 혼란이 올 수 있음 
+  - 테이블이 수십개가 돌아가는 운영 기준에서는 혼란이 올 수 있음 
+  - 엔티티가 관리하는 외래키가 다른 테이블에 있음 
+  - 연관 관계 관리를 위해서 추가로 UPDATE SQL 실행 
+- **일대다 단방향보다는 다대일 양방향 매핑을 사용하자** 
+
+
+- 일대다 양방향 정리
+  - 이런 매핑은 공식적으로 X
+  - @JoinColumn(insertable=false, updatable=false)
+  - 읽기 전용 필드를 사용해서 양방향 처럼 사용하는 방법 
+  - **다대일 양방향을 사용하자** 
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    // 해당 코드는 읽기 전용이 됨. Insert, Update는 동작하지 않음 - 일대다 양방향 관계 
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+```
 
 ##### 일대일 ( 1 : 1 ) @OneToOne
+
+
 
 ##### 다대다 ( N : M) @ManyToMany
 
