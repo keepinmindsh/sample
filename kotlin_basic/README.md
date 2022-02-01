@@ -904,4 +904,52 @@ fun main() {
 
 ```
 
+**Instantiate an abstract class**
 
+```kotlin
+
+abstract class MyAbstractClass {
+    abstract fun doSomething()
+    abstract fun sleep()
+}
+
+fun main() {
+    val myObject = object : MyAbstractClass() {
+        override fun doSomething() {
+            // ...
+        }
+
+        override fun sleep() { // ...
+        }
+    }
+    myObject.doSomething()
+}
+```
+
+**If-not-null shorthand**
+
+```kotlin
+package bong.lines.idioms
+
+import java.io.File
+
+fun main() {
+    val files = File("C:\\Users\\shjeong-PC\\Downloads").listFiles();
+
+    println(files?.size)
+}
+```
+
+**If-not-null-else shorthand**
+
+```kotlin
+package bong.lines.idioms
+
+import java.io.File
+
+fun main() {
+    val files = File("C:\\Users\\shjeong-PC\\Downloads").listFiles();
+
+    println(files?.size ?: "empty")
+}
+```
