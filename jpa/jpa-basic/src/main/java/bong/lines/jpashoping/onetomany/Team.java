@@ -1,4 +1,4 @@
-package bong.lines.jpashoping.step5;
+package bong.lines.jpashoping.onetomany;
 
 import javax.persistence.*;
 import java.util.ArrayList;
