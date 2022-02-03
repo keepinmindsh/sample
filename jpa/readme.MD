@@ -1463,6 +1463,133 @@ public class Product {
 
 ```
 
+### 연관관계 정리 하기 
+
+```java
+
+@Entity
+public class Member {
+    @Id
+    @Column(name="MEMBER_ID")
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    private String city;
+
+    private String street;
+
+    private String zipcode;
+
+    private String orders;
+}
+
+@Entity
+@Table(name = "ORDERS")
+public class Order {
+
+  @Id
+  @Column(name = "ORDER_ID")
+  @GeneratedValue
+  private String id;
+
+  @ManyToOne
+  @JoinColumn(name = "MEMBER_ID")
+  private Member member;
+
+  @OneToOne
+  @JoinColumn(name="DELIVERY_ID")
+  private Delivery delivery;
+
+  @OneToMany(mappedBy = "order")
+  private List<OrderItem> orderItems = new ArrayList<>();
+
+  private LocalDate orderDate;
+
+  private OrderStatus orderStatus;
+
+}
+
+@Entity
+public class OrderItem {
+
+  @Id
+  @Column(name="ORDER_ITEM_ID")
+  @GeneratedValue
+  private Long id;
+
+  @ManyToOne
+  @JoinColumn(name="ORDER_ID")
+  private Order order;
+
+  private int orderPrice;
+
+  private int count;
+}
+
+
+@Entity
+public class Delivery {
+
+  @Id
+  @Column(name = "DELIVERY_ID")
+  @GeneratedValue
+  private String id;
+
+  @OneToOne(mappedBy = "delivery")
+  private Order order;
+
+  private String city;
+
+  private String street;
+
+  private String zipcode;
+
+  private DeliveryStatus deliveryStatus;
+}
+
+@Entity
+public class Item {
+
+  @Id
+  @Column(name = "ITEM_ID")
+  @GeneratedValue
+  private Long id;
+
+  private String name;
+
+  private int price;
+
+  private int stockQuantity;
+
+  @ManyToMany(mappedBy = "items")
+  private List<Category> categories = new ArrayList<>();
+}
+
+
+@Entity
+public class Category {
+
+  @Id
+  @GeneratedValue
+  @Column(name = "CATEGORY_ID")
+  private Long id;
+
+  @ManyToMany
+  @JoinTable(name = "CATEGORY_ITEM", joinColumns = @JoinColumn(name = "CATEGORY_ID"), inverseJoinColumns = @JoinColumn(name = "ITEM_ID"))
+  private List<Item> items = new ArrayList<>();
+
+  @ManyToOne
+  @JoinColumn(name = "PARENT_IO")
+  private Category parent;
+
+  @OneToMany(mappedBy = "parent")
+  private List<Category> child;
+}
+
+```
+
 ###  중요
 
 - 연관관계를 잘 끊어내는 것이 중요함
