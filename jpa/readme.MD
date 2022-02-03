@@ -1281,7 +1281,187 @@ public class Member {
   - 연결 테이블을 추가해서 일대다, 다대일 관계로 풀어내야함. 
   - 객체는 컬렉션을 사용해서 객체 2개로 다대다 관계 가능 
     - 테이블에서는 Join Table을 이용해서 관계를 구성이 가능함. 
-  - 
+
+- 편리해보이지만 실무에서 사용 안함
+- 연결 테이블이 연결만 하고 끝나지 않음 
+- 주문 시간, 수량 같은 데이터가 들어올 수 있음]
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+```
+
+```java
+
+@Entity
+public class Product {
+
+    @Id @GeneratedValue
+    private Long id;
+
+
+    @ManyToMany(mappedBy = "products")
+    List<Member> members = new ArrayList<>();
+
+}
+
+```
+
+```shell
+
+Hibernate: 
+    
+    create table Member (
+       MEMBER_ID bigint not null,
+        USERNAME varchar(255),
+        TEAM_ID bigint,
+        primary key (MEMBER_ID)
+    )
+Hibernate: 
+    
+    create table MEMBER_PRODUCT (
+       members_MEMBER_ID bigint not null,
+        products_id bigint not null
+    )
+Hibernate: 
+    
+    create table Product (
+       id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    
+    create table Team (
+       TEAM_ID bigint not null,
+        name varchar(255),
+        primary key (TEAM_ID)
+    )
+Hibernate: 
+    
+    alter table if exists Member 
+       add constraint FKl7wsny760hjy6x19kqnduasbm 
+       foreign key (TEAM_ID) 
+       references Team
+Hibernate: 
+    
+    alter table if exists MEMBER_PRODUCT 
+       add constraint FKc6hsxwm11n18ahnh5yvbj62cf 
+       foreign key (products_id) 
+       references Product
+Hibernate: 
+    
+    alter table if exists MEMBER_PRODUCT 
+       add constraint FKp9hlrsu8hrsusdymar0ddcl9o 
+       foreign key (members_MEMBER_ID) 
+       references Member
+
+
+```
+
+- 다대다 한계 극복
+  - @ManyToMany -> @OneToMany, @ManyToOne
+  - 중간 테이블(JoinTable)을 중간 Entity로 승격 처리( 연결 테이블을 엔티티 승격 )
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name="MEMBER_ID")
+    private Long id;
+
+    @Column(name="USERNAME")
+    private String username;
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
+
+```
+
+```java
+
+@Entity
+public class MemberProduct {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name= "PRODUCT_ID")
+    private Product product;
+
+}
+
+```
+
+```java
+
+@Entity
+public class Product {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @OneToMany(mappedBy = "product")
+    List<MemberProduct> memberProducts = new ArrayList<>();
+
+}
+
+```
 
 ###  중요
 

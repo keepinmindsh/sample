@@ -4,9 +4,13 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="hello">
 
-        <class>bong.lines.jpashoping.onetoone.Member</class>
-        <class>bong.lines.jpashoping.onetoone.Team</class>
-        <class>bong.lines.jpashoping.onetoone.Locker</class>
+        <class>bong.lines.jpashoping.manytomany.Member</class>
+        <class>bong.lines.jpashoping.manytomany.Team</class>
+        <class>bong.lines.jpashoping.manytomany.Product</class>
+
+<!--        <class>bong.lines.jpashoping.onetoone.Member</class>-->
+<!--        <class>bong.lines.jpashoping.onetoone.Team</class>-->
+<!--        <class>bong.lines.jpashoping.onetoone.Locker</class>-->
 
 
 <!--        <class>bong.lines.jpashoping.onetomany.Member</class>-->

@@ -1,10 +1,9 @@
-package bong.lines.jpashoping.manytomany;
+package bong.lines.jpashoping.manytomany.alt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JPAMain {
     public static void main(String[] args) {

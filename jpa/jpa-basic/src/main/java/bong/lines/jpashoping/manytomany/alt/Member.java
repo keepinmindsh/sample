@@ -1,4 +1,4 @@
-package bong.lines.jpashoping.manytomany;
+package bong.lines.jpashoping.manytomany.alt;
 
 
 import javax.persistence.*;
@@ -16,9 +16,8 @@ public class Member {
     @Column(name="USERNAME")
     private String username;
 
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT")
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;
