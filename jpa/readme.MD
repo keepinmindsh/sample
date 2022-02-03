@@ -1590,6 +1590,28 @@ public class Category {
 
 ```
 
+- @JoinColumn 
+  - name : 매핑할 외래키 이름 
+  - referencedColumnName : 외래키가 참조하는 대상 테이블의 컬럼명
+  - foreignKey(DDL) : 외래키 제약 조건은 직접 지정할 수 잇다. 이 속성은 테이블 생성시만 사용 가능 
+  - unique, nullable, insertable, updatable, columnDefinition, table : @Column 속성과 같음. 
+
+- @ManyToOne - 연관관계의 주인이 되어야함. 
+  - optional : false로 설정하면 연관된 엔티티가 항상 있어야 한다. 
+  - fetch : 글로벌 패치 전략을 설정한다. 
+    - @ManyToOne : FetchType.EAGER
+    - @OneToMany : FetchType.LAZY
+  - cascade : 영속성 전이 기능을 사용한다. 
+  - targetEntity : 연관된 엔티티의 타입 정보를 설정한다. 이기능은 거의 사용하지 않는다. 컬렉션을 사용해도 제네릭으로 타입정보를 알 수 있다.
+
+- @OneToMany 
+  - mappedBy : 연관관계의 주인을 선택한다. 
+  - fetch 
+  - cascade
+  - targetEntity
+
+
+
 ###  중요
 
 - 연관관계를 잘 끊어내는 것이 중요함
