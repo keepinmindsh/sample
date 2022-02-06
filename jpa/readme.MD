@@ -1622,7 +1622,7 @@ public class Category {
 - JPA의 모든 데이터 변경은 트랜잭션 안에서 실행
 - 다대다의 관계는 실무에서 사용하며 안됨
 
-### 용어 
+### 용어 / 참조 
 
 - JPA Entity 생명주기 상의 Flush ( https://gmlwjd9405.github.io/2019/08/07/what-is-flush.html )
 
@@ -1631,6 +1631,8 @@ public class Category {
 > 참고 정리 - https://www.inflearn.com/course/ORM-JPA-Basic/lecture/21683?tab=curriculum&volume=1.00&quality=auto
 > https://joont92.github.io/db/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80-isolation-level/
 > https://effectivesquid.tistory.com/entry/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-Isolation-Level
+
+> 참고 문서 - [Spring Data JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference) 
 
 h2 database 설정이 잘 안될 때, 
 > https://roadrunner.tistory.com/646
