@@ -408,6 +408,9 @@ merge {
 
 ```
 
+
+Consumer, Runnable, Supplier, Delegate, Reflection, Generic, HighOrder Function등에 대한 활용 
+
 # 참고 링크 
 
 > [Kotlin을 활용한 우아한 코드 만들기](https://www.youtube.com/watch?v=i0yRFecYk9k)
