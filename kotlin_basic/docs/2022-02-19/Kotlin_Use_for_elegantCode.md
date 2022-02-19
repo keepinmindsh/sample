@@ -333,10 +333,20 @@ context action {
     startAcitivity(Intent(this, MainActivity::class.java ))
 }
 
+inline infix fun <reified T> Any.link(noinline block: () -> T): Any {
+    this::class.java.declaredFields.forEach { 
+        if(it.type == SupplyDelegate::class.java){
+            it.isAccessible = true
+            val delegate = it.get(this) as SupplyDelegate<T>
+            if(delegate.type == T::class.java){
+                delegate.value.setValue(block)
+                return this
+            }
+        }
+    }
+}
+
 ```
-
-
-
 
 # 참고 링크 
 
