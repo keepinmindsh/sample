@@ -304,6 +304,8 @@ private val trackCallback by callback { update() }
 
 Kotlin Supplier 활용하기 
 
+- inline reified 의 활용 
+
 ```kotlin
 
 class SupplyHolder<T> {
@@ -343,6 +345,64 @@ inline infix fun <reified T> Any.link(noinline block: () -> T): Any {
                 return this
             }
         }
+    }
+}
+
+
+model link { context } link { binding }
+
+```
+
+DSL Pattern 
+
+```kotlin
+
+class KoRest<T>( val request: BaseRequest<T>)
+
+fun <T> KoRest<T>.success(block: (T) -> Unit) = request.onDataReceived(block)
+
+fun <T> KoRest<T>.start(block: () -> Unit) = request.onStart(block)
+
+fun <T> KoRest<T>.finish(block: () -> Unit) = request.onFinish(block)
+
+    ...
+
+fun <T> rest(request: BaseRequest<T>, block: KoRest<T>.() -> Unit) {
+    block(KoRest(request))
+    request.call()
+}
+
+SignManager.login() {
+    success {
+        save(it)
+        showHome()
+    }
+    
+    errors {
+        wrongPassword {}
+        notFoundId {}
+        etc {}
+    }
+    
+    start {}
+    finish {}
+}
+
+merge {
+    rest(UserManager.getMember()) {
+        success { updateMember(it) }
+        error { error put true }
+    }
+    
+    rest(PassManager.getPass()) {
+        success { updatePass(it) }
+        map { it.currentPass }
+    }
+    
+    end<MemberDto, PassDto> {
+        member, pass -> 
+            dismissProgress()
+            User.set(member, pass)
     }
 }
 
