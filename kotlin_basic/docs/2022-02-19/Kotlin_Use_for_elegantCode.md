@@ -163,7 +163,181 @@ recylerView safe {
 
 ```
 
+```kotlin
+
+// infix, Extensions Functions, Function literals with receiver
+infix fun < T : View >  T.access(block: T.() -> Unit) = block()
+
+recyclerView access {
+    toast { "업데이트 완료." }
+    safe { adapter.notifyDataSetChanged() }    
+}
+
+```
+
+커링을 활용한 예제 
+
+```java
+
+// Java
+FirebaseLog.getInstance().sendEvent(
+        FirebaseEvent.CATEGORY.메인플레이어.get(), 
+        FirebaseEvent.ACTION.like.get(),
+        FirebaseEvent.LABEL.on.get()
+        );
+
+```
+
+Kotlin 변환 
+
+```kotlin
+
+// Kotlin infix, Extensions Functions
+infix fun CATEGORY.and(action: ACTION): (LABEL) -> Unit {
+    return { label -> FirebaseLog.sendEvent(this, action, label ) }
+}
+
+infix fun((LABEL) -> Unit).and(label: LABEL) = this(label)
+
+
+CATEGORY.메인플레이어 and ACTION.like and LABEL.on 
+
+```
+
+Supplier 활용 
+
+```kotlin
+private var context: (() -> Context)? = null
+
+fun supplyContext ( block: () -> Context) {
+    context = block 
+}
+
+
+infix fun <T> (() -> t)?.action(block: T.() -> Unit) {
+    this?.invoke()?.run{ block(this) }
+}
+
+
+context?.invoke()?.run {
+    startActivity(Intent(this, MainActivity::class.java))
+}
+
+context action {
+    startActivityIntent(this, MainActivity::class.java )
+}
+
+```
+
+
+Valid 변형 및 확장 
+
+```kotlin
+
+infix fun <T> List<T>.valid(index: Int): ( () -> T)? = if( index in 0 until size) {
+    { get(index)}
+} else null 
+
+trackList.valid( index ) { play() }
+
+// 명시적인 함수 호출 방식 - Valid #2 
+trackList valid index action { play() }
+
+```
+
+```kotlin
+
+view find { RecyclerView::class.java } isVisible { true } action { scrollToPostition(0) }
+
+fun dismiss() = popup action { dismiss() }
+
+binding action {
+    context action {
+        root.startAnimation(animation(this, R.anim,slide))
+    }
+}
+
+```
+
+Observable 사용 사례 
+
+```java
+
+private Observable.OnPropertyChangedCallback trackCallback = new Observable.OnPropertyChangedCallback() {
+    @Override
+    public void onPropertyChanged(Observable sender, int id) {
+        update();
+    }
+}
+
+```
+
+```kotlin
+
+private val trackCallBack = object : OnPropertyChangedCallback() {
+    override fun onPropertyChanged(sender : Observable, id: Int) {
+        udpate()
+    }
+}
+
+```
+
+Kotlin Delegate 활용 
+
+```kotlin
+
+class CallbackHolder(var callback: OnPropertyChangedCallback) {
+    operator fun getValue(ref: Any?, prop:KProperty<*>) = callback
+}
+
+fun callback(block : (Int) -> Unit) 
+    = CallbackHolder(object : OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender : Observable? , id: Int){
+            block(id)
+        }
+    })
+
+// delegate를 활용한 방식 
+private val trackCallback by callback { update() }
+
+```
+
+Kotlin Supplier 활용하기 
+
+```kotlin
+
+class SupplyHolder<T> {
+    private var value: (() -> T?)? = null
+    fun invoke() = value?.invoke()
+    fun setValue(block: () -> T?) {
+        value = block 
+    }
+}
+
+class SupplyDelegate<T>(val holder: SupplyHolder<T>,
+                        val type: Class<T> 
+                        ) {
+    operator fun getValue(ref: Any?, prop: KProperty<*>) = holder
+}
+
+// Kotlin inline, Reified type parameters
+inline fun <reified T> supply()
+    = SupplyDelegate(SupplyHolder(), T::class.java)
+
+
+// Kotlin infix, Extentions Functions, Function literals with receiver 
+infix fun <T> SupplyHolder<T>.action(block: T.() -> Unit)
+    = invoke()?.let{ block(it) }
+
+context action {
+    startAcitivity(Intent(this, MainActivity::class.java ))
+}
+
+```
+
+
+
 
 # 참고 링크 
 
-> [Elegant Code](https://www.youtube.com/watch?v=i0yRFecYk9k)
+> [Kotlin을 활용한 우아한 코드 만들기](https://www.youtube.com/watch?v=i0yRFecYk9k)
