@@ -5,10 +5,13 @@
     <persistence-unit name="hello">
 
 
-        <class>bong.lines.jpashoping.inheritance.Item</class>
+        <class>bong.lines.jpashoping.mappedsuperclass.Member</class>
+<!--        <class>bong.lines.jpashoping.mappedsuperclass.Team</class>-->
+
+        <!--<class>bong.lines.jpashoping.inheritance.Item</class>
         <class>bong.lines.jpashoping.inheritance.Album</class>
         <class>bong.lines.jpashoping.inheritance.Book</class>
-        <class>bong.lines.jpashoping.inheritance.Movie</class>
+        <class>bong.lines.jpashoping.inheritance.Movie</class>-->
 
 <!--        <class>bong.lines.jpashoping.finalsample.Member</class>-->
 <!--        <class>bong.lines.jpashoping.finalsample.Category</class>-->
