@@ -5,7 +5,7 @@
     <persistence-unit name="hello">
 
 
-        <class>bong.lines.jpashoping.embedded.Member</class>
+        <class>bong.lines.jpashoping.valuetype.Member</class>
 
 <!--        <class>bong.lines.jpashoping.cascade.Child</class>
         <class>bong.lines.jpashoping.cascade.Parent</class>-->
