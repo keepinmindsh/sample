@@ -1,6 +1,7 @@
 package bong.lines.jpashoping.valuetype;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Member {
@@ -64,5 +65,18 @@ public class Member {
 
     public void setWorkAddress(Address workAddress) {
         this.workAddress = workAddress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(workPeriod, member.workPeriod) && Objects.equals(homeAddress, member.homeAddress) && Objects.equals(workAddress, member.workAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, workPeriod, homeAddress, workAddress);
     }
 }
