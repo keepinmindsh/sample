@@ -5,8 +5,10 @@
     <persistence-unit name="hello">
 
 
-        <class>bong.lines.jpashoping.cascade.Child</class>
-        <class>bong.lines.jpashoping.cascade.Parent</class>
+        <class>bong.lines.jpashoping.embedded.Member</class>
+
+<!--        <class>bong.lines.jpashoping.cascade.Child</class>
+        <class>bong.lines.jpashoping.cascade.Parent</class>-->
 
 <!--        <class>bong.lines.jpashoping.proxy.Member</class>
         <class>bong.lines.jpashoping.proxy.Team</class>-->

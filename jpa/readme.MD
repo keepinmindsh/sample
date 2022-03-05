@@ -2463,8 +2463,8 @@ Hibernate:
   - 예) 숫자 100을 200으로 변경하면 완전히 다른 값으로 대체 
 
 - 기본값 타입
-  - 자비 기본 타입 
-  - 래퍼 클래스 
+  - 자바 기본 타입(int, double) 
+  - 래퍼 클래스(Integre, Long)
   - String 
 - 임베디드 타입
   - embedded type, 복합 값 타임 
@@ -2475,8 +2475,83 @@ Hibernate:
 - 기본 값 타입 
   - 예) String name, int age
   - 생명주기를 엔티티에 의존
+    - 예) 회원을 삭제하면 이름, 나이 필드도 함께 삭제 
   - 값 타입은 공유하면 안됨 
-    - 예) 회원 이름 변경시 다른 회원의 이름이 변경되어서는 안됨. 
+    - 예) 회원 이름 변경시 다른 회원의 이름이 변경되어서는 안됨.
+
+- 참고 : 자바의 기본 타입은 절대 공유 X
+  - int, double 같은 기본 타입은 절대 공유 X
+  - 기본 타입은 항상 값을 복사함. 
+  - integer 같은 래퍼 클래스나 String 같은 특수한 클래스는 공유 가능한 객체이지만 변경 X 
+
+
+- 임베디드 타입 ( 복합값 타입 )
+  - 새로운 값 타입을 직접 정의할 수 있음 
+  - JPA는 임베디드 타입(embedded type)이라 함
+  - 주로 기본 값을 모아서 만들어서 복합 값 타입이라고도 함. 
+  - int, String과 같은 값 타입 
+
+- 임베디드 타입 사용법 
+  - @Embeddable : 값 타입을 정의하는 곳에 표시 
+  - @Embedded : 값 타입을 사용하는 곳에 표시 
+  - 기본 생성자 필수 
+
+- 임베디드 타입의 장점
+  - 재사용
+  - 높은 응집도 
+  - Period.isWork() 처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음 
+  - 임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함
+
+- 임베디드 타입 사용법 
+  - @Embeddable : 값 타입을 정의하는 곳에 표시 
+  - @Embedded : 값 타입을 사용하는 곳에 표시 
+  - 기본 생성자 필수
+
+- 임베디드 타입과 테이블 매핑 
+  - 임베디드 타입은 엔티티 값일 뿐이다. 
+  - 임베디드 타입을 사용하기 전과 후에 매핑하는 테이블은 같다. 
+  - 객체와 테이블을 아주 세밀하게 매핑하는 것이 가능 
+  - 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많음 
+
+- @AttributeOverride : 속성 재정의 
+  - 한 엔티티에서 같은 값 타입을 사용하면?
+  - 컬럼명이 중복됨. 
+  - @AttributeOverrides, @AttributeOverride를 사용해서 컬럼 명 속성을 재정의 
+
+- 임베디드 타입과 null
+  - 임베디드 타입의 값이 null이면 매핑한 컬럼 값은 모두 null 
+
+
+```java
+
+
+@Entity
+public class Member {
+    @Id
+    @Column(name="MEMBER_ID")
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "USERNAME")
+    private String name;
+
+    @Embedded
+    private Period workPeriod;
+
+    @Embedded
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city", column=@Column(name = "WORK_CITY")),
+            @AttributeOverride(name="street", column=@Column(name = "WORK_STREET")),
+            @AttributeOverride(name="zipcode", column=@Column(name = "WORK_ZIPCODE")),
+    })
+    private Address workAddress;
+}
+
+
+```
 
 ###  중요
 
