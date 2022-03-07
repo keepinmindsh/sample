@@ -2597,6 +2597,68 @@ public class Member {
   - 데이터 베이스는 컬렉션을 같은 테이블에 저장할 수 없다. 
   - 컬렉션을 저장하기 위한 별도의 테이블이 필요함. 
 
+```java
+
+public class Member {
+  public static void main(String[] args) {
+    Member member = new Member();
+
+    member.setName("Member1");
+    member.setHomeAddress(new Address("city1", "Street", "zip code"));
+
+    member.getFavoriteFood().add("치킨");
+    member.getFavoriteFood().add("족발");
+    member.getFavoriteFood().add("피자");
+
+    member.getAddressHistory().add(new Address("city2", "Street 1", "zip code 1"));
+    member.getAddressHistory().add(new Address("city3", "Street 2", "zip code 2"));
+
+    entityManager.persist(member);
+
+
+    entityManager.flush();
+    entityManager.clear();
+
+    Member findMember = entityManager.find(Member.class, member.getId());
+
+    List<Address> addressList = findMember.getAddressHistory();
+    for (Address address: addressList){
+      System.out.println("address.getCity() = " + address.getCity());
+    }
+
+  }
+}
+```
+
+
+```java
+@Entity
+public class Member {
+  @Id
+  @Column(name = "MEMBER_ID")
+  @GeneratedValue
+  private Long id;
+
+  @Column(name = "USERNAME")
+  private String name;
+
+  @Embedded
+  private Period workPeriod;
+
+  @Embedded
+  private Address homeAddress;
+
+  @ElementCollection
+  @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+  @Column(name = "FOOD_NAME")
+  private Set<String> favoriteFood = new HashSet<>();
+
+  @ElementCollection
+  @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+  private List<Address> addressHistory = new ArrayList<>();
+
+}
+```
   
 
 ###  중요
