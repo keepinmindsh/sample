@@ -2630,8 +2630,8 @@ public class Member {
 }
 ```
 
-
 ```java
+
 @Entity
 public class Member {
   @Id
@@ -2658,8 +2658,8 @@ public class Member {
   private List<Address> addressHistory = new ArrayList<>();
 
 }
-```
-  
+
+``` 
 
 ###  중요
 
