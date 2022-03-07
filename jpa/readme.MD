@@ -2614,8 +2614,7 @@ public class Member {
     member.getAddressHistory().add(new Address("city3", "Street 2", "zip code 2"));
 
     entityManager.persist(member);
-
-
+    
     entityManager.flush();
     entityManager.clear();
 
@@ -2625,7 +2624,6 @@ public class Member {
     for (Address address: addressList){
       System.out.println("address.getCity() = " + address.getCity());
     }
-
   }
 }
 ```
@@ -2656,7 +2654,6 @@ public class Member {
   @ElementCollection
   @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
   private List<Address> addressHistory = new ArrayList<>();
-
 }
 
 ``` 
