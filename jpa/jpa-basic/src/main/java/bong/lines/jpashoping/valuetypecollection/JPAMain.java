@@ -58,7 +58,7 @@ public class JPAMain {
 
             // 주소 변경 처리
             // 해당 부분에서 아래의 쿼리의 동작이 관련 member_id를 모두 지우고 다시 아래 값을 입력함.
-            //
+            // @OrderColumn을 활용하면 배열이 인덱스가 컬럼을 사용하게 되겠지만, 기본적으로는 복잡해질 경우에는 사용하지 않는 방안을 추천함.
             findMember.getAddressHistory().remove(new Address("city2", "Street 1", "zip code 1"));
             findMember.getAddressHistory().add(new Address("newCity1", "Street 1", "zip code 1"));
 

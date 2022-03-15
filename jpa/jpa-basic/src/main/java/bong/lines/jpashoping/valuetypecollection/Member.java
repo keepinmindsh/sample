@@ -18,16 +18,20 @@ public class Member {
     @Embedded
     private Period workPeriod;
 
-    @Embedded
-    private Address homeAddress;
+    //@Embedded
+    //private Address homeAddress;
 
     @ElementCollection
     @CollectionTable(name="FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
     private Set<String> favoriteFood  = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+//    @ElementCollection
+//    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
     private List<Address> addressHistory = new ArrayList<>();
 
     public Set<String> getFavoriteFood() {
@@ -38,13 +42,13 @@ public class Member {
         this.favoriteFood = favoriteFood;
     }
 
-    public List<Address> getAddressHistory() {
-        return addressHistory;
-    }
-
-    public void setAddressHistory(List<Address> addressHistory) {
-        this.addressHistory = addressHistory;
-    }
+//    public List<Address> getAddressHistory() {
+//        return addressHistory;
+//    }
+//
+//    public void setAddressHistory(List<Address> addressHistory) {
+//        this.addressHistory = addressHistory;
+//    }
 
     public Long getId() {
         return id;
