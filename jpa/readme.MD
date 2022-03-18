@@ -2628,7 +2628,7 @@ public class Member {
 
 - 값 타입은 정말 값 타입이라 판단될 때만 사용 
 - 엔티티와 값 타입을 혼동해서 엔티티를 값 타입으로 만들면 안됨
-- 식별자가 필요하고, 지속해서 값을 추전, 변경해야 한다면 그것은 값 타입이 아닌 엔티티 
+- 식별자가 필요하고, 지속해서 값을 추전, 변경해야 한다면 그것은 값 타입이 아닌 엔티티
 
 ```java
 
@@ -2689,6 +2689,123 @@ public class Member {
   private List<Address> addressHistory = new ArrayList<>();
 }
 
+```
+
+- 실사용 예제
+
+```java
+
+@Embeddable
+public class Address {
+
+    @Column(length = 50)
+    private String city;
+    @Column(length = 250)
+    private String street;
+    @Column(length = 250)
+    private String zipcode;
+
+    private void setCity(String city) {
+        this.city = city;
+    }
+
+    private void setStreet(String street) {
+        this.street = street;
+    }
+
+    private void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        // Proxy 일 때도 정상동작하려면 getter 를 사용하도록 해야한다.
+        // Proxy가 많이 사용되지 않을 경우에는 그냥해도 되지만 그냥 equals & hashcode는 무조건 짜라
+        return Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getZipcode(), address.getZipcode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCity(), getStreet(), getZipcode());
+    }
+}
+
+```
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private Long id;
+
+    private String name;
+
+    @Embedded
+    private Address address;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+}
+```
+
+```shell
+Hibernate: 
+    
+    drop table if exists Member cascade 
+Hibernate: 
+    
+    drop sequence if exists Member_SEQ
+Hibernate: create sequence Member_SEQ start with 1 increment by 50
+Hibernate: 
+    
+    create table Member (
+       MEMBER_ID bigint not null,
+        city varchar(50),
+        street varchar(250),
+        zipcode varchar(250),
+        name varchar(255),
+        primary key (MEMBER_ID)
+    )
 ```
 
 ### 복합키 / 외래키의 사용 
