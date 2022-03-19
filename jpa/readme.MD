@@ -2967,9 +2967,46 @@ class Sample {
 - JPA가 제공하는 SQL을 직접 사용하는 기능 
 - JPQL로 해결할 수 없는 특정 데이터베이스에 의존적인 기능 
 - 예) 오라클 CONNECT BY, 특정 DB만 사용하는 SQL 힌트 
-- 
 
-> [Query DSL](http://querydsl.com/)
+```java
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            entityManager.createNativeQuery("select MEMBER_ID, city, street, zipcode from MEMBER").getResultList();
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            exception.printStackTrace();
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+```
+
+##### JDBC 직접 사용, SpringJDBCTemplate 조합 사용 가능 
+
+- JPA를 사용하면서 JDBC 커넥션을 직접 사용하거나, 스프링 JdbcTemplate, 마이바티스 등과 함께 사용 가능
+- 단 영속성 컨텍스트를 적절한 시점에 강제로 플러시 필요 
+- 예) JPA를 우회해서 SQL를 실행하기 직전에 영속성 컨텍스트 수동 플러시 
+  - flush는 Query가 호출되거나 Commit되는 시점에 실행하기 때문에 nativeQuery 에서도 동작하지만, DB Connection을 직접 얻어와서 
+     사용하거나 JDBCTemplate, MyBatis 등을 사용할 때는 사전에 flush()를 실행해쥐야함. 왜냐면 flush는 jpa와 연관되어 있기 때문임
+
+> [Query DSL](http://querydsl.com/)  
+
+### JPQL 소개 
 
 ###  중요
 
