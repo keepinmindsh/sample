@@ -2875,7 +2875,101 @@ Hibernate:
 ##### Criteria 소개 
 
 - JPQL은 문자이기 때문에 동적 쿼리를 만드는 것이 어려움. 
+  - 동적쿼리를 작성하기 수월함. 
+  - 문자가 아닌 자바 코드로 JPQL을 작성할 수 있음. 
+  - 쿼리를 작성할 때 Compile 시점에 확인 할 수 있음! 
+- 실무에서 사용하기에는 어려운 부분이 있음. 코드 복잡성이 너무 올라감. 
+  - **Criteria 대신 QueryDSL 사용을 권장함.**
 
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<Member> criteriaQuery = criteriaBuilder.createQuery(Member.class);
+
+            Root<Member> memberRoot = criteriaQuery.from(Member.class);
+
+            criteriaQuery.select(memberRoot)
+                            .where(criteriaBuilder.equal(memberRoot.get("username"),"kim"));
+
+            entityManager.createQuery(criteriaQuery);
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            exception.printStackTrace();
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+```
+
+```shell
+
+Hibernate: 
+    
+    drop table if exists Member cascade 
+Hibernate: 
+    
+    drop sequence if exists Member_SEQ
+Hibernate: create sequence Member_SEQ start with 1 increment by 50
+Hibernate: 
+    
+    create table Member (
+       MEMBER_ID bigint not null,
+        USERNAME varchar(255),
+        primary key (MEMBER_ID)
+    )
+```
+
+##### QueryDSL
+
+- 문자가 아닌 자바 코드로 JPQL을 작성할 수 있음 
+- JPQL 빌더 역할 
+- 컴파일 시점에 문법 오류를 찾을 수 있음
+- 동적 쿼리 작성 편리함. 
+- 단순하고 쉬움 
+- **실무 사용 권장**
+
+```java
+
+class Sample {
+  public static void main(String[] args) {
+      JPAFactoryQuery query = new JPAQueryFactory(em);
+      QMember member = QMember.member;
+      
+      List<Member> list = 
+              query.selectFrom(m)
+                      .where(m.age.at(18))
+                      .orderby(m.name.desc())
+                      .fetch();
+  }
+}
+
+```
+
+##### 네이티브 SQL 소개 
+
+- JPA가 제공하는 SQL을 직접 사용하는 기능 
+- JPQL로 해결할 수 없는 특정 데이터베이스에 의존적인 기능 
+- 예) 오라클 CONNECT BY, 특정 DB만 사용하는 SQL 힌트 
+- 
+
+> [Query DSL](http://querydsl.com/)
 
 ###  중요
 
