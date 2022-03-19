@@ -2814,6 +2814,69 @@ Hibernate:
 
 > [식별관계, 비식별 관계의 복합키 매핑](https://steady-hello.tistory.com/106)
 
+### 객체지향 쿼리 언어
+
+- JPQL 
+- JPA Criteria
+- QueryDSL
+- 네이티브 SQL
+- JDBC API 직접 사용 , MyBatis , Spring JDBC Template 함께 사용 
+
+##### JPQL
+
+- 가장 단순한 조회 방법 
+  - EntityManager.find() 
+  - 만약 복합적인 조회조건이 필요하다면?
+- JPQL 
+  - JPA를 사용하는 엔티티 객체를 중심으로 개발 
+  - 문제는 검색 쿼리 
+  - 검색을 할 때도 테이블이 아닌 엔티티 객체를 대상으로 검색 해야함. 
+  - 모든 DB 데이터를 객체로 변환해서 검색하는 것은 불가능 
+  - 애플리케이션에서 필요한 데이터만 DB에서 불려오려면 결국 검색 조건이 포함된 SQL이 필요 
+  - JPA를 SQL를 추상화한 JPQL이라는 객체 지향 쿼리 언어 제공 
+  - SQL과 문법 유사 - SELECT, FROM, WHERE, GROUP BY, HAVING, JOIN 지원 
+  - JPQL는 엔티티 객체를 대상으로 분리 
+  - SQL은 데이터베이스 테이블을 대상으로 분리 
+
+```java
+public class JPAMain {
+  public static void main(String[] args) {
+    // 실제 Entity를 대상으로 쿼리를 한 것임.   
+    List<Member> result = entityManager.createQuery(
+            "select m from Member m where m.userName like '%kim%'"
+    ).getResultList();
+  }
+}
+
+```
+
+```shell
+
+Hibernate: 
+    /* select
+        m 
+    from
+        Member m 
+    where
+        m.userName like '%kim%' */ select
+            m1_0.MEMBER_ID,
+            m1_0.USERNAME 
+        from
+            Member as m1_0 
+        where
+            m1_0.USERNAME like '%kim%'
+
+```
+
+- 테이블이 아닌 객체를 대상으로 검색하는 객체지향 쿼리 
+- SQL을 추상화해서 특정 데이터베이스에 SQL을 의존 X
+- JPQL을 한마디로 정의하면 객체지향 SQL 
+
+##### Criteria 소개 
+
+- JPQL은 문자이기 때문에 동적 쿼리를 만드는 것이 어려움. 
+
+
 ###  중요
 
 - 연관관계를 잘 끊어내는 것이 중요함
