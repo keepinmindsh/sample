@@ -1,4 +1,4 @@
-### TODO 해결 - 해당 부분에서 영속 계층으로 등록되었는데 왜? 인식이 안되나! 확인필요!!
+### 2022-03-25 - TODO 해결 - 해당 부분에서 영속 계층으로 등록되었는데 왜? 인식이 안되나! 확인필요!!
  - https://findanyanswer.com/how-do-you-persist-a-detached-object-in-hibernate
  - https://javabydeveloper.com/merge-re-attaching-detached-entities/
 

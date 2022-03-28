@@ -17,18 +17,7 @@ public class JPAMain {
         entityTransaction.begin();
 
         try{
-
-            Member member = entityManager.find(Member.class, 52L);
-
-            entityManager.detach(member);
-
-            // TODO - 해당 부분에서 영속 계층으로 등록되었는데 왜? 인식이 안되나! 확인필요!!
-            Member remerged_member = entityManager.merge(member);
-
-            remerged_member.setUsername("HoHo!!!");
-
-            entityManager.persist(remerged_member);
-
+            
             entityTransaction.commit();
         }catch (Exception exception){
 
