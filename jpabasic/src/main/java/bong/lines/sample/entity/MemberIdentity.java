@@ -1,15 +1,13 @@
 package bong.lines.sample.entity;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MEMBER")
-public class Member {
+@Table(name = "MEMBER_IDENTITY")
+public class MemberIdentity {
 
     @Id
-    @GeneratedValue
-    @Column(name="MEMBER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="USERNAME")

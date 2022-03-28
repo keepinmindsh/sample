@@ -1,19 +1,15 @@
 package bong.lines.sample;
 
 import bong.lines.comm.TransactionTemplate;
-import bong.lines.sample.entity.Member;
+import bong.lines.sample.opration.BasicSample;
+import bong.lines.sample.opration.IdentitySample;
 
 public class JPAMain {
     public static void main(String[] args) {
-        new TransactionTemplate(
-                (entityManager) -> {
+        // Basic Sample
+        // new TransactionTemplate(new BasicSample()).process();
 
-                    Member member = new Member();
-                    
-                    member.setUsername("Seung Hwa");
-
-                    entityManager.persist(member);
-                }
-        ).process();
+        // Basic Identity Sample
+        new TransactionTemplate(new IdentitySample()).process();
     }
 }

@@ -1,3 +1,13 @@
+### identity ERROR: NULL not allowed for column "ID"; SQL statement:
+
+- [JPA Insert SQL with IDENTITY](https://www.inflearn.com/questions/374987)
+
+### 2022-03-28 
+
+ - [Persistence](https://thorben-janssen.com/jpa-persistence-xml/)
+ - 본인의 Class 하위에 모든 Class 를 정의해서 사용하는 경우 
+   - [Entity Manage - Configuration - persistence.xml](https://docs.jboss.org/hibernate/stable/entitymanager/reference/en/html/configuration.html)
+
 ### 2022-03-25 - TODO 해결 - 해당 부분에서 영속 계층으로 등록되었는데 왜? 인식이 안되나! 확인필요!!
  - https://findanyanswer.com/how-do-you-persist-a-detached-object-in-hibernate
  - https://javabydeveloper.com/merge-re-attaching-detached-entities/
