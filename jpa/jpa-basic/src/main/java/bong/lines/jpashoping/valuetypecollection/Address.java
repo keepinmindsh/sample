@@ -3,12 +3,8 @@ package bong.lines.jpashoping.valuetypecollection;
 import javax.persistence.*;
 
 //@Embeddable
-@Entity
-@Table(name = "ADDRESS")
-public class Address {
 
-    @Id @GeneratedValue
-    private Long id;
+public class Address {
 
     // 주소
     private String city;

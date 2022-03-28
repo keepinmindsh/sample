@@ -18,8 +18,8 @@ public class Member {
     @Embedded
     private Period workPeriod;
 
-    //@Embedded
-    //private Address homeAddress;
+//    @Embedded
+//    private Address homeAddress;
 
     @ElementCollection
     @CollectionTable(name="FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
@@ -31,8 +31,8 @@ public class Member {
 //    private List<Address> addressHistory = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "MEMBER_ID")
-    private List<Address> addressHistory = new ArrayList<>();
+    @JoinColumn( name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
     public Set<String> getFavoriteFood() {
         return favoriteFood;
@@ -42,13 +42,13 @@ public class Member {
         this.favoriteFood = favoriteFood;
     }
 
-//    public List<Address> getAddressHistory() {
-//        return addressHistory;
-//    }
-//
-//    public void setAddressHistory(List<Address> addressHistory) {
-//        this.addressHistory = addressHistory;
-//    }
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
+    }
+
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
+    }
 
     public Long getId() {
         return id;
@@ -74,26 +74,24 @@ public class Member {
         this.workPeriod = workPeriod;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-
+//    public Address getHomeAddress() {
+//        return homeAddress;
+//    }
+//
+//    public void setHomeAddress(Address homeAddress) {
+//        this.homeAddress = homeAddress;
+//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(workPeriod, member.workPeriod) && Objects.equals(homeAddress, member.homeAddress);
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(workPeriod, member.workPeriod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, workPeriod, homeAddress);
+        return Objects.hash(id, name, workPeriod);
     }
 }

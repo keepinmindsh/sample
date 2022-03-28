@@ -2597,6 +2597,39 @@ public class Member {
   - 데이터 베이스는 컬렉션을 같은 테이블에 저장할 수 없다. 
   - 컬렉션을 저장하기 위한 별도의 테이블이 필요함. 
 
+
+- 값 타입 컬렉션의 제약 사항
+  - 값 타입은 엔티티와 다르게 식별자 개념이 없다.
+  - 값은 변경하면 추적이 어렵다.
+  - 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다.
+  - 값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본 키를 구성해야함 : null 입력 x, 중복저장 x
+
+- 값타입은 사용하지 않는 방향을 추천함.
+
+- 실무에서는 값 타입 컬렉션 대신에 일대다 관계를 고려하는게 나음.
+
+- 값 타입 컬렉션 대안
+  - 실무에서는 상황에 따라 값 타입 컬렉션 대신에 일대다 관계를 고려
+  - 일대다 관계를 위한 엔티티를 만들고, 여기에서 값 타입을 사용
+  - 영속성 전이(Cascade) + 고아 객체 제거를 사용해서 값타입 컬렉션 처럼 사용
+
+- 값 타입 컬렉션은 주로 단순한 멀티셀렉트 박스 상에서 사용할 경우 간단하게 사용가능하다. 
+
+
+- 엔티티 타입의 특징
+  - 식별자 있음 
+  - 생명주기 관리 
+  - 공유 
+- 값 타입 특징 
+  - 식별자 X
+  - 생명주기를 엔티티에 의존
+  - 공유하지 않는 것이 안전 (복사해서 사용)
+  - 불변 객체로 만드는 것이 안전 
+
+- 값 타입은 정말 값 타입이라 판단될 때만 사용 
+- 엔티티와 값 타입을 혼동해서 엔티티를 값 타입으로 만들면 안됨
+- 식별자가 필요하고, 지속해서 값을 추전, 변경해야 한다면 그것은 값 타입이 아닌 엔티티
+
 ```java
 
 public class Member {
@@ -2658,27 +2691,322 @@ public class Member {
 
 ```
 
+- 실사용 예제
+
+```java
+
+@Embeddable
+public class Address {
+
+    @Column(length = 50)
+    private String city;
+    @Column(length = 250)
+    private String street;
+    @Column(length = 250)
+    private String zipcode;
+
+    private void setCity(String city) {
+        this.city = city;
+    }
+
+    private void setStreet(String street) {
+        this.street = street;
+    }
+
+    private void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        // Proxy 일 때도 정상동작하려면 getter 를 사용하도록 해야한다.
+        // Proxy가 많이 사용되지 않을 경우에는 그냥해도 되지만 그냥 equals & hashcode는 무조건 짜라
+        return Objects.equals(getCity(), address.getCity()) && Objects.equals(getStreet(), address.getStreet()) && Objects.equals(getZipcode(), address.getZipcode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCity(), getStreet(), getZipcode());
+    }
+}
+
+```
+
+```java
+
+@Entity
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private Long id;
+
+    private String name;
+
+    @Embedded
+    private Address address;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+}
+```
+
+```shell
+Hibernate: 
+    
+    drop table if exists Member cascade 
+Hibernate: 
+    
+    drop sequence if exists Member_SEQ
+Hibernate: create sequence Member_SEQ start with 1 increment by 50
+Hibernate: 
+    
+    create table Member (
+       MEMBER_ID bigint not null,
+        city varchar(50),
+        street varchar(250),
+        zipcode varchar(250),
+        name varchar(255),
+        primary key (MEMBER_ID)
+    )
+```
+
 ### 복합키 / 외래키의 사용 
 
-- 하나의 복합키만 존재한다고 하면 @EmbeddedId 를 사용하고, 복합키를 통합 식별 관계 매핑이 여기저기 존재한다면 @IdClass를 이용하라고 권함. 
-
+- 하나의 복합키만 존재한다고 하면 @EmbeddedId 를 사용하고, 복합키를 통합 식별 관계 매핑이 여기저기 존재한다면 @IdClass 를 이용하라고 권함.
 
 > [식별관계, 비식별 관계의 복합키 매핑](https://steady-hello.tistory.com/106)
 
-- 값 타입 컬렉션의 제약 사항 
-  - 값 타입은 엔티티와 다르게 식별자 개념이 없다. 
-  - 값은 변경하면 추적이 어렵다.
-  - 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다. 
-  - 값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본 키를 구성해야함 : null 입력 x, 중복저장 x 
+### 객체지향 쿼리 언어
 
-- 값타입은 사용하지 않는 방향을 추천함. 
+- JPQL 
+- JPA Criteria
+- QueryDSL
+- 네이티브 SQL
+- JDBC API 직접 사용 , MyBatis , Spring JDBC Template 함께 사용 
 
-- 실무에서는 값 타입 컬렉션 대신에 일대다 관계를 고려하는게 나음. 
+##### JPQL
 
-- 값 타입 컬렉션 대안 
-  - 실무에서는 상황에 따라 값 타입 컬렉션 대신에 일대다 관계를 고려 
-  - 일대다 관계를 위한 엔티티를 만들고, 여기에서 값 타입을 사용 
-  - 영속성 전이(Cascade) + 고아 객체 제거를 사용해서 값타입 컬렉션 처럼 사용 
+- 가장 단순한 조회 방법 
+  - EntityManager.find() 
+  - 만약 복합적인 조회조건이 필요하다면?
+- JPQL 
+  - JPA를 사용하는 엔티티 객체를 중심으로 개발 
+  - 문제는 검색 쿼리 
+  - 검색을 할 때도 테이블이 아닌 엔티티 객체를 대상으로 검색 해야함. 
+  - 모든 DB 데이터를 객체로 변환해서 검색하는 것은 불가능 
+  - 애플리케이션에서 필요한 데이터만 DB에서 불려오려면 결국 검색 조건이 포함된 SQL이 필요 
+  - JPA를 SQL를 추상화한 JPQL이라는 객체 지향 쿼리 언어 제공 
+  - SQL과 문법 유사 - SELECT, FROM, WHERE, GROUP BY, HAVING, JOIN 지원 
+  - JPQL는 엔티티 객체를 대상으로 분리 
+  - SQL은 데이터베이스 테이블을 대상으로 분리 
+
+```java
+public class JPAMain {
+  public static void main(String[] args) {
+    // 실제 Entity를 대상으로 쿼리를 한 것임.   
+    List<Member> result = entityManager.createQuery(
+            "select m from Member m where m.userName like '%kim%'"
+    ).getResultList();
+  }
+}
+
+```
+
+```shell
+
+Hibernate: 
+    /* select
+        m 
+    from
+        Member m 
+    where
+        m.userName like '%kim%' */ select
+            m1_0.MEMBER_ID,
+            m1_0.USERNAME 
+        from
+            Member as m1_0 
+        where
+            m1_0.USERNAME like '%kim%'
+
+```
+
+- 테이블이 아닌 객체를 대상으로 검색하는 객체지향 쿼리 
+- SQL을 추상화해서 특정 데이터베이스에 SQL을 의존 X
+- JPQL을 한마디로 정의하면 객체지향 SQL 
+
+##### Criteria 소개 
+
+- JPQL은 문자이기 때문에 동적 쿼리를 만드는 것이 어려움. 
+  - 동적쿼리를 작성하기 수월함. 
+  - 문자가 아닌 자바 코드로 JPQL을 작성할 수 있음. 
+  - 쿼리를 작성할 때 Compile 시점에 확인 할 수 있음! 
+- 실무에서 사용하기에는 어려운 부분이 있음. 코드 복잡성이 너무 올라감. 
+  - **Criteria 대신 QueryDSL 사용을 권장함.**
+
+```java
+
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<Member> criteriaQuery = criteriaBuilder.createQuery(Member.class);
+
+            Root<Member> memberRoot = criteriaQuery.from(Member.class);
+
+            criteriaQuery.select(memberRoot)
+                            .where(criteriaBuilder.equal(memberRoot.get("username"),"kim"));
+
+            entityManager.createQuery(criteriaQuery);
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            exception.printStackTrace();
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+```
+
+```shell
+
+Hibernate: 
+    
+    drop table if exists Member cascade 
+Hibernate: 
+    
+    drop sequence if exists Member_SEQ
+Hibernate: create sequence Member_SEQ start with 1 increment by 50
+Hibernate: 
+    
+    create table Member (
+       MEMBER_ID bigint not null,
+        USERNAME varchar(255),
+        primary key (MEMBER_ID)
+    )
+```
+
+##### QueryDSL
+
+- 문자가 아닌 자바 코드로 JPQL을 작성할 수 있음 
+- JPQL 빌더 역할 
+- 컴파일 시점에 문법 오류를 찾을 수 있음
+- 동적 쿼리 작성 편리함. 
+- 단순하고 쉬움 
+- **실무 사용 권장**
+
+```java
+
+class Sample {
+  public static void main(String[] args) {
+      JPAFactoryQuery query = new JPAQueryFactory(em);
+      QMember member = QMember.member;
+      
+      List<Member> list = 
+              query.selectFrom(m)
+                      .where(m.age.at(18))
+                      .orderby(m.name.desc())
+                      .fetch();
+  }
+}
+
+```
+
+##### 네이티브 SQL 소개 
+
+- JPA가 제공하는 SQL을 직접 사용하는 기능 
+- JPQL로 해결할 수 없는 특정 데이터베이스에 의존적인 기능 
+- 예) 오라클 CONNECT BY, 특정 DB만 사용하는 SQL 힌트 
+
+```java
+public class JPAMain {
+    public static void main(String[] args) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        entityTransaction.begin();
+
+        try{
+
+            entityManager.createNativeQuery("select MEMBER_ID, city, street, zipcode from MEMBER").getResultList();
+
+            entityTransaction.commit();
+        }catch (Exception exception){
+            exception.printStackTrace();
+            entityTransaction.rollback();
+        }finally {
+            entityManager.close();
+        }
+
+        entityManagerFactory.close();
+    }
+}
+```
+
+##### JDBC 직접 사용, SpringJDBCTemplate 조합 사용 가능 
+
+- JPA를 사용하면서 JDBC 커넥션을 직접 사용하거나, 스프링 JdbcTemplate, 마이바티스 등과 함께 사용 가능
+- 단 영속성 컨텍스트를 적절한 시점에 강제로 플러시 필요 
+- 예) JPA를 우회해서 SQL를 실행하기 직전에 영속성 컨텍스트 수동 플러시 
+  - flush는 Query가 호출되거나 Commit되는 시점에 실행하기 때문에 nativeQuery 에서도 동작하지만, DB Connection을 직접 얻어와서 
+     사용하거나 JDBCTemplate, MyBatis 등을 사용할 때는 사전에 flush()를 실행해쥐야함. 왜냐면 flush는 jpa와 연관되어 있기 때문임
+
+> [Query DSL](http://querydsl.com/)  
+
+### JPQL 소개 
 
 ###  중요
 
