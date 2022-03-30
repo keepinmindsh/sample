@@ -1,3 +1,4 @@
 rootProject.name = 'jpa'
 include 'jpa-basic'
+include 'hellojpql'
 
