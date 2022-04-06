@@ -1,3 +1,4 @@
+
 ### identity ERROR: NULL not allowed for column "ID"; SQL statement:
 
 - [JPA Insert SQL with IDENTITY](https://www.inflearn.com/questions/374987)
@@ -22,6 +23,7 @@ class Sample {
 
         try{
             Member member = entityManager.find(Member.class, 52L);
+            
             entityManager.detach(member);
             
             Member remerged_member = entityManager.merge(member);
@@ -45,3 +47,29 @@ class Sample {
 
 ### 프로젝트 과제 2022-03-28 
  - Proxy Pattern 세팅 해오기 
+
+### 
+
+ - TB_IR_RSVN_MST
+   - RSVN_NO  ( PK )
+ 
+  RSVN_NO : 1101
+ 
+ - TB_IR_RSVN_DTL
+   - RSVN_NO  ( PK, FK)
+   - RSVN_SEQ_NO ( PK )
+     ( RSVN_NO, RSVN_SEQ_NO )
+
+  RSVN_NO : 1101 , 1  - 저장할 때...
+  
+
+MST : DTL =  1 : N
+
+
+MST : DTL = N : N
+
+MST : N
+
+MST_DTL : 1 : 1
+
+DTL : N

@@ -14,5 +14,11 @@ public class BasicSample implements TransactionCommand {
         memberBasic.setUsername("Seung Hwa");
 
         entityManager.persist(memberBasic);
+
+        entityManager.detach(memberBasic);
+
+        MemberBasic memberBasicSelect = entityManager.merge(memberBasic);
+
+        memberBasicSelect.setUsername("Seung Hwa!");
     }
 }
