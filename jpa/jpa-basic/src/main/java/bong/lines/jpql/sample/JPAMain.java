@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public class JPAMain {
+    // TODO 샘플 코드 작성을 위한 코드 고도화 필요
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
 
@@ -17,9 +18,22 @@ public class JPAMain {
         entityTransaction.begin();
 
         try{
+
+            Member member = new Member();
+
+            member.setUserName("Seung Hwa");
+            member.setId(1L);
+
+            entityManager.persist(member);
+
+            entityManager.flush();
+            entityManager.close();
+
             List<Member> result = entityManager.createQuery(
                     "select m from Member m where m.userName like '%kim%'"
             ).getResultList();
+
+
 
             entityTransaction.commit();
         }catch (Exception exception){
