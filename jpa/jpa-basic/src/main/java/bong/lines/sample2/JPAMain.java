@@ -4,9 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
 public class JPAMain {
+
+
+
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
 
@@ -16,18 +21,20 @@ public class JPAMain {
 
         entityTransaction.begin();
 
-        try{
+        try {
 
             Member member = new Member();
             member.setUserName("Bongs1111");
             entityManager.persist(member);
             Member member1 = entityManager.find(Member.class, 8L);
-            //Member member2 = entityManager.find(Member.class, 8L);
 
-        }catch (Exception exception){
+//            Member member2 = entityManager.find(Member.class, 8L);
+
+
+        } catch (Exception exception) {
             exception.printStackTrace();
             entityTransaction.rollback();
-        }finally {
+        } finally {
             entityManager.close();
         }
 
