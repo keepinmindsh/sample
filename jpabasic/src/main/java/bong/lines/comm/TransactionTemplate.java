@@ -15,7 +15,7 @@ public class TransactionTemplate implements Transaction {
 
     @Override
     public void process() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("wings-persistence");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello-persistence");
         EntityManager entityManagerProxy = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManagerProxy.getTransaction();
         entityTransaction.begin();
@@ -26,10 +26,11 @@ public class TransactionTemplate implements Transaction {
             entityTransaction.commit();
         }catch (Exception exception){
 
+            exception.printStackTrace();
             System.err.println(exception.getLocalizedMessage());
 
             entityTransaction.rollback();
-        }finally {
+        } finally {
 
             System.out.println("처리완료");
 

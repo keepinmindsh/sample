@@ -13,15 +13,20 @@ public class JPAMain {
 
          // Basic Sample
          new TransactionTemplate((entityManager) -> {
-
-             ChildA childA = new ChildA();
-
-             childA.setChildAName("HAHA");
-
-             // TODO -
-             entityManager.persist(childA);
-
+             MemberBasic memberBasic = new MemberBasic();
+             memberBasic.setUsername("Bongs");
+             entityManager.persist(memberBasic);
          }).process();
+
+        new TransactionTemplate((entityManager) -> {
+            ChildA childA = new ChildA();
+
+            childA.setField("Bong Field");
+            childA.setChildAName("Child Name");
+
+            entityManager.persist(childA);
+
+        }).process();
 
 //         new TransactionTemplate((entityManager) -> {
 //             MemberBasic memberBasic = new MemberBasic();
