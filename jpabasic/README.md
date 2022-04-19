@@ -1,3 +1,9 @@
+### 과제 
+ - Entity 설계 확인하기 
+
+TEAM - ID = PK  1
+
+MEMBER - team ID - FK  N
 
 ### identity ERROR: NULL not allowed for column "ID"; SQL statement:
 
