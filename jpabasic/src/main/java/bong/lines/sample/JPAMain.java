@@ -2,11 +2,8 @@ package bong.lines.sample;
 
 import bong.lines.comm.TransactionTemplate;
 import bong.lines.sample.entity.MemberBasic;
-import bong.lines.sample.entity.RSVNDTLEntity;
-import bong.lines.sample.entity.RSVNMSTEntity;
+import bong.lines.sample.entity.TeamBasic;
 import bong.lines.sample.mappedsupperclass.ChildA;
-import bong.lines.sample.mappedsupperclass.Parent;
-import bong.lines.sample.opration.BasicSample;
 
 public class JPAMain {
     public static void main(String[] args) {
@@ -27,6 +24,35 @@ public class JPAMain {
             entityManager.persist(childA);
 
         }).process();
+
+        new TransactionTemplate((entityManager) -> {
+//             ChildA childA = new ChildA();
+//
+//             childA.setChildAName("HAHA");
+//
+//             // TODO -
+//             entityManager.persist(childA);
+
+             TeamBasic teamBasic = new TeamBasic();
+             teamBasic.setId(1L);
+             teamBasic.setTeamName("Hong");
+             
+             entityManager.persist(teamBasic);
+
+             MemberBasic memberBasic = new MemberBasic();
+             memberBasic.setId(1L);
+             memberBasic.setUsername("Hong");
+             memberBasic.setTeamBasic(teamBasic);
+             
+             entityManager.persist(memberBasic);
+             
+             entityManager.flush();
+             entityManager.clear();
+             
+             MemberBasic findMemberBasic = entityManager.find(MemberBasic.class, 1L);
+
+             System.out.println("findMemberBasic.getTeamBasic().getTeamName() = " + findMemberBasic.getTeamBasic().getTeamName());
+         }).process();
 
 //         new TransactionTemplate((entityManager) -> {
 //             MemberBasic memberBasic = new MemberBasic();

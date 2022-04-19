@@ -1,23 +1,21 @@
 package bong.lines.sample.entity;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MEMBER_BASIC" )
-public class MemberBasic {
+@Table(name = "MEMBER_SEQUENCE")
+@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_sequence", allocationSize = 1)
+public class MemberForSeq {
 
     @Id
-    @GeneratedValue
-    @Column(name="MEMBER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
     private Long id;
 
     @Column(name="USERNAME")
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private TeamBasic teamBasic;
+    @Column(name="TEAM_ID")
+    private Long teamId;
 
     public Long getId() {
         return id;
@@ -35,11 +33,11 @@ public class MemberBasic {
         this.username = username;
     }
 
-    public TeamBasic getTeamBasic() {
-        return teamBasic;
+    public Long getTeamId() {
+        return teamId;
     }
 
-    public void setTeamBasic(TeamBasic teamBasic) {
-        this.teamBasic = teamBasic;
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 }

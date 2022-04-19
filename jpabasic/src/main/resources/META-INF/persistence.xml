@@ -5,7 +5,6 @@
     <persistence-unit name="hello-persistence">
 <!--        <jar-file>file:/Users/mobail/git_project/sample/jpabasic/build/classes</jar-file>-->
         <jar-file>file:D:\GIT\sample\sample\jpabasic\build\classes</jar-file>
-
         <properties>
 
             <!-- 필수 속성 -->
