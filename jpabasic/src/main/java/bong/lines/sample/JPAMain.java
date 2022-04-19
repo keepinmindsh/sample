@@ -26,21 +26,12 @@ public class JPAMain {
         }).process();
 
         new TransactionTemplate((entityManager) -> {
-//             ChildA childA = new ChildA();
-//
-//             childA.setChildAName("HAHA");
-//
-//             // TODO -
-//             entityManager.persist(childA);
-
              TeamBasic teamBasic = new TeamBasic();
-             teamBasic.setId(1L);
              teamBasic.setTeamName("Hong");
              
              entityManager.persist(teamBasic);
 
              MemberBasic memberBasic = new MemberBasic();
-             memberBasic.setId(1L);
              memberBasic.setUsername("Hong");
              memberBasic.setTeamBasic(teamBasic);
              

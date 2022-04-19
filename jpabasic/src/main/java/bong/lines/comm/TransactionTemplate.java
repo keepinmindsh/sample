@@ -25,15 +25,10 @@ public class TransactionTemplate implements Transaction {
 
             entityTransaction.commit();
         }catch (Exception exception){
-
             exception.printStackTrace();
             System.err.println(exception.getLocalizedMessage());
-
             entityTransaction.rollback();
         } finally {
-
-            System.out.println("처리완료");
-
             entityManagerProxy.close();
         }
 

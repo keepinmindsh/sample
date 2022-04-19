@@ -10,6 +10,7 @@ import java.util.List;
 public class TeamBasic {
 
     @Id
+    @GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
 
