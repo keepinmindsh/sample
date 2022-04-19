@@ -1,9 +1,6 @@
 package bong.lines.jpql.sample;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 
 public class JPAMain {
@@ -22,18 +19,38 @@ public class JPAMain {
             Member member = new Member();
 
             member.setUserName("Seung Hwa");
-            member.setId(1L);
 
             entityManager.persist(member);
 
             entityManager.flush();
-            entityManager.close();
+            entityManager.clear();
 
-            List<Member> result = entityManager.createQuery(
-                    "select m from Member m where m.userName like '%kim%'"
-            ).getResultList();
+            List<Member> result = entityManager.createQuery("select m.userName, m.age from Member m").getResultList();
 
+            TypedQuery<Member> memberTypedQuery = entityManager.createQuery("SELECT m from Member  m", Member.class);
+            List<Member> memberList = memberTypedQuery.getResultList();
+            Member findMember = memberList.get(0);
+            System.out.println("findMember.getUserName() = " + findMember.getUserName());
+            System.out.println("findMember.getAge() = " + findMember.getAge());
 
+            Query query = entityManager.createQuery("SELECT m.userName, m.age from Member m");
+
+            List resultList = query.getResultList();
+            Object o = resultList.get(0);
+            Object[] resultObj = (Object[])o;
+            System.out.println("resultObj[0] = " + resultObj[0]);
+            System.out.println("resultObj[0] = " + resultObj[1]);
+
+            List<Object[]> resultListWithCasting = query.getResultList();
+            Object[] resultWithCasting = resultListWithCasting.get(0);
+            System.out.println("resultObj[0] = " + resultWithCasting[0]);
+            System.out.println("resultObj[0] = " + resultWithCasting[1]);
+
+            List<MemberDTO> resultList1 = entityManager.createQuery("SELECT new bong.lines.jpql.sample.MemberDTO(m.userName, m.age) from Member m", MemberDTO.class).getResultList();
+
+            MemberDTO selectedMemberDTO = resultList1.get(0);
+            System.out.println("selectedMemberDTO.getUserName() = " + selectedMemberDTO.getUserName());
+            System.out.println("selectedMemberDTO.getAge() = " + selectedMemberDTO.getAge());
 
             entityTransaction.commit();
         }catch (Exception exception){

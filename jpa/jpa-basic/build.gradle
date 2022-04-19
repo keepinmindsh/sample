@@ -12,7 +12,7 @@ repositories {
 dependencies {
 
     // https://mvnrepository.com/artifact/com.h2database/h2
-    implementation 'com.h2database:h2:2.0.204'
+    implementation 'com.h2database:h2:1.4.200'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
     implementation 'org.hibernate:hibernate-entitymanager:6.0.0.Alpha7'
 
