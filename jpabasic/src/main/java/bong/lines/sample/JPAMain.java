@@ -10,40 +10,31 @@ public class JPAMain {
 
          // Basic Sample
          new TransactionTemplate((entityManager) -> {
-             MemberBasic memberBasic = new MemberBasic();
-             memberBasic.setUsername("Bongs");
-             entityManager.persist(memberBasic);
+//             MemberBasic memberBasic = new MemberBasic();
+//             memberBasic.setUsername("Bongs");
+//             entityManager.persist(memberBasic);
          }).process();
-
-        new TransactionTemplate((entityManager) -> {
-            ChildA childA = new ChildA();
-
-            childA.setField("Bong Field");
-            childA.setChildAName("Child Name");
-
-            entityManager.persist(childA);
-
-        }).process();
-
-        new TransactionTemplate((entityManager) -> {
-             TeamBasic teamBasic = new TeamBasic();
-             teamBasic.setTeamName("Hong");
-             
-             entityManager.persist(teamBasic);
-
-             MemberBasic memberBasic = new MemberBasic();
-             memberBasic.setUsername("Hong");
-             memberBasic.setTeamBasic(teamBasic);
-             
-             entityManager.persist(memberBasic);
-             
-             entityManager.flush();
-             entityManager.clear();
-             
-             MemberBasic findMemberBasic = entityManager.find(MemberBasic.class, 1L);
-
-             System.out.println("findMemberBasic.getTeamBasic().getTeamName() = " + findMemberBasic.getTeamBasic().getTeamName());
-         }).process();
+//
+//        new TransactionTemplate((entityManager) -> {
+//            ChildA childA = new ChildA();
+//            childA.setField("Bong Field");
+//            childA.setChildAName("Child Name");
+//            entityManager.persist(childA);
+//        }).process();
+//
+//        new TransactionTemplate((entityManager) -> {
+//             TeamBasic teamBasic = new TeamBasic();
+//             teamBasic.setTeamName("Hong");
+//             entityManager.persist(teamBasic);
+//             MemberBasic memberBasic = new MemberBasic();
+//             memberBasic.setUsername("Hong");
+//             memberBasic.setTeamBasic(teamBasic);
+//             entityManager.persist(memberBasic);
+//             entityManager.flush();
+//             entityManager.clear();
+//             MemberBasic findMemberBasic = entityManager.find(MemberBasic.class, 1L);
+//             System.out.println("findMemberBasic.getTeamBasic().getTeamName() = " + findMemberBasic.getTeamBasic().getTeamName());
+//         }).process();
 
 //         new TransactionTemplate((entityManager) -> {
 //             MemberBasic memberBasic = new MemberBasic();

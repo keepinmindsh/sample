@@ -1,3 +1,20 @@
+### 2022-04-21
+
+ - 야놀자(모회사) / 산하(자회사) 
+   - Insert 
+   - Delete
+   - Update
+   - Select 
+ - Spring Data JPA / SpringBoot Starter Web 
+   - entity
+   - h2 
+   - url 
+     - /company/{id}
+       - id : yanolja
+       - id : sanha
+     - POST / PUT / DELETE / GET
+
+
 ### 과제 
  - Entity 설계 확인하기 
 
