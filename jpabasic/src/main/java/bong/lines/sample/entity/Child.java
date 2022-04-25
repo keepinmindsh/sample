@@ -32,6 +32,11 @@ public class Child extends PersonAttribute{
         return parent;
     }
 
+    public void changeParent(Parent parent){
+        this.setParent(parent);
+        parent.getChilds().add(this);
+    }
+
     public void setParent(Parent parent) {
         this.parent = parent;
     }

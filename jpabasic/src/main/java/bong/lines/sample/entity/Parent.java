@@ -47,4 +47,6 @@ public class Parent extends PersonAttribute{
     public void setChilds(List<Child> childs) {
         this.childs = childs;
     }
+
+
 }
