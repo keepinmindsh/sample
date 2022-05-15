@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TYPE")
-public class Parent {
+public class ParentMappedClass {
 
     @Id
     @GeneratedValue

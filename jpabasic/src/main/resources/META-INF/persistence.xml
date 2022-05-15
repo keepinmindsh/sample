@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="hello-persistence">
 <!--        <jar-file>file:/Users/mobail/git_project/sample/jpabasic/build/classes</jar-file>-->
-        <jar-file>file:D:\GIT\sample\sample\jpabasic\build\classes</jar-file>
+        <jar-file>file:D:\01_Sources\03_BONG_GIT\sample\jpabasic</jar-file>
         <properties>
 
             <!-- 필수 속성 -->

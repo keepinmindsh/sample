@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("CHILDC")
-public class ChildC extends Parent{
+public class ChildC extends ParentMappedClass {
     @Column(name = "CHILD_C_NAME")
     private String childCName;
 }
