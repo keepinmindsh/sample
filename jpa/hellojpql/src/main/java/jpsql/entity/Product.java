@@ -1,4 +1,4 @@
-package jpsql;
+package jpsql.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

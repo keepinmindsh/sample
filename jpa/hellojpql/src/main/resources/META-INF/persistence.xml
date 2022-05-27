@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="hello">
 
-        <jar-file>D:\GIT\sample\sample\jpa\hellojpql\build\classes</jar-file>
+        <jar-file>/Users/lines/sources/01_bonggit/sample/jpa/hellojpql/build/classes</jar-file>
 
         <properties>
 

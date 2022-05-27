@@ -1,6 +1,4 @@
-package jpsql;
-
-import org.hibernate.service.spi.InjectService;
+package jpsql.entity;
 
 import javax.persistence.*;
 
