@@ -20,7 +20,7 @@ public class WebServerBasic {
         }
 
         // 서버 소켓을 생성한다. 웹 서버는 기본적으로 8080번 포트를 생성한다.
-        try(ServerSocket listenSocket = new ServerSocket(port)){
+        try(ServerSocket listenSocket = new ServerSocket(port)){  // try-with-resources
             log.info("Web Application Server Start {} port", port);
 
             // 클라이언트가 연결할 때 까지 대기한다.
@@ -30,7 +30,6 @@ public class WebServerBasic {
                 RequestHandler requestHandler = new RequestHandler(connection);
 
                 requestHandler.start();
-
             }
         }
     }
