@@ -15,7 +15,7 @@ public class Sample03_reactiveStreams02 {
 
     private static final int InitialExecuteCount = 50;
 
-    private static ExecutorService executorServiceForReactive = Executors.newFixedThreadPool(100);
+    private static final ExecutorService executorServiceForReactive = Executors.newFixedThreadPool(5);
     private static final AtomicInteger counting = new AtomicInteger();
 
     public static void main(String[] args) {
@@ -49,7 +49,14 @@ public class Sample03_reactiveStreams02 {
             @Override
             public void onNext(Object executeCount) {
                 log.info("Subscriber - OnNext : {}" , executeCount);
-                subscription.request((Long)executeCount);
+
+                int rowCnt = Integer.parseInt(String.valueOf(executeCount));
+
+                for (int i = 0; i < rowCnt ; i++) {
+                    log.info("Execute : {}", i);
+                }
+
+                subscription.request((Integer)executeCount);
             }
 
             @Override
@@ -93,7 +100,7 @@ public class Sample03_reactiveStreams02 {
                         subscriber.onComplete();
                     }else{
                         log.info("Blocking Queue의 사이즈 : {}", InitialExecuteCount * counting.incrementAndGet());
-                        subscriber.onNext(Long.parseLong(String.valueOf(InitialExecuteCount)));
+                        subscriber.onNext(Integer.parseInt(String.valueOf(InitialExecuteCount)));
                     }
                 }
 
