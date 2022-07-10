@@ -4,7 +4,7 @@ import designpattern.gof_observer.sample01.subscriber.Observer;
 
 import java.util.ArrayList;
 
-public class NewsMachine implements Publisher {
+public class NewsMachine implements Observable {
 
     private ArrayList<Observer> observers;
     private String title;

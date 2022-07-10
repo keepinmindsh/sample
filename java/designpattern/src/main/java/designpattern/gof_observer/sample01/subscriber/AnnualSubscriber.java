@@ -1,23 +1,23 @@
 package designpattern.gof_observer.sample01.subscriber;
 
-import designpattern.gof_observer.sample01.publisher.Publisher;
+import designpattern.gof_observer.sample01.publisher.Observable;
 
 public class AnnualSubscriber implements Observer {
     private String newsString;
-    private Publisher publisher;
+    private Observable observable;
 
-    public AnnualSubscriber(Publisher publisher) {
-        this.publisher = publisher;
-        publisher.add(this);
+    public AnnualSubscriber(Observable observable) {
+        this.observable = observable;
+        observable.add(this);
     }
 
     @Override
     public void update(String title, String news) {
-        this.newsString = title + " \n -------- \n " + news;
+        this.newsString = title + " \n -------- " + news;
         display();
     }
 
     private void display() {
-        System.out.println("\n\n오늘의 뉴스\n============================\n\n" + newsString);
+        System.out.println("\n오늘의 뉴스\n============================\n" + newsString);
     }
 }

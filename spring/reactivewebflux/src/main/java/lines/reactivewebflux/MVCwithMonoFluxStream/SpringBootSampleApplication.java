@@ -36,11 +36,11 @@ public class SpringBootSampleApplication {
     }
 
     @GetMapping("/events1")
-    Flux<Event> events1(){
+    Flux<Event> eventsevents21(){
         return Flux.just(new Event(1L, "event1"), new Event(1L, "event2"));
     }
 
-    @GetMapping(value="/events2", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value="/", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     Flux<Event> events2(){
         return Flux.just(new Event(1L, "event1"), new Event(1L, "event2"));
     }
